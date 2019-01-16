@@ -26,7 +26,7 @@
 #include "bflib_video.h"
 #include "bflib_vidsurface.h"
 #include "bflib_planar.h"
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 
 using namespace std;
 

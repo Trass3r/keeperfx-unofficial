@@ -22,7 +22,7 @@
 #include "bflib_basics.h"
 #include "globals.h"
 #include "bflib_planar.h"
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 
 #ifdef __cplusplus
 extern "C" {

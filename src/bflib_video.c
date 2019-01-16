@@ -24,8 +24,8 @@
 #include "bflib_vidsurface.h"
 #include "bflib_sprfnt.h"
 #include "bflib_inputctrl.h"
-#include <SDL/SDL.h>
-#include <SDL/SDL_syswm.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_syswm.h>
 
 #define SCREEN_MODES_COUNT 40
 

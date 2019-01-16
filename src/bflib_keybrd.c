@@ -22,7 +22,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 #include "globals.h"
 #include "bflib_mouse.h"
 
