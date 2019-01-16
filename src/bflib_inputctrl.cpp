@@ -162,16 +162,16 @@ void prepare_keys_mapping(void)
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_UNDERSCORE, KC_UNDERLINE));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_BACKQUOTE, KC_GRAVE));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_DELETE, KC_DELETE));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP0, KC_NUMPAD0));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP1, KC_NUMPAD1));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP2, KC_NUMPAD2));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP3, KC_NUMPAD3));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP4, KC_NUMPAD4));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP5, KC_NUMPAD5));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP6, KC_NUMPAD6));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP7, KC_NUMPAD7));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP8, KC_NUMPAD8));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP9, KC_NUMPAD9));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_0, KC_NUMPAD0));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_1, KC_NUMPAD1));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_2, KC_NUMPAD2));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_3, KC_NUMPAD3));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_4, KC_NUMPAD4));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_5, KC_NUMPAD5));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_6, KC_NUMPAD6));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_7, KC_NUMPAD7));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_8, KC_NUMPAD8));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_9, KC_NUMPAD9));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_PERIOD, KC_DECIMAL));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_DIVIDE, KC_DIVIDE));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_KP_MULTIPLY, KC_MULTIPLY));
@@ -188,28 +188,23 @@ void prepare_keys_mapping(void)
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_END, KC_END));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_PAGEUP, KC_PGUP));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_PAGEDOWN, KC_PGDOWN));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_NUMLOCK, KC_NUMLOCK));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_NUMLOCKCLEAR, KC_NUMLOCK));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_CAPSLOCK, KC_CAPITAL));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_SCROLLOCK, KC_SCROLL));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_SCROLLLOCK, KC_SCROLL));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_RSHIFT, KC_RSHIFT));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_LSHIFT, KC_LSHIFT));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_RCTRL, KC_RCONTROL));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_LCTRL, KC_LCONTROL));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_RALT, KC_RALT));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_LALT, KC_LALT));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_RMETA, KC_UNASSIGNED));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_LMETA, KC_UNASSIGNED));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_LSUPER, KC_LWIN));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_RSUPER, KC_RWIN));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_LGUI, KC_LWIN));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_RGUI, KC_RWIN));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_MODE, KC_UNASSIGNED));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_COMPOSE, KC_UNASSIGNED));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_HELP, KC_UNASSIGNED));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_PRINT, KC_UNASSIGNED));
+    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_PRINTSCREEN, KC_UNASSIGNED));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_SYSREQ, KC_SYSRQ));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_BREAK, KC_UNASSIGNED));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_MENU, KC_APPS));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_POWER, KC_POWER));
-    keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_EURO, KC_UNASSIGNED));
     keymap_sdl_to_bf.insert(pair<int, TbKeyCode>(SDLK_UNDO, KC_UNASSIGNED));
 }
 
@@ -245,10 +240,8 @@ static TbKeyMods keyboard_mods_mapping(const SDL_KeyboardEvent * key)
     case SDLK_LCTRL:
     case SDLK_RALT:
     case SDLK_LALT:
-    case SDLK_RMETA:
-    case SDLK_LMETA:
-    case SDLK_LSUPER:
-    case SDLK_RSUPER:
+    case SDLK_LGUI:
+    case SDLK_RGUI:
         keymod = KMod_DONTCARE;
         break;
     // If pressed any other key, mind the modifiers, to allow keyboard control fixes.
@@ -346,9 +339,9 @@ TbResult LbInputRestate(void)
 {
     SDL_ShowCursor(lbAppActive ? SDL_DISABLE : SDL_ENABLE);
     if ( lbMouseAutoReset ) {
-        SDL_WM_GrabInput(lbAppActive ? SDL_GRAB_ON : SDL_GRAB_OFF);
+        SDL_SetRelativeMouseMode(lbAppActive ? SDL_TRUE : SDL_FALSE);
     } else {
-        SDL_WM_GrabInput(SDL_GRAB_OFF);
+        SDL_SetRelativeMouseMode(SDL_FALSE);
     }
     return Lb_SUCCESS;
 }
