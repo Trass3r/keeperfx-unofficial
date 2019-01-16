@@ -263,15 +263,19 @@ static void process_event(const SDL_Event *ev)
     int x, y;
     SYNCDBG(10, "Starting");
 
-    switch (ev->type)
+    switch ((SDL_EventType)ev->type)
     {
     case SDL_KEYDOWN:
+        if (ev->key.repeat)
+            return; //ignore
         x = keyboard_keys_mapping(&ev->key);
         if (x != KC_UNASSIGNED)
             keyboardControl(KActn_KEYDOWN,x,keyboard_mods_mapping(&ev->key));
         break;
 
     case SDL_KEYUP:
+        if (ev->key.repeat)
+            return; //ignore
         x = keyboard_keys_mapping(&ev->key);
         if (x != KC_UNASSIGNED)
             keyboardControl(KActn_KEYUP,x,keyboard_mods_mapping(&ev->key));

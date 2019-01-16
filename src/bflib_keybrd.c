@@ -95,7 +95,6 @@ short LbIKeyboardClose(void)
 short LbIKeyboardOpen(void)
 {
     prepare_keys_mapping();
-    SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY,SDL_DEFAULT_REPEAT_INTERVAL);
     return 1;
 }
 
