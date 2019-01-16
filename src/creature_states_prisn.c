@@ -42,8 +42,6 @@
 extern "C" {
 #endif
 /******************************************************************************/
-DLLIMPORT short _DK_cleanup_prison(struct Thing *creatng);
-DLLIMPORT long _DK_process_prison_food(struct Thing *creatng, struct Room *room);
 /******************************************************************************/
 #ifdef __cplusplus
 }

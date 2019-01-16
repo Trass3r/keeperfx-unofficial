@@ -34,7 +34,6 @@
 #include "game_legacy.h"
 
 /******************************************************************************/
-DLLIMPORT unsigned char _DK_line_of_sight_2d(const struct Coord3d *pos1, const struct Coord3d *pos2);
 /******************************************************************************/
 TbBool sibling_line_of_sight_ignoring_door(const struct Coord3d *prevpos,
     const struct Coord3d *nextpos, const struct Thing *doortng)

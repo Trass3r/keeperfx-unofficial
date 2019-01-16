@@ -405,7 +405,6 @@ const struct NamedCommand campaign_flag_desc[] = {
 };
 
 /******************************************************************************/
-DLLIMPORT long _DK_script_support_send_tunneller_to_appropriate_dungeon(struct Thing *thing);
 /******************************************************************************/
 /**
  * Reads word from 'line' into 'param'. Sets if 'line_end' was reached.

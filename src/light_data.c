@@ -32,16 +32,6 @@
 extern "C" {
 #endif
 /******************************************************************************/
-DLLIMPORT void _DK_light_remove_light_from_list(struct Light *lgt, struct StructureList *list);
-DLLIMPORT void _DK_light_signal_stat_light_update_in_area(long x1, long y1, long x2, long y2);
-DLLIMPORT void _DK_light_initialise_lighting_tables(void);
-DLLIMPORT void _DK_light_set_light_minimum_size_to_cache(long a1, long a2, long a3);
-DLLIMPORT void _DK_light_set_light_position(long lgt_id, struct Coord3d *pos);
-DLLIMPORT long _DK_light_get_light_intensity(long idx);
-DLLIMPORT long _DK_light_set_light_intensity(long a1, long a2);
-DLLIMPORT void _DK_light_render_area(int startx, int starty, int endx, int endy);
-DLLIMPORT void _DK_light_stat_light_map_clear_area(long x1, long y1, long x2, long y2);
-DLLIMPORT void _DK_light_signal_update_in_area(long sx, long sy, long ex, long ey);
 
 /******************************************************************************/
 struct Light *light_allocate_light(void)

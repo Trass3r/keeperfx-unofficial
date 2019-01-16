@@ -55,11 +55,6 @@ const unsigned char reinforce_edges[] = { 3, 0, 0, 3, 0, 1, 2, 2, 1, };
 extern "C" {
 #endif
 /******************************************************************************/
-DLLIMPORT short _DK_imp_arrives_at_reinforce(struct Thing *spdigtng);
-DLLIMPORT short _DK_imp_reinforces(struct Thing *spdigtng);
-DLLIMPORT long _DK_check_out_unconverted_drop_place(struct Thing *spdigtng);
-DLLIMPORT long _DK_check_out_undug_drop_place(struct Thing *spdigtng);
-DLLIMPORT long _DK_check_out_unprettied_drop_place(struct Thing *spdigtng);
 /******************************************************************************/
 #ifdef __cplusplus
 }

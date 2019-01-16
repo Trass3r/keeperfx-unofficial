@@ -38,11 +38,6 @@
 extern "C" {
 #endif
 /******************************************************************************/
-DLLIMPORT TbFileHandle _DK_LbFileOpen(const char *fname, int mode);
-DLLIMPORT int _DK_LbFileClose(TbFileHandle handle);
-DLLIMPORT int _DK_LbFileSeek(TbFileHandle handle, long offset, int origin);
-DLLIMPORT int _DK_LbFileRead(TbFileHandle handle, void *buffer, unsigned long len);
-DLLIMPORT int _DK_LbFilePosition(TbFileHandle handle);
 // Global variables
 long NoSoundEmitters = SOUND_EMITTERS_MAX;
 /******************************************************************************/
