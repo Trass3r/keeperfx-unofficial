@@ -56,8 +56,6 @@ static unsigned int mouse_button_actions_mapping(int eventType, const SDL_MouseB
         case SDL_BUTTON_LEFT: return MActn_LBUTTONDOWN;
         case SDL_BUTTON_MIDDLE: return MActn_MBUTTONDOWN;
         case SDL_BUTTON_RIGHT: return MActn_RBUTTONDOWN;
-        case SDL_BUTTON_WHEELUP: return MActn_WHEELMOVEUP;
-        case SDL_BUTTON_WHEELDOWN: return MActn_WHEELMOVEDOWN;
         }
     }
     else if (eventType == SDL_MOUSEBUTTONUP) {
@@ -65,8 +63,6 @@ static unsigned int mouse_button_actions_mapping(int eventType, const SDL_MouseB
         case SDL_BUTTON_LEFT: return MActn_LBUTTONUP;
         case SDL_BUTTON_MIDDLE: return MActn_MBUTTONUP;
         case SDL_BUTTON_RIGHT: return MActn_RBUTTONUP;
-        case SDL_BUTTON_WHEELUP: return MActn_NONE;
-        case SDL_BUTTON_WHEELDOWN: return MActn_NONE;
         }
     }
     WARNMSG("Unidentified event, type %d button %d",(int)eventType,(int)button->button);
@@ -293,6 +289,11 @@ static void process_event(const SDL_Event *ev)
         mousePos.x = x;
         mousePos.y = y;
         mouseControl(mouse_button_actions_mapping(ev->type, &ev->button), &mousePos);
+        break;
+    case SDL_MOUSEWHEEL:
+        // TODO: make actual use of the information
+        // TODO: handle which == SDL_TOUCH_MOUSEID
+        mouseControl(ev->wheel.y > 0 ? MActn_WHEELMOVEUP : MActn_WHEELMOVEDOWN, &mousePos);
         break;
 
     case SDL_WINDOWEVENT:

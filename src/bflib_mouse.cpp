@@ -303,6 +303,7 @@ void mouseControl(unsigned int action, struct TbPoint *pos)
             lbDisplay.RMiddleButton = 1;
         }
         break;
+    // TODO: fix this mess
     case MActn_WHEELMOVEUP:
         lbDisplayEx.WhellPosition--;
         lbDisplayEx.WhellMoveUp++;
