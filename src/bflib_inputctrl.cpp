@@ -296,12 +296,25 @@ static void process_event(const SDL_Event *ev)
         mouseControl(mouse_button_actions_mapping(ev->type, &ev->button), &mousePos);
         break;
 
-    case SDL_ACTIVEEVENT:
-        if (ev->active.state & SDL_APPACTIVE) {
-            lbAppActive = (ev->active.gain != 0);
-            //SYNCDBG(10, "Active = %d",(int)lbAppActive);
+    case SDL_WINDOWEVENT:
+        switch ((SDL_WindowEventID)ev->window.event)
+        {
+        case SDL_WINDOWEVENT_MINIMIZED:
+            lbAppActive = false;
             LbInputRestate();
+            break;
+        case SDL_WINDOWEVENT_RESTORED:
+            lbAppActive = true;
+            LbInputRestate();
+            break;
+        case SDL_WINDOWEVENT_RESIZED:
+        case SDL_WINDOWEVENT_EXPOSED:
+        {
+            // TODO: other events
         }
+        }
+        //SYNCDBG(10, "Active = %d",(int)lbAppActive);
+
         if ((lbAppActive) && (lbDisplay.Palette != NULL)) {
             // Below is the faster version of LbPaletteSet(lbDisplay.Palette);
             SDL_SetColors(lbDrawSurface,lbPaletteColors, 0, PALETTE_COLORS);
@@ -317,10 +330,6 @@ static void process_event(const SDL_Event *ev)
         break;
 
     case SDL_SYSWMEVENT:
-    case SDL_VIDEORESIZE:
-        break;
-
-    case SDL_VIDEOEXPOSE:
         break;
 
     case SDL_QUIT:
