@@ -508,7 +508,11 @@ TbResult LbScreenSetup(TbScreenMode mode, TbScreenCoord width, TbScreenCoord hei
         return Lb_FAIL;
     }
 
-    lbRenderer = SDL_CreateRenderer(lbWindow, -1, 0);
+    // FIXME: for whatever reason the renderer already exists when the exe is run by the debugger
+    if (!(lbRenderer = SDL_GetRenderer(lbWindow)))
+        lbRenderer = SDL_CreateRenderer(lbWindow, -1, 0);
+    else
+      ERRORLOG("Renderer already existed!! %s", SDL_GetError());
     if (!lbRenderer)
     {
         ERRORLOG("Error creating renderer: %s", SDL_GetError());
