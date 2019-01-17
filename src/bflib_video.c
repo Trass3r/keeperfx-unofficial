@@ -620,8 +620,9 @@ TbResult LbPaletteSet(unsigned char *palette)
     }
 
     if (SDL_SetPaletteColors(lbDrawSurface->format->palette,
-        lbPaletteColors, 0, PALETTE_COLORS) != 1) {
-        SYNCDBG(8,"SDL SetPalette failed.");
+        lbPaletteColors, 0, PALETTE_COLORS) < 0)
+    {
+        SYNCDBG(8, "SDL SetPalette failed: %s", SDL_GetError());
         ret = Lb_FAIL;
     }
     //free(destColors);
