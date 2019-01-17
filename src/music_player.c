@@ -24,6 +24,8 @@
 #include "game_legacy.h"
 #include "keeperfx.hpp"
 
+#include <SDL2/SDL_mixer.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

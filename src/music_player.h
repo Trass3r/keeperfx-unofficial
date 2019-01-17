@@ -20,7 +20,6 @@
 #define DK_MUSICPLAYER_H
 
 #include "globals.h"
-#include <SDL2/SDL_mixer.h>
 
 #ifdef __cplusplus
 extern "C" {
