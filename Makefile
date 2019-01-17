@@ -299,7 +299,7 @@ INCFLAGS =
 CV2PDB := $(shell PATH=`pwd`:$PATH command -v cv2pdb.exe 2> /dev/null)
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
-  OPTFLAGS = -march=i686 -Og
+  OPTFLAGS = -march=i686 -Og -fno-omit-frame-pointer
   DBGFLAGS = -g -DDEBUG
 else
   # frame pointer is required for ASM code to work
