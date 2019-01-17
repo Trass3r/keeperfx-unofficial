@@ -187,7 +187,8 @@ void MouseToScreen(struct TbPoint *pos)
       {
           mx = (clip.right-clip.left)/2 + clip.left;
           my = (clip.bottom-clip.top)/2 + clip.top;
-          SDL_WarpMouse(mx, my);
+          // TODO: add window param and remove the redundant steps
+          SDL_WarpMouseInWindow(nullptr, mx, my);
       }
   } else
   {
