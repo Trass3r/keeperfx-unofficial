@@ -81,12 +81,16 @@ TbResult LbScreenLock(void)
     if (!lbScreenInitialised)
         return Lb_FAIL;
 
-    if (SDL_LockSurface(lbDrawSurface) < 0) {
-        lbDisplay.GraphicsWindowPtr = NULL;
-        lbDisplay.WScreen = NULL;
-        return Lb_FAIL;
+    // TODO: remove altogether??
+    if (SDL_MUSTLOCK(lbDrawSurface))
+    {
+        if (SDL_LockSurface(lbDrawSurface) < 0)
+        {
+            lbDisplay.GraphicsWindowPtr = NULL;
+            lbDisplay.WScreen = NULL;
+            return Lb_FAIL;
+        }
     }
-
     lbDisplay.WScreen = (unsigned char *) lbDrawSurface->pixels;
     lbDisplay.GraphicsScreenWidth = lbDrawSurface->pitch;
     lbDisplay.GraphicsWindowPtr = &lbDisplay.WScreen[lbDisplay.GraphicsWindowX +
@@ -99,9 +103,12 @@ TbResult LbScreenUnlock(void)
     SYNCDBG(12,"Starting");
     if (!lbScreenInitialised)
         return Lb_FAIL;
+
     lbDisplay.WScreen = NULL;
     lbDisplay.GraphicsWindowPtr = NULL;
-    SDL_UnlockSurface(lbDrawSurface);
+    // TODO: remove altogether??
+    if (SDL_MUSTLOCK(lbDrawSurface))
+        SDL_UnlockSurface(lbDrawSurface);
     return Lb_SUCCESS;
 }
 
@@ -455,7 +462,6 @@ TbResult LbScreenUpdateIcon(void)
 TbResult LbScreenSetup(TbScreenMode mode, TbScreenCoord width, TbScreenCoord height,
     unsigned char *palette, short buffers_count, TbBool wscreen_vid)
 {
-    SDL_Surface * prevScreenSurf;
     long hot_x,hot_y;
     struct TbSprite *msspr;
     TbScreenModeInfo *mdinfo;
@@ -468,14 +474,10 @@ TbResult LbScreenSetup(TbScreenMode mode, TbScreenCoord width, TbScreenCoord hei
         msspr = lbDisplay.MouseSprite;
         GetPointerHotspot(&hot_x,&hot_y);
     }
-    prevScreenSurf = lbScreenSurface;
     LbMouseChangeSprite(NULL);
     SDL_FreeSurface(lbDrawSurface);
     lbDrawSurface = NULL;
     lbScreenInitialised = false;
-
-    if (prevScreenSurf != NULL) {
-    }
 
     mdinfo = LbScreenGetModeInfo(mode);
     if ( !LbScreenIsModeAvailable(mode) )
