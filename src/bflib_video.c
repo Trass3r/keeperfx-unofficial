@@ -301,20 +301,8 @@ TbResult LbScreenWaitVbi(void)
 
 static TbBool LbHwCheckIsModeAvailable(TbScreenMode mode)
 {
-  TbScreenModeInfo *mdinfo;
-  unsigned long sdlFlags;
-  int closestBPP;
-  mdinfo = LbScreenGetModeInfo(mode);
-  sdlFlags = 0;
-  if (mdinfo->BitsPerPixel == lbEngineBPP) {
-      sdlFlags |= SDL_HWPALETTE | SDL_DOUBLEBUF;
-  }
-  if ((mdinfo->VideoFlags & Lb_VF_WINDOWED) == 0) {
-      sdlFlags |= SDL_FULLSCREEN;
-  }
-
-  closestBPP = SDL_VideoModeOK(mdinfo->Width, mdinfo->Height, mdinfo->BitsPerPixel, sdlFlags);
-  return (closestBPP == mdinfo->BitsPerPixel);
+  // TODO: remove
+  return true;
 }
 
 TbResult LbScreenFindVideoModes(void)
