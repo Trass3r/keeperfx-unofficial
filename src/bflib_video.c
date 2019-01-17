@@ -415,9 +415,8 @@ static LPCTSTR MsResourceMapping(int index)
 static TbResult LbScreenActivationUpdate(void)
 {
     SDL_Event ev;
-    ev.type = SDL_ACTIVEEVENT;
-    ev.active.state = SDL_APPACTIVE;
-    ev.active.gain = ((SDL_GetAppState() & ev.active.state) != 0);
+    ev.type = SDL_WINDOWEVENT;
+    ev.window.event = SDL_WINDOWEVENT_RESTORED;
     SDL_PushEvent(&ev);
     return Lb_SUCCESS;
 }
