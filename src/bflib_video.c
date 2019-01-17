@@ -446,17 +446,18 @@ TbResult LbScreenUpdateIcon(void)
     HICON hIcon;
     HINSTANCE lbhInstance;
     SDL_SysWMinfo wmInfo;
-
     SDL_VERSION(&wmInfo.version);
-    if (SDL_GetWMInfo(&wmInfo) < 0) {
+
+    if (!SDL_GetWindowWMInfo(lbWindow, &wmInfo))
+    {
         WARNLOG("Couldn't get SDL window info, therefore cannot set icon");
         return Lb_FAIL;
     }
 
     lbhInstance = GetModuleHandle(NULL);
     hIcon = LoadIcon(lbhInstance, MsResourceMapping(lbIconIndex));
-    SendMessage(wmInfo.window, WM_SETICON, ICON_BIG,  (LPARAM)hIcon);
-    SendMessage(wmInfo.window, WM_SETICON, ICON_SMALL,(LPARAM)hIcon);
+    SendMessage(wmInfo.info.win.window, WM_SETICON, ICON_BIG,  (LPARAM)hIcon);
+    SendMessage(wmInfo.info.win.window, WM_SETICON, ICON_SMALL,(LPARAM)hIcon);
     return Lb_SUCCESS;
 }
 
