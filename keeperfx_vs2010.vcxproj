@@ -458,17 +458,17 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>%windir%\Sysnative\wsl.exe LC_ALL=C LANG=C CROSS_COMPILE=i686-w64-mingw32- make -j`nproc` heavylog</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>%windir%\Sysnative\wsl.exe LC_ALL=C LANG=C make CROSS_COMPILE=i686-w64-mingw32- -j`nproc` -k heavylog</NMakeBuildCommandLine>
     <NMakeOutput>bin\keeperfx_hvlog.exe</NMakeOutput>
-    <NMakeCleanCommandLine>%windir%\Sysnative\wsl.exe LC_ALL=C LANG=C CROSS_COMPILE=i686-w64-mingw32- make clean</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine>%windir%\Sysnative\wsl.exe make CROSS_COMPILE=i686-w64-mingw32- clean</NMakeCleanCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeIncludeSearchPath>src;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <IncludePath>$(ProjectDir)\sdl\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>%windir%\Sysnative\wsl.exe LC_ALL=C LANG=C CROSS_COMPILE=i686-w64-mingw32- make -j`nproc` standard</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>%windir%\Sysnative\wsl.exe LC_ALL=C LANG=C make CROSS_COMPILE=i686-w64-mingw32- -j`nproc` -k standard</NMakeBuildCommandLine>
     <NMakeOutput>bin\keeperfx.exe</NMakeOutput>
-    <NMakeCleanCommandLine>%windir%\Sysnative\wsl.exe LC_ALL=C LANG=C CROSS_COMPILE=i686-w64-mingw32- make clean</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine>%windir%\Sysnative\wsl.exe make CROSS_COMPILE=i686-w64-mingw32- clean</NMakeCleanCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeIncludeSearchPath>src;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <IncludePath>$(ProjectDir)\sdl\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
