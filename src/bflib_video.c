@@ -56,6 +56,17 @@ unsigned char lbPalette[PALETTE_SIZE];
 /** Driver-specific colour palette buffer. */
 SDL_Color lbPaletteColors[PALETTE_COLORS];
 
+//! main window and renderer
+static SDL_Window* lbWindow;
+static SDL_Renderer* lbRenderer;
+
+//! internal 8bit drawing surface structure
+SDL_Surface* lbDrawSurface;
+// used temporarily to convert indexed draw surface to RGBA
+static SDL_Surface* tempSurface;
+//! main GPU RGBA surface
+static SDL_Texture* lbScreenTexture;
+
 char lbDrawAreaTitle[128] = "Bullfrog Shell";
 volatile TbBool lbInteruptMouse;
 volatile unsigned long lbIconIndex = 0;
@@ -115,27 +126,17 @@ TbResult LbScreenUnlock(void)
 TbResult LbScreenSwap(void)
 {
     TbResult ret;
-    int blresult;
     SYNCDBG(12,"Starting");
     ret = LbMouseOnBeginSwap();
-    // Put the data from Draw Surface onto Screen Surface
     if (ret == Lb_SUCCESS)
     {
-        blresult = SDL_BlitSurface(lbDrawSurface, NULL, lbScreenSurface, NULL);
-        if (blresult < 0) {
-            ERRORLOG("Blit failed: %s",SDL_GetError());
-            ret = Lb_FAIL;
-        }
-    }
-    // Flip the image displayed on Screen Surface
-    if (ret == Lb_SUCCESS) {
-        // calls SDL_UpdateRect for entire screen if not double buffered
-        blresult = SDL_Flip(lbScreenSurface);
-        if (blresult < 0) {
-            // In some cases this situation seems to be quite common
-            ERRORDBG(11,"Flip failed: %s",SDL_GetError());
-            ret = Lb_FAIL;
-        }
+      // convert 256 colors to true color
+      SDL_BlitSurface(lbDrawSurface, NULL, tempSurface, NULL);
+      SDL_UpdateTexture(lbScreenTexture, NULL, tempSurface->pixels, tempSurface->pitch);
+
+      // TODO: SDL_RenderClear needed?
+      SDL_RenderCopy(lbRenderer, lbScreenTexture, NULL, NULL);
+      SDL_RenderPresent(lbRenderer);
     }
     LbMouseOnEndSwap();
     return ret;
@@ -380,7 +381,7 @@ TbResult LbScreenInitialize(void)
     char buf[32];
     // Clear global variables
     lbScreenInitialised = false;
-    lbScreenSurface = NULL;
+    lbScreenTexture = NULL;
     lbDrawSurface = NULL;
     lbDoubleBufferingRequested = false;
     lbAppActive = true;
@@ -465,7 +466,6 @@ TbResult LbScreenSetup(TbScreenMode mode, TbScreenCoord width, TbScreenCoord hei
     long hot_x,hot_y;
     struct TbSprite *msspr;
     TbScreenModeInfo *mdinfo;
-    unsigned long sdlFlags;
 
     msspr = NULL;
     LbExeReferenceNumber();
@@ -488,40 +488,51 @@ TbResult LbScreenSetup(TbScreenMode mode, TbScreenCoord width, TbScreenCoord hei
         return Lb_FAIL;
     }
 
-    // SDL video mode flags
-    sdlFlags = 0;
-    sdlFlags |= SDL_SWSURFACE;
-    if (mdinfo->BitsPerPixel == lbEngineBPP) {
-        sdlFlags |= SDL_HWPALETTE;
-    }
-    if (lbDoubleBufferingRequested) {
-        sdlFlags |= SDL_DOUBLEBUF;
-    }
-    if ((mdinfo->VideoFlags & Lb_VF_WINDOWED) == 0) {
-        sdlFlags |= SDL_FULLSCREEN;
-    }
+    SDL_WindowFlags sdlFlags = 0;
+    if (!(mdinfo->VideoFlags & Lb_VF_WINDOWED))
+      // auto scale our graphics to desktop resolution on the GPU
+      sdlFlags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
-    // Set SDL video mode (also creates window).
-    lbScreenSurface = lbDrawSurface = SDL_SetVideoMode(mdinfo->Width, mdinfo->Height, mdinfo->BitsPerPixel, sdlFlags);
-
-    if (lbScreenSurface == NULL) {
-        ERRORLOG("Failed to initialize mode %d: %s",(int)mode,SDL_GetError());
+    if (!lbWindow)
+    {
+        lbWindow = SDL_CreateWindow(lbDrawAreaTitle,
+        SDL_WINDOWPOS_UNDEFINED,
+        SDL_WINDOWPOS_UNDEFINED,
+        mdinfo->Width,
+        mdinfo->Height,
+        sdlFlags);
+    }
+    if (!lbWindow)
+    {
+        ERRORLOG("Could not create window: %s", SDL_GetError());
         return Lb_FAIL;
     }
 
-    SDL_WM_SetCaption(lbDrawAreaTitle, lbDrawAreaTitle);
+    lbRenderer = SDL_CreateRenderer(lbWindow, -1, 0);
+    if (!lbRenderer)
+    {
+        ERRORLOG("Error creating renderer: %s", SDL_GetError());
+        return Lb_FAIL;
+    }
+
+    // setup auto scaling for fullscreen desktop rendering
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
+    SDL_RenderSetLogicalSize(lbRenderer, mdinfo->Width, mdinfo->Height);
+
     LbScreenUpdateIcon();
 
-    // Create secondary surface if necessary, that is if BPP != lbEngineBPP.
-    if (mdinfo->BitsPerPixel != lbEngineBPP)
+    // create internal 256 colors draw surface
+    lbDrawSurface = SDL_CreateRGBSurface(0, mdinfo->Width, mdinfo->Height, lbEngineBPP, 0, 0, 0, 0);
+    if (!lbDrawSurface)
     {
-        lbDrawSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, mdinfo->Width, mdinfo->Height, lbEngineBPP, 0, 0, 0, 0);
-        if (lbDrawSurface == NULL) {
-            ERRORLOG("Can't create secondary surface: %s",SDL_GetError());
-            LbScreenReset();
-            return Lb_FAIL;
-        }
+        ERRORLOG("Can't create secondary surface: %s", SDL_GetError());
+        LbScreenReset();
+        return Lb_FAIL;
     }
+
+    // we need a temporary ARGB surface since there are no indexed textures
+    tempSurface = SDL_CreateRGBSurfaceWithFormat(0, mdinfo->Width, mdinfo->Height, 32, SDL_PIXELFORMAT_ARGB8888);
+    lbScreenTexture = SDL_CreateTexture(lbRenderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, mdinfo->Width, mdinfo->Height);
 
     lbDisplay.DrawFlags = 0;
     lbDisplay.DrawColour = 0;
@@ -536,7 +547,7 @@ TbResult LbScreenSetup(TbScreenMode mode, TbScreenCoord width, TbScreenCoord hei
     lbDisplay.WScreen = NULL;
     lbDisplay.GraphicsWindowPtr = NULL;
 
-    SYNCLOG("Mode %dx%dx%d setup succeeded",(int)lbScreenSurface->w,(int)lbScreenSurface->h,(int)lbScreenSurface->format->BitsPerPixel);
+    SYNCLOG("Mode %dx%dx%d setup succeeded", mdinfo->Width, mdinfo->Height, mdinfo->BitsPerPixel);
     if (palette != NULL)
     {
         LbPaletteSet(palette);
@@ -706,9 +717,13 @@ TbResult LbScreenReset(void)
       return Lb_FAIL;
     LbMouseChangeSprite(NULL);
     SDL_FreeSurface(lbDrawSurface);
-    //do not free screen surface, it is freed automatically on SDL_Quit or next call to set video mode
     lbDrawSurface = NULL;
-    lbScreenSurface = NULL;
+    SDL_FreeSurface(tempSurface);
+    tempSurface = NULL;
+    SDL_DestroyTexture(lbScreenTexture);
+    lbScreenTexture = NULL;
+    SDL_DestroyRenderer(lbRenderer);
+    lbRenderer = NULL;
     // Mark as not initialized
     lbScreenInitialised = false;
     return Lb_SUCCESS;
