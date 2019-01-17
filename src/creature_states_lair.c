@@ -48,6 +48,8 @@
 extern "C" {
 #endif
 /******************************************************************************/
+DLLIMPORT short _DK_creature_going_home_to_sleep(struct Thing *creatng);
+DLLIMPORT short _DK_creature_change_lair(struct Thing *creatng);
 /******************************************************************************/
 #ifdef __cplusplus
 }

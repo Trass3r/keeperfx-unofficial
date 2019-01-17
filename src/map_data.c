@@ -73,6 +73,7 @@ long navigation_map_size_y = 256;
 unsigned char *IanMap = NULL;
 long nav_map_initialised = 0;
 /******************************************************************************/
+DLLIMPORT void _DK_clear_slab_dig(long a1, long a2, char a3);
 /******************************************************************************/
 /**
  * Returns if the subtile coords are in range of subtiles which have slab entry.

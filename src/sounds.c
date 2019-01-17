@@ -54,6 +54,11 @@ const char foot_down_sound_sample_variant[] = {
 
 char sound_dir[64] = "SOUND";
 /******************************************************************************/
+DLLIMPORT TbFileHandle _DK_LbFileOpen(const char *fname, int mode);
+DLLIMPORT int _DK_LbFileClose(TbFileHandle handle);
+DLLIMPORT int _DK_LbFileSeek(TbFileHandle handle, long offset, int origin);
+DLLIMPORT int _DK_LbFileRead(TbFileHandle handle, void *buffer, unsigned long len);
+DLLIMPORT int _DK_LbFilePosition(TbFileHandle handle);
 /******************************************************************************/
 void thing_play_sample(struct Thing *thing, short smptbl_idx, unsigned short pitch, char a4, unsigned char a5, unsigned char a6, long a7, long loudness)
 {

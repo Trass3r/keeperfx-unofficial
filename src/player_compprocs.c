@@ -41,6 +41,7 @@
 extern "C" {
 #endif
 /******************************************************************************/
+DLLIMPORT long _DK_computer_look_for_opponent(struct Computer2 *comp, long stl_x, long stl_y, long a4);
 /******************************************************************************/
 long computer_setup_any_room(struct Computer2 *comp, struct ComputerProcess *cproc);
 long computer_setup_dig_to_entrance(struct Computer2 *comp, struct ComputerProcess *cproc);

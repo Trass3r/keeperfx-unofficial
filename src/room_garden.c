@@ -29,6 +29,7 @@
 extern "C" {
 #endif
 /******************************************************************************/
+DLLIMPORT long _DK_remove_food_from_food_room_if_possible(struct Thing *thing);
 
 /******************************************************************************/
 #ifdef __cplusplus

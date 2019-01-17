@@ -41,6 +41,11 @@
 extern "C" {
 #endif
 /******************************************************************************/
+DLLIMPORT long _DK_creature_turn_to_face_backwards(struct Thing *creatng, struct Coord3d *pos);
+DLLIMPORT long _DK_creature_turn_to_face_angle(struct Thing *creatng, long a2);
+DLLIMPORT unsigned char _DK_get_nearest_valid_position_for_creature_at(struct Thing *creatng, struct Coord3d *pos);
+DLLIMPORT long _DK_get_next_gap_creature_can_fit_in_below_point(struct Thing *creatng, struct Coord3d *pos);
+DLLIMPORT long _DK_thing_covers_same_blocks_in_two_positions(struct Thing *creatng, struct Coord3d *pos1, struct Coord3d *pos2);
 /******************************************************************************/
 #ifdef __cplusplus
 }
