@@ -458,7 +458,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>%windir%\Sysnative\wsl.exe LC_ALL=C LANG=C make CROSS_COMPILE=i686-w64-mingw32- -j`nproc` -k heavylog</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>%windir%\Sysnative\wsl.exe LC_ALL=C LANG=C make CROSS_COMPILE=i686-w64-mingw32- DEBUG=1 -j`nproc` -k heavylog</NMakeBuildCommandLine>
     <NMakeOutput>bin\keeperfx_hvlog.exe</NMakeOutput>
     <NMakeCleanCommandLine>%windir%\Sysnative\wsl.exe make CROSS_COMPILE=i686-w64-mingw32- clean</NMakeCleanCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
