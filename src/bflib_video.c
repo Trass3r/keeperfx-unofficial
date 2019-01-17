@@ -147,8 +147,9 @@ TbResult LbScreenClear(TbPixel colour)
     SYNCDBG(12,"Starting");
     if ((!lbScreenInitialised) || (lbDrawSurface == NULL))
       return Lb_FAIL;
-    if (SDL_FillRect(lbDrawSurface, NULL, colour) < 0) {
-        ERRORLOG("Error while clearing screen.");
+    if (SDL_FillRect(lbDrawSurface, NULL, colour) < 0)
+    {
+        ERRORLOG("Error while clearing screen: %s", SDL_GetError());
         return Lb_FAIL;
     }
   return Lb_SUCCESS;
