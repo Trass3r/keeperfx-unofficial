@@ -32,24 +32,24 @@ extern "C" {
  *  so we need to tell the compiler about it.
  */
 static inline void cpuid(int code, unsigned long *a, unsigned long *d) {
-#if _MSC_VER
-  int regs[4] = {0};
+#if __GNUC__
+  asm volatile("cpuid":"=a"(*a),"=d"(*d):"0"(code):"ecx","ebx");
+#else
+  int regs[4] = { 0 };
   __cpuid(regs, code);
   *a = regs[0]; // EAX
   *d = regs[3]; // EDX
-#else
-  asm volatile("cpuid":"=a"(*a),"=d"(*d):"0"(code):"ecx","ebx");
 #endif
 }
 
 /** Issue a complete request, storing general registers output in an array.
  */
 static inline void cpuid_string(int code, unsigned long where[4]) {
-#if _MSC_VER
-  __cpuid(where, code);
-#else
+#if __GNUC__
   asm volatile("cpuid":"=a"(*where),"=b"(*(where+1)),
                "=c"(*(where+2)),"=d"(*(where+3)):"0"(code));
+#else
+  __cpuid(where, code);
 #endif
 }
 /******************************************************************************/
