@@ -316,11 +316,10 @@ static void process_event(const SDL_Event *ev)
         //SYNCDBG(10, "Active = %d",(int)lbAppActive);
 
         if ((lbAppActive) && (lbDisplay.Palette != NULL)) {
-            // Below is the faster version of LbPaletteSet(lbDisplay.Palette);
-            SDL_SetColors(lbDrawSurface,lbPaletteColors, 0, PALETTE_COLORS);
+            // HACK: this is faster than LbPaletteSet(lbDisplay.Palette);
+            SDL_SetPaletteColors(lbDrawSurface->format->palette, lbPaletteColors, 0, PALETTE_COLORS);
         }
         break;
-
     case SDL_JOYAXISMOTION:
     case SDL_JOYBALLMOTION:
     case SDL_JOYHATMOTION:
