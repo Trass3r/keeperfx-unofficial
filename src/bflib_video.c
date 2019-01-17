@@ -46,8 +46,6 @@ volatile TbBool lbScreenInitialised = false;
 volatile unsigned short lbEngineBPP = 8;
 /** Informs if the application window is active (focused on screen). */
 extern volatile TbBool lbAppActive;
-/** True if we have two surfaces. */
-volatile TbBool lbHasSecondSurface;
 /** True if we request the double buffering to be on in next mode switch. */
 TbBool lbDoubleBufferingRequested;
 /** Name of the video driver to be used. Must be set before LbScreenInitialize().
@@ -114,7 +112,8 @@ TbResult LbScreenSwap(void)
     SYNCDBG(12,"Starting");
     ret = LbMouseOnBeginSwap();
     // Put the data from Draw Surface onto Screen Surface
-    if ((ret == Lb_SUCCESS) && (lbHasSecondSurface)) {
+    if (ret == Lb_SUCCESS)
+    {
         blresult = SDL_BlitSurface(lbDrawSurface, NULL, lbScreenSurface, NULL);
         if (blresult < 0) {
             ERRORLOG("Blit failed: %s",SDL_GetError());
@@ -222,8 +221,7 @@ TbResult LbPaletteFadeStep(unsigned char *from_pal,unsigned char *to_pal,long fa
     TbResult ret;
     LbScreenWaitVbi();
     ret = LbPaletteSet(palette);
-    if (lbHasSecondSurface)
-        LbScreenSwap();
+    LbScreenSwap();
     return ret;
 }
 
@@ -377,7 +375,6 @@ TbResult LbScreenInitialize(void)
     lbScreenInitialised = false;
     lbScreenSurface = NULL;
     lbDrawSurface = NULL;
-    lbHasSecondSurface = false;
     lbDoubleBufferingRequested = false;
     lbAppActive = true;
     LbMouseChangeMoveRatio(256, 256);
@@ -473,9 +470,7 @@ TbResult LbScreenSetup(TbScreenMode mode, TbScreenCoord width, TbScreenCoord hei
     }
     prevScreenSurf = lbScreenSurface;
     LbMouseChangeSprite(NULL);
-    if (lbHasSecondSurface) {
-        SDL_FreeSurface(lbDrawSurface);
-    }
+    SDL_FreeSurface(lbDrawSurface);
     lbDrawSurface = NULL;
     lbScreenInitialised = false;
 
@@ -524,7 +519,6 @@ TbResult LbScreenSetup(TbScreenMode mode, TbScreenCoord width, TbScreenCoord hei
             LbScreenReset();
             return Lb_FAIL;
         }
-        lbHasSecondSurface = true;
     }
 
     lbDisplay.DrawFlags = 0;
@@ -709,11 +703,8 @@ TbResult LbScreenReset(void)
     if (!lbScreenInitialised)
       return Lb_FAIL;
     LbMouseChangeSprite(NULL);
-    if (lbHasSecondSurface) {
-        SDL_FreeSurface(lbDrawSurface);
-    }
+    SDL_FreeSurface(lbDrawSurface);
     //do not free screen surface, it is freed automatically on SDL_Quit or next call to set video mode
-    lbHasSecondSurface = false;
     lbDrawSurface = NULL;
     lbScreenSurface = NULL;
     // Mark as not initialized

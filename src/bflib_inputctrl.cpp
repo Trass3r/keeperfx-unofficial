@@ -35,7 +35,6 @@ extern "C" {
 #endif
 /******************************************************************************/
 extern volatile TbBool lbScreenInitialised;
-extern volatile TbBool lbHasSecondSurface;
 extern SDL_Color lbPaletteColors[PALETTE_COLORS];
 
 volatile TbBool lbAppActive;
