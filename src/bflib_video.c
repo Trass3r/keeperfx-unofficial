@@ -847,7 +847,8 @@ TbResult LbScreenSetDoubleBuffering(TbBool state)
  */
 TbBool LbScreenIsDoubleBufferred(void)
 {
-    return ((lbScreenSurface->flags & SDL_DOUBLEBUF) != 0);
+    // TODO check videos working
+    return true;
 }
 
 TbScreenMode LbRecogniseVideoModeString(const char *desc)
