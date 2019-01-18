@@ -18,3 +18,12 @@ matrix:
 script:
   - make CROSS_COMPILE=i686-w64-mingw32- DEBUG=1 -j`nproc` -k heavylog
   - make CROSS_COMPILE=i686-w64-mingw32- -j`nproc` -k standard
+
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file_glob: true
+  file:
+    - bin/*.exe
+    - bin/*.pdb
+  skip_cleanup: true
