@@ -334,6 +334,8 @@ static void process_event(const SDL_Event *ev)
     case SDL_QUIT:
         lbUserQuit = 1;
         break;
+    default:
+        break;
     }
 }
 /******************************************************************************/
