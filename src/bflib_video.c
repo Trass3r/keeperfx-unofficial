@@ -478,7 +478,7 @@ TbResult LbScreenSetup(TbScreenMode mode, TbScreenCoord width, TbScreenCoord hei
         return Lb_FAIL;
     }
 
-    SDL_WindowFlags sdlFlags = 0;
+    SDL_WindowFlags sdlFlags = SDL_WINDOW_ALLOW_HIGHDPI;
     if (!(mdinfo->VideoFlags & Lb_VF_WINDOWED))
       // auto scale our graphics to desktop resolution on the GPU
       sdlFlags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
