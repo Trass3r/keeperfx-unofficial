@@ -321,7 +321,7 @@ endif
 STLOGFLAGS = -DBFDEBUG_LEVEL=0 
 HVLOGFLAGS = -DBFDEBUG_LEVEL=10
 # compiler warning generation flags
-WARNFLAGS = -Wall -W -Wshadow -Werror=implicit-function-declaration -Wno-sign-compare -Wno-unused-parameter -Wno-strict-aliasing -Wno-unknown-pragmas
+WARNFLAGS = -Werror=all -W -Wshadow -Wno-sign-compare -Wno-unused-parameter -Wno-strict-aliasing -Wno-unknown-pragmas
 # disabled warnings: -Wextra -Wtype-limits
 CXXFLAGS = $(CXXINCS) -c -fmessage-length=0 $(WARNFLAGS) $(DEPFLAGS) $(OPTFLAGS) $(DBGFLAGS) $(INCFLAGS)
 CFLAGS = $(INCS) -c -fmessage-length=0 $(WARNFLAGS) $(DEPFLAGS) $(OPTFLAGS) $(DBGFLAGS) $(INCFLAGS)
