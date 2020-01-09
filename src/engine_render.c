@@ -2946,10 +2946,203 @@ void draw_map_volume_box(long cor1_x, long cor1_y, long cor2_x, long cor2_y, lon
     map_volume_box.field_13 = a5;
     map_volume_box.color = color;
 }
-
-void draw_fastview_mapwho(struct Camera *cam, struct JontySpr *spr)
+#define LOWORD(l) (*(short*)(&l))
+#define HIWORD(l) ((short)(((int)(l) >> 16) & 0xFFFF))
+#define LOBYTE(w) ((char)(w))
+#define HIBYTE(w) ((char)(((short)(w) >> 8) & 0xFF))
+unsigned short get_thing_shade(struct Thing* thing);
+void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 {
-    _DK_draw_fastview_mapwho(cam, spr);
+	struct Thing* thing;     // esi
+	struct Camera* v3;    // edi
+	int v4;               // ebp
+	char v5;              // al
+	signed int v6;        // ebx
+	signed int v7;        // ebx
+	unsigned __int16 v8;  // ax
+	char v9;              // cl
+	unsigned __int8 v10;  // dl
+	unsigned __int8 v11;  // al
+	unsigned __int8 v12;  // cl
+	int v13;              // edi
+	int v14;              // ebx
+	int v15;              // eax
+	__int32 v16;          // eax
+	unsigned __int16 a6;  // ST2A_2
+	unsigned int v18;     // ecx
+	unsigned __int16 v19; // ax
+	unsigned int v20;     // ST38_4
+	char alpha_mem;             // [esp+11h] [ebp-13h]
+	__int32 a6_2;         // [esp+14h] [ebp-10h]
+	unsigned __int16 n;   // [esp+18h] [ebp-Ch]
+	unsigned __int16 flg_mem; // [esp+1Ch] [ebp-8h]
+
+	flg_mem = lbDisplay.DrawFlags;
+	alpha_mem = EngineSpriteDrawUsingAlpha;
+	thing = (struct Thing*)spr->thing;
+	if (keepersprite_rotable(thing->anim_sprite))
+		v4 = (unsigned __int16)thing->move_angle_xy - LOWORD(cam->orient_a);
+	else
+		v4 = (unsigned __int16)thing->move_angle_xy;
+	v5 = thing->field_4F & (TF4F_Unknown10 | TF4F_Unknown20);
+	if (v5 == 16)
+	{
+		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR8;
+	}
+	else if (v5 == 32)
+	{
+		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR4;
+	}
+	v6 = 8192;
+	if (!(thing->field_4F & TF4F_Unknown02))
+		v6 = get_thing_shade(thing);
+	v7 = v6 >> 8;
+	a6_2 = thing->sprite_size * ((cam->zoom << 13) / 65536 / pixel_size) / 65536;
+	if (thing->field_4F & 0xC)
+	{
+		v8 = lbDisplay.DrawFlags;
+		lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
+		flg_mem = v8;
+		lbSpriteReMapPtr = &pixmap.ghost[256 * thing->field_51];
+	}
+	else if (v7 == 32)
+	{
+		lbDisplay.DrawFlags &= ~Lb_TEXT_UNDERLNSHADOW;
+	}
+	else
+	{
+		lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
+		lbSpriteReMapPtr = &pixmap + 256 * v7;
+	}
+	EngineSpriteDrawUsingAlpha = 0;
+	v9 = (unsigned __int8)(thing->field_4F & 0x30) >> 4;
+	switch (v9)
+	{
+	case 1:
+		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR8;
+		lbDisplay.DrawFlags &= ~Lb_TEXT_UNDERLNSHADOW;
+		break;
+	case 2:
+		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR4;
+		lbDisplay.DrawFlags &= ~Lb_TEXT_UNDERLNSHADOW;
+		break;
+	case 3:
+		EngineSpriteDrawUsingAlpha = 1;
+		break;
+	}
+	if ((thing->class_id == 5 || thing->class_id == 1) == 0 && thing->class_id != 4)
+	{
+		thing_being_displayed_is_creature = 0;
+		thing_being_displayed = 0;
+	}
+	else
+	{
+		if (game.players[my_player_number].thing_under_hand == thing->index && (game.play_gameturn & 2) != 0)
+		{
+			lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
+			lbSpriteReMapPtr = (int)white_pal;
+		}
+		else if ((thing->field_4F & 0x80u) != 0)
+		{
+			lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
+			lbSpriteReMapPtr = (int)red_pal;
+			thing->field_4F &= 0x7Fu;
+		}
+		thing_being_displayed_is_creature = 1;
+		thing_being_displayed = thing;
+	}
+	v10 = thing->field_48;
+	if (v10 >= 0x3D6u)
+	{
+		ERRORLOG("Invalid graphic Id %d from model %d, class %d",
+		    thing->anim_sprite,
+		    thing->model,
+		    thing->class_id);
+		lbDisplay.DrawFlags = flg_mem;
+		EngineSpriteDrawUsingAlpha = alpha_mem;
+		return;
+	}
+	v11 = thing->class_id;
+	if (v11 == 1)
+	{
+		v12 = thing->model;
+		switch (v12)
+		{
+		case 2u:
+			goto LABEL_59;
+		case 0x1Cu:
+			goto LABEL_36;
+		case 4u:
+		LABEL_59:
+			if (v12 != 28)
+			{
+				n = 113;
+				if (v12 == 2)
+				{
+					if (game.players[my_player_number].view_type == 1)
+					{
+						LOWORD(v13) = 0;
+						v14 = 3 * a6_2 >> 3;
+					}
+					else
+					{
+						v13 = a6_2 * LbSinL(v4) >> 20;
+						v14 = a6_2 * LbCosL(v4) >> 20;
+					}
+					LOWORD(v15) = 2 * (a6_2 / 3);
+				}
+				else
+				{
+					if (game.players[my_player_number].view_type == 1)
+					{
+						LOWORD(v13) = (a6_2 >> 2) / 3;
+						v16 = a6_2 >> 1;
+					}
+					else
+					{
+						v13 = a6_2 * LbSinL(v4) >> 20;
+						v16 = -(LbCosL(v4) * (a6_2 + (a6_2 >> 1))) >> 16;
+					}
+					LOWORD(v14) = v16 / 3;
+					v15 = a6_2 / 3;
+				}
+				goto LABEL_49;
+			}
+		LABEL_36:
+			n = 112;
+			if (game.players[my_player_number].view_type == 1)
+			{
+				v13 = a6_2 >> 3;
+				LOWORD(v14) = (a6_2 >> 2) - a6_2;
+			}
+			else
+			{
+				v13 = a6_2 * LbSinL(v4) >> 20;
+				v14 = -(LbCosL(v4) * (a6_2 + (a6_2 >> 1))) >> 16;
+			}
+			v15 = a6_2 / 2;
+		LABEL_49:
+			a6 = v15;
+			v18 = keepersprite_frames(n);
+			v19 = thing->index;
+			EngineSpriteDrawUsingAlpha = 0;
+			v20 = (game.play_gameturn + v19) % v18;
+			process_keeper_sprite(spr->scr_x, spr->scr_y, thing->anim_sprite, v4, thing->field_48, a6_2);
+			EngineSpriteDrawUsingAlpha = 1;
+			process_keeper_sprite(v13 + spr->scr_x, v14 + spr->scr_y, n, v20, 0, a6);
+			goto LABEL_56;
+		}
+	}
+	if (v11 == 8 && thing->model != 1 && game.players[my_player_number].id_number != (char)thing->owner && !thing->byte_18)
+	{
+		lbDisplay.DrawFlags = flg_mem;
+		EngineSpriteDrawUsingAlpha = alpha_mem;
+		return;
+	}
+	process_keeper_sprite(spr->scr_x, spr->scr_y, thing->anim_sprite, v4, v10, a6_2);
+LABEL_56:
+	lbDisplay.DrawFlags = flg_mem;
+	EngineSpriteDrawUsingAlpha = alpha_mem;
 }
 
 void draw_engine_number(struct Number *num)
