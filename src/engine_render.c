@@ -3030,26 +3030,27 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 		EngineSpriteDrawUsingAlpha = 1;
 		break;
 	}
-	if ((thing->class_id == TCls_Creature || thing->class_id == TCls_Object) == 0 && thing->class_id != TCls_DeadCreature)
-	{
-		thing_being_displayed_is_creature = 0;
-		thing_being_displayed = 0;
-	}
-	else
+
+	if ((thing->class_id == TCls_Creature) || (thing->class_id == TCls_Object) || (thing->class_id == TCls_DeadCreature))
 	{
 		if (player->thing_under_hand == thing->index && (game.play_gameturn & 2) != 0)
 		{
 			lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
 			lbSpriteReMapPtr = white_pal;
 		}
-		else if ((thing->field_4F & 0x80u) != 0)
+		else if ((thing->field_4F & TF4F_Unknown80) != 0)
 		{
 			lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
 			lbSpriteReMapPtr = red_pal;
-			thing->field_4F &= 0x7Fu;
+			thing->field_4F &= ~TF4F_Unknown80;
 		}
 		thing_being_displayed_is_creature = 1;
 		thing_being_displayed = thing;
+	}
+	else
+	{
+		thing_being_displayed_is_creature = 0;
+		thing_being_displayed = NULL;
 	}
 
 	if (thing->field_48 >= CREATURE_FRAMELIST_LENGTH)
