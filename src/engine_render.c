@@ -2954,55 +2954,32 @@ unsigned short get_thing_shade(struct Thing* thing);
 void process_keeper_speedup_sprite(struct JontySpr* jspr, long angle, long scale);
 void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 {
-	struct Thing* thing;     // esi
-	struct Camera* v3;    // edi
-	int angle;               // ebp
-	char v5;              // al
-	signed int v6;        // ebx
-	signed int v7;        // ebx
-	unsigned __int16 v8;  // ax
-	char v9;              // cl
-	unsigned __int8 v10;  // dl
-	unsigned __int8 v11;  // al
-	int v13;              // edi
-	int v14;              // ebx
-	int v15;              // eax
-	__int32 v16;          // eax
-	unsigned __int16 a6;  // ST2A_2
-	unsigned int v18;     // ecx
-	unsigned __int16 v19; // ax
-	unsigned int v20;     // ST38_4
-	char alpha_mem;             // [esp+11h] [ebp-13h]
-	__int32 scale;         // [esp+14h] [ebp-10h]
-	unsigned __int16 n;   // [esp+18h] [ebp-Ch]
-	unsigned __int16 flg_mem; // [esp+1Ch] [ebp-8h]
-	struct PlayerInfo* player = get_my_player();
-	flg_mem = lbDisplay.DrawFlags;
-	alpha_mem = EngineSpriteDrawUsingAlpha;
-	thing = (struct Thing*)spr->thing;
+	unsigned short flg_mem = lbDisplay.DrawFlags;
+	unsigned char alpha_mem = EngineSpriteDrawUsingAlpha;
+	struct Thing* thing = (struct Thing*)spr->thing;
+	int angle;
 	if (keepersprite_rotable(thing->anim_sprite))
 		angle = (unsigned __int16)thing->move_angle_xy - LOWORD(cam->orient_a);
 	else
 		angle = (unsigned __int16)thing->move_angle_xy;
-	v5 = thing->field_4F & (TF4F_Unknown10 | TF4F_Unknown20);
-	if (v5 == 16)
+	unsigned char v5 = thing->field_4F & (TF4F_Unknown10 | TF4F_Unknown20);
+	if (v5 == TF4F_Unknown10)
 	{
 		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR8;
 	}
-	else if (v5 == 32)
+	else if (v5 == TF4F_Unknown20)
 	{
 		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR4;
 	}
-	v6 = 8192;
+	int i = MINIMUM_LIGHTNESS;
 	if (!(thing->field_4F & TF4F_Unknown02))
-		v6 = get_thing_shade(thing);
-	v7 = v6 >> 8;
-	scale = thing->sprite_size * ((cam->zoom << 13) / 65536 / pixel_size) / 65536;
+		i = get_thing_shade(thing);
+	int v7 = i >> 8;
+	int scale = thing->sprite_size * ((cam->zoom << 13) / 65536 / pixel_size) / 65536;
 	if (thing->field_4F & (TF4F_Unknown08 | TF4F_Unknown04))
 	{
-		v8 = lbDisplay.DrawFlags;
+		flg_mem = lbDisplay.DrawFlags;
 		lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
-		flg_mem = v8;
 		lbSpriteReMapPtr = &pixmap.ghost[256 * thing->field_51];
 	}
 	else if (v7 == 32)
@@ -3012,27 +2989,29 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 	else
 	{
 		lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
-		lbSpriteReMapPtr = &pixmap + 256 * v7;
+		lbSpriteReMapPtr = &pixmap.fade_tables[256 * v7];
 	}
 	EngineSpriteDrawUsingAlpha = 0;
-	v9 = (unsigned __int8)(thing->field_4F & (TF4F_Unknown10 | TF4F_Unknown20)) >> 4;
-	switch (v9)
+	switch (thing->field_4F & (TF4F_Unknown10 | TF4F_Unknown20))
 	{
-	case 1:
+	case 0x10:
 		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR8;
 		lbDisplay.DrawFlags &= ~Lb_TEXT_UNDERLNSHADOW;
 		break;
-	case 2:
+	case 0x20:
 		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR4;
 		lbDisplay.DrawFlags &= ~Lb_TEXT_UNDERLNSHADOW;
 		break;
-	case 3:
+	case 0x30:
 		EngineSpriteDrawUsingAlpha = 1;
 		break;
 	}
 
-	if ((thing->class_id == TCls_Creature) || (thing->class_id == TCls_Object) || (thing->class_id == TCls_DeadCreature))
-	{
+	struct PlayerInfo* player = get_my_player();
+    if ((thing->class_id == TCls_Creature)
+     || (thing->class_id == TCls_Object)
+     || (thing->class_id == TCls_DeadCreature))
+    {
 		if (player->thing_under_hand == thing->index && (game.play_gameturn & 2) != 0)
 		{
 			lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
@@ -5695,7 +5674,7 @@ void process_keeper_speedup_sprite(struct JontySpr *jspr, long angle, long scale
     process_keeper_sprite(jspr->scr_x+add_x, jspr->scr_y+add_y, graph_id2, angle, nframe2, transp2);
 }
 
-void prepare_jonty_remap_and_scale(long *scale, const struct JontySpr *jspr)
+static void prepare_jonty_remap_and_scale(long *scale, const struct JontySpr *jspr)
 {
     long i;
     struct Thing *thing;
