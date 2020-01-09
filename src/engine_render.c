@@ -2976,7 +2976,7 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 	__int32 a6_2;         // [esp+14h] [ebp-10h]
 	unsigned __int16 n;   // [esp+18h] [ebp-Ch]
 	unsigned __int16 flg_mem; // [esp+1Ch] [ebp-8h]
-
+	struct PlayerInfo* player = get_my_player();
 	flg_mem = lbDisplay.DrawFlags;
 	alpha_mem = EngineSpriteDrawUsingAlpha;
 	thing = (struct Thing*)spr->thing;
@@ -2998,7 +2998,7 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 		v6 = get_thing_shade(thing);
 	v7 = v6 >> 8;
 	a6_2 = thing->sprite_size * ((cam->zoom << 13) / 65536 / pixel_size) / 65536;
-	if (thing->field_4F & 0xC)
+	if (thing->field_4F & (TF4F_Unknown08 | TF4F_Unknown04))
 	{
 		v8 = lbDisplay.DrawFlags;
 		lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
@@ -3015,7 +3015,7 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 		lbSpriteReMapPtr = &pixmap + 256 * v7;
 	}
 	EngineSpriteDrawUsingAlpha = 0;
-	v9 = (unsigned __int8)(thing->field_4F & 0x30) >> 4;
+	v9 = (unsigned __int8)(thing->field_4F & (TF4F_Unknown10 | TF4F_Unknown20)) >> 4;
 	switch (v9)
 	{
 	case 1:
@@ -3030,14 +3030,14 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 		EngineSpriteDrawUsingAlpha = 1;
 		break;
 	}
-	if ((thing->class_id == 5 || thing->class_id == 1) == 0 && thing->class_id != 4)
+	if ((thing->class_id == TCls_Creature || thing->class_id == TCls_Object) == 0 && thing->class_id != TCls_DeadCreature)
 	{
 		thing_being_displayed_is_creature = 0;
 		thing_being_displayed = 0;
 	}
 	else
 	{
-		if (game.players[my_player_number].thing_under_hand == thing->index && (game.play_gameturn & 2) != 0)
+		if (player->thing_under_hand == thing->index && (game.play_gameturn & 2) != 0)
 		{
 			lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
 			lbSpriteReMapPtr = (int)white_pal;
@@ -3079,7 +3079,7 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 				n = 113;
 				if (v12 == 2)
 				{
-					if (game.players[my_player_number].view_type == 1)
+					if (player->view_type == 1)
 					{
 						LOWORD(v13) = 0;
 						v14 = 3 * a6_2 >> 3;
@@ -3093,7 +3093,7 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 				}
 				else
 				{
-					if (game.players[my_player_number].view_type == 1)
+					if (player->view_type == 1)
 					{
 						LOWORD(v13) = (a6_2 >> 2) / 3;
 						v16 = a6_2 >> 1;
@@ -3110,7 +3110,7 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 			}
 		LABEL_36:
 			n = 112;
-			if (game.players[my_player_number].view_type == 1)
+			if (player->view_type == 1)
 			{
 				v13 = a6_2 >> 3;
 				LOWORD(v14) = (a6_2 >> 2) - a6_2;
@@ -3133,7 +3133,7 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 			goto LABEL_56;
 		}
 	}
-	if (v11 == 8 && thing->model != 1 && game.players[my_player_number].id_number != (char)thing->owner && !thing->byte_18)
+	if (v11 == 8 && thing->model != 1 && player->id_number != (char)thing->owner && !thing->byte_18)
 	{
 		lbDisplay.DrawFlags = flg_mem;
 		EngineSpriteDrawUsingAlpha = alpha_mem;
