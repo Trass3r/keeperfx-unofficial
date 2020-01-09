@@ -2963,7 +2963,6 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 	char v9;              // cl
 	unsigned __int8 v10;  // dl
 	unsigned __int8 v11;  // al
-	unsigned __int8 v12;  // cl
 	int v13;              // edi
 	int v14;              // ebx
 	int v15;              // eax
@@ -3062,22 +3061,21 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 		EngineSpriteDrawUsingAlpha = alpha_mem;
 		return;
 	}
-	v11 = thing->class_id;
-	if (v11 == 1)
+	switch (thing->class_id)
 	{
-		v12 = thing->model;
-		switch (v12)
+	case TCls_Object:
+	{
+		switch (thing->model)
 		{
-		case 2u:
-			goto LABEL_59;
 		case 0x1Cu:
 			goto LABEL_36;
+		case 2u:
 		case 4u:
 		LABEL_59:
-			if (v12 != 28)
+			if (thing->model != 28)
 			{
 				n = 113;
-				if (v12 == 2)
+				if (thing->model == 2)
 				{
 					if (player->view_type == 1)
 					{
@@ -3130,17 +3128,16 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 			process_keeper_sprite(spr->scr_x, spr->scr_y, thing->anim_sprite, v4, thing->field_48, a6_2);
 			EngineSpriteDrawUsingAlpha = 1;
 			process_keeper_sprite(v13 + spr->scr_x, v14 + spr->scr_y, n, v20, 0, a6);
-			goto LABEL_56;
+			break;
 		}
 	}
-	if (v11 == 8 && thing->model != 1 && player->id_number != (char)thing->owner && !thing->byte_18)
-	{
-		lbDisplay.DrawFlags = flg_mem;
-		EngineSpriteDrawUsingAlpha = alpha_mem;
-		return;
+	break;
+	case TCls_Trap:
+		if (thing->model != 1 && player->id_number != thing->owner && !thing->byte_18)
+			break;
+		process_keeper_sprite(spr->scr_x, spr->scr_y, thing->anim_sprite, v4, v10, a6_2);
+		break;
 	}
-	process_keeper_sprite(spr->scr_x, spr->scr_y, thing->anim_sprite, v4, v10, a6_2);
-LABEL_56:
 	lbDisplay.DrawFlags = flg_mem;
 	EngineSpriteDrawUsingAlpha = alpha_mem;
 }
