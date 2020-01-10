@@ -2954,114 +2954,114 @@ unsigned short get_thing_shade(struct Thing* thing);
 void process_keeper_speedup_sprite(struct JontySpr* jspr, long angle, long scale);
 void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
 {
-	unsigned short flg_mem = lbDisplay.DrawFlags;
-	unsigned char alpha_mem = EngineSpriteDrawUsingAlpha;
-	struct Thing* thing = (struct Thing*)spr->thing;
-	int angle;
-	if (keepersprite_rotable(thing->anim_sprite))
-		angle = (unsigned __int16)thing->move_angle_xy - LOWORD(cam->orient_a);
-	else
-		angle = (unsigned __int16)thing->move_angle_xy;
-	unsigned char v5 = thing->field_4F & (TF4F_Unknown10 | TF4F_Unknown20);
-	if (v5 == TF4F_Unknown10)
-	{
-		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR8;
-	}
-	else if (v5 == TF4F_Unknown20)
-	{
-		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR4;
-	}
-	int i = MINIMUM_LIGHTNESS;
-	if (!(thing->field_4F & TF4F_Unknown02))
-		i = get_thing_shade(thing);
-	int v7 = i >> 8;
-	int scale = thing->sprite_size * ((cam->zoom << 13) / 65536 / pixel_size) / 65536;
-	if (thing->field_4F & (TF4F_Unknown08 | TF4F_Unknown04))
-	{
-		flg_mem = lbDisplay.DrawFlags;
-		lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
-		lbSpriteReMapPtr = &pixmap.ghost[256 * thing->field_51];
-	}
-	else if (v7 == 32)
-	{
-		lbDisplay.DrawFlags &= ~Lb_TEXT_UNDERLNSHADOW;
-	}
-	else
-	{
-		lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
-		lbSpriteReMapPtr = &pixmap.fade_tables[256 * v7];
-	}
-	EngineSpriteDrawUsingAlpha = 0;
-	switch (thing->field_4F & (TF4F_Unknown10 | TF4F_Unknown20))
-	{
-	case 0x10:
-		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR8;
-		lbDisplay.DrawFlags &= ~Lb_TEXT_UNDERLNSHADOW;
-		break;
-	case 0x20:
-		lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR4;
-		lbDisplay.DrawFlags &= ~Lb_TEXT_UNDERLNSHADOW;
-		break;
-	case 0x30:
-		EngineSpriteDrawUsingAlpha = 1;
-		break;
-	}
+    unsigned short flg_mem = lbDisplay.DrawFlags;
+    unsigned char alpha_mem = EngineSpriteDrawUsingAlpha;
+    struct Thing* thing = (struct Thing*)spr->thing;
+    int angle;
+    if (keepersprite_rotable(thing->anim_sprite))
+        angle = (unsigned __int16)thing->move_angle_xy - LOWORD(cam->orient_a);
+    else
+        angle = (unsigned __int16)thing->move_angle_xy;
+    unsigned char v5 = thing->field_4F & (TF4F_Unknown10 | TF4F_Unknown20);
+    if (v5 == TF4F_Unknown10)
+    {
+        lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR8;
+    }
+    else if (v5 == TF4F_Unknown20)
+    {
+        lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR4;
+    }
+    int i = MINIMUM_LIGHTNESS;
+    if (!(thing->field_4F & TF4F_Unknown02))
+        i = get_thing_shade(thing);
+    int v7 = i >> 8;
+    int scale = thing->sprite_size * ((cam->zoom << 13) / 65536 / pixel_size) / 65536;
+    if (thing->field_4F & (TF4F_Unknown08 | TF4F_Unknown04))
+    {
+        flg_mem = lbDisplay.DrawFlags;
+        lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
+        lbSpriteReMapPtr = &pixmap.ghost[256 * thing->field_51];
+    }
+    else if (v7 == 32)
+    {
+        lbDisplay.DrawFlags &= ~Lb_TEXT_UNDERLNSHADOW;
+    }
+    else
+    {
+        lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
+        lbSpriteReMapPtr = &pixmap.fade_tables[256 * v7];
+    }
+    EngineSpriteDrawUsingAlpha = 0;
+    switch (thing->field_4F & (TF4F_Unknown10 | TF4F_Unknown20))
+    {
+    case 0x10:
+        lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR8;
+        lbDisplay.DrawFlags &= ~Lb_TEXT_UNDERLNSHADOW;
+        break;
+    case 0x20:
+        lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR4;
+        lbDisplay.DrawFlags &= ~Lb_TEXT_UNDERLNSHADOW;
+        break;
+    case 0x30:
+        EngineSpriteDrawUsingAlpha = 1;
+        break;
+    }
 
-	struct PlayerInfo* player = get_my_player();
+    struct PlayerInfo* player = get_my_player();
     if ((thing->class_id == TCls_Creature)
      || (thing->class_id == TCls_Object)
      || (thing->class_id == TCls_DeadCreature))
     {
-		if (player->thing_under_hand == thing->index && (game.play_gameturn & 2) != 0)
-		{
-			lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
-			lbSpriteReMapPtr = white_pal;
-		}
-		else if ((thing->field_4F & TF4F_Unknown80) != 0)
-		{
-			lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
-			lbSpriteReMapPtr = red_pal;
-			thing->field_4F &= ~TF4F_Unknown80;
-		}
-		thing_being_displayed_is_creature = 1;
-		thing_being_displayed = thing;
-	}
-	else
-	{
-		thing_being_displayed_is_creature = 0;
-		thing_being_displayed = NULL;
-	}
+        if (player->thing_under_hand == thing->index && (game.play_gameturn & 2) != 0)
+        {
+            lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
+            lbSpriteReMapPtr = white_pal;
+        }
+        else if ((thing->field_4F & TF4F_Unknown80) != 0)
+        {
+            lbDisplay.DrawFlags |= Lb_TEXT_UNDERLNSHADOW;
+            lbSpriteReMapPtr = red_pal;
+            thing->field_4F &= ~TF4F_Unknown80;
+        }
+        thing_being_displayed_is_creature = 1;
+        thing_being_displayed = thing;
+    }
+    else
+    {
+        thing_being_displayed_is_creature = 0;
+        thing_being_displayed = NULL;
+    }
 
-	if (thing->field_48 >= CREATURE_FRAMELIST_LENGTH)
-	{
-		ERRORLOG("Invalid graphic Id %d from model %d, class %d",
-		    thing->anim_sprite,
-		    thing->model,
-		    thing->class_id);
-		lbDisplay.DrawFlags = flg_mem;
-		EngineSpriteDrawUsingAlpha = alpha_mem;
-		return;
-	}
-	switch (thing->class_id)
-	{
-	case TCls_Object:
-	{
-		//TODO CONFIG object model dependency, move to config
-		if ((thing->model == 2) || (thing->model == 4) || (thing->model == 28))
-		{
-			process_keeper_speedup_sprite(spr, angle, scale);
-			break;
-		}
-		break;
-	}
-	case TCls_Trap:
-		if (thing->model != 1 && player->id_number != thing->owner && !thing->byte_18)
-			break;
-		process_keeper_sprite(spr->scr_x, spr->scr_y, thing->anim_sprite, angle, thing->field_48, scale);
-		break;
-	}
-	lbDisplay.DrawFlags = flg_mem;
-	EngineSpriteDrawUsingAlpha = alpha_mem;
+    if (thing->field_48 >= CREATURE_FRAMELIST_LENGTH)
+    {
+        ERRORLOG("Invalid graphic Id %d from model %d, class %d",
+            thing->anim_sprite,
+            thing->model,
+            thing->class_id);
+        lbDisplay.DrawFlags = flg_mem;
+        EngineSpriteDrawUsingAlpha = alpha_mem;
+        return;
+    }
+    switch (thing->class_id)
+    {
+    case TCls_Object:
+    {
+        //TODO CONFIG object model dependency, move to config
+        if ((thing->model == 2) || (thing->model == 4) || (thing->model == 28))
+        {
+            process_keeper_speedup_sprite(spr, angle, scale);
+            break;
+        }
+        break;
+    }
+    case TCls_Trap:
+        if (thing->model != 1 && player->id_number != thing->owner && !thing->byte_18)
+            break;
+        process_keeper_sprite(spr->scr_x, spr->scr_y, thing->anim_sprite, angle, thing->field_48, scale);
+        break;
+    }
+    lbDisplay.DrawFlags = flg_mem;
+    EngineSpriteDrawUsingAlpha = alpha_mem;
 }
 
 void draw_engine_number(struct Number *num)
