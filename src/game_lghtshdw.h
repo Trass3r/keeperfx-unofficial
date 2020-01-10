@@ -52,7 +52,7 @@ struct ShadowCache { // sizeof = 129
 /**
  * Structure which stores data of lights and shadows system.
  */
-struct LightsShadows { // sizeof = 164886
+struct LightsShadows { // sizeof = 0x48416
     struct UnkStruc6 field_1DD41[1024];
     unsigned char shadow_limits[SHADOW_LIMITS_COUNT];
     struct Light lights[LIGHTS_COUNT];

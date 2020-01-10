@@ -2964,13 +2964,10 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
         angle = (unsigned __int16)thing->move_angle_xy;
     unsigned char v5 = thing->field_4F & (TF4F_Unknown10 | TF4F_Unknown20);
     if (v5 == TF4F_Unknown10)
-    {
         lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR8;
-    }
     else if (v5 == TF4F_Unknown20)
-    {
         lbDisplay.DrawFlags |= Lb_SPRITE_TRANSPAR4;
-    }
+
     int i = MINIMUM_LIGHTNESS;
     if (!(thing->field_4F & TF4F_Unknown02))
         i = get_thing_shade(thing);
@@ -3032,6 +3029,7 @@ void draw_fastview_mapwho(struct Camera* cam, struct JontySpr* spr)
         thing_being_displayed = NULL;
     }
 
+    // FIXME: field_48 is indeed used in the code but it doesn't make any sense
     if (thing->field_48 >= CREATURE_FRAMELIST_LENGTH)
     {
         ERRORLOG("Invalid graphic Id %d from model %d, class %d",
