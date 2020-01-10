@@ -1761,7 +1761,7 @@ TbBool triangle_check_and_add_navitree_bak(long ttri)
  * @param routecost Output integer where the tree route cost is returned.
  * @return Amount of points copied into the route array, or -1 on routing failure.
  */
-long triangle_route_do_fwd(long ttriA, long ttriB, long *route, long *routecost)
+static long triangle_route_do_fwd(long ttriA, long ttriB, long *route, long *routecost)
 {
     NAVIDBG(19,"Starting");
     //return _DK_triangle_route_do_fwd(ttriA, ttriB, route, routecost);
@@ -1830,7 +1830,7 @@ long triangle_route_do_fwd(long ttriA, long ttriB, long *route, long *routecost)
  * @return Amount of points copied into the route array, or -1 on routing failure.
  * @note This function should differ from triangle_route_do_bak() in only one line
  */
-long triangle_route_do_bak(long ttriA, long ttriB, long *route, long *routecost)
+static long triangle_route_do_bak(long ttriA, long ttriB, long *route, long *routecost)
 {
     NAVIDBG(19,"Starting");
     //return _DK_triangle_route_do_bak(ttriA, ttriB, route, routecost);
