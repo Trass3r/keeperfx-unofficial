@@ -1315,7 +1315,7 @@ void command_set_start_money(long plr_range_id, long gold_val)
   {
     SCRPTWRNLOG("Start money set inside conditional block; condition ignored");
   }
-  for (int i = plr_start; i < plr_end; i++)
+  for (int i = plr_start; i < plr_end; ++i)
   {
       player_add_offmap_gold(i, gold_val);
   }
@@ -1390,7 +1390,7 @@ void command_research_order(long plr_range_id, const char *trg_type, const char 
         SCRPTERRLOG("Given owning player range %d is not supported in this command",(int)plr_range_id);
         return;
     }
-    for (long i = plr_start; i < plr_end; i++)
+    for (long i = plr_start; i < plr_end; ++i)
     {
         struct Dungeon* dungeon = get_dungeon(i);
         if (dungeon_invalid(dungeon))
@@ -1437,7 +1437,7 @@ void command_computer_player(long plr_range_id, long comp_model)
         SCRPTERRLOG("Given owning player range %d is not supported in this command",(int)plr_range_id);
         return;
     }
-    for (long i = plr_start; i < plr_end; i++)
+    for (long i = plr_start; i < plr_end; ++i)
     {
         script_support_setup_player_as_computer_keeper(i, comp_model);
     }
@@ -1822,7 +1822,7 @@ void command_set_computer_globals(long plr_range_id, long val1, long val2, long 
   {
     SCRPTWRNLOG("Computer globals altered inside conditional block; condition ignored");
   }
-  for (long i = plr_start; i < plr_end; i++)
+  for (long i = plr_start; i < plr_end; ++i)
   {
       struct Computer2* comp = get_computer_player(i);
       if (computer_player_invalid(comp))
@@ -1851,13 +1851,13 @@ void command_set_computer_checks(long plr_range_id, const char *chkname, long va
     SCRPTWRNLOG("Computer check altered inside conditional block; condition ignored");
   }
   long n = 0;
-  for (long i = plr_start; i < plr_end; i++)
+  for (long i = plr_start; i < plr_end; ++i)
   {
       struct Computer2* comp = get_computer_player(i);
       if (computer_player_invalid(comp)) {
           continue;
       }
-      for (long k = 0; k < COMPUTER_CHECKS_COUNT; k++)
+      for (long k = 0; k < COMPUTER_CHECKS_COUNT; ++k)
       {
           struct ComputerCheck* ccheck = &comp->checks[k];
           if ((ccheck->flags & ComChk_Unkn0002) != 0)
@@ -1896,13 +1896,13 @@ void command_set_computer_events(long plr_range_id, const char *evntname, long v
     SCRPTWRNLOG("Computer event altered inside conditional block; condition ignored");
   }
   long n = 0;
-  for (long i = plr_start; i < plr_end; i++)
+  for (long i = plr_start; i < plr_end; ++i)
   {
       struct Computer2* comp = get_computer_player(i);
       if (computer_player_invalid(comp)) {
           continue;
       }
-      for (long k = 0; k < COMPUTER_EVENTS_COUNT; k++)
+      for (long k = 0; k < COMPUTER_EVENTS_COUNT; ++k)
       {
           struct ComputerEvent* event = &comp->events[k];
           if (event->name == NULL)
@@ -1938,13 +1938,13 @@ void command_set_computer_process(long plr_range_id, const char *procname, long 
     SCRPTWRNLOG("Computer process altered inside conditional block; condition ignored");
   }
   long n = 0;
-  for (long i = plr_start; i < plr_end; i++)
+  for (long i = plr_start; i < plr_end; ++i)
   {
       struct Computer2* comp = get_computer_player(i);
       if (computer_player_invalid(comp)) {
           continue;
       }
-      for (long k = 0; k < COMPUTER_PROCESSES_COUNT; k++)
+      for (long k = 0; k < COMPUTER_PROCESSES_COUNT; ++k)
       {
           struct ComputerProcess* cproc = &comp->processes[k];
           if ((cproc->flags & ComProc_Unkn0002) != 0)
@@ -2693,7 +2693,7 @@ TbBool script_command_param_to_text(char type_chr, struct ScriptLine *scline, in
 int script_recognize_params(char **line, const struct CommandDesc *cmd_desc, struct ScriptLine *scline, int *para_level, int expect_level)
 {
     int i;
-    for (i=0; i <= COMMANDDESC_ARGS_COUNT; i++)
+    for (i=0; i <= COMMANDDESC_ARGS_COUNT; ++i)
     {
         char chr = cmd_desc->args[i];
         if (*para_level < expect_level)
@@ -2842,7 +2842,7 @@ int script_recognize_params(char **line, const struct CommandDesc *cmd_desc, str
                 long range_index = rand() % range_total;
                 // Get value from ranges array
                 range_total = 0;
-                for (fi=0; fi < COMMANDDESC_ARGS_COUNT; fi++)
+                for (fi=0; fi < COMMANDDESC_ARGS_COUNT; ++fi)
                 {
                     if ((range_index >= range_total) && (range_index <= range_total + ranges[fi].max - ranges[fi].min)) {
                         chr = cmd_desc->args[i];
@@ -2976,7 +2976,7 @@ short clear_script(void)
 
 short clear_quick_messages(void)
 {
-    for (long i = 0; i < QUICK_MESSAGES_COUNT; i++)
+    for (long i = 0; i < QUICK_MESSAGES_COUNT; ++i)
         LbMemorySet(gameadd.quick_messages[i], 0, MESSAGE_TEXT_LEN);
     return true;
 }
@@ -3465,10 +3465,10 @@ struct Thing *script_process_new_tunneler(unsigned char plyr_idx, TbMapLocation 
 struct Thing *script_process_new_party(struct Party *party, PlayerNumber plyr_idx, TbMapLocation location, long copies_num)
 {
     struct Thing* leadtng = INVALID_THING;
-    for (long i = 0; i < copies_num; i++)
+    for (long i = 0; i < copies_num; ++i)
     {
         struct Thing* grptng = INVALID_THING;
-        for (long k = 0; k < party->members_num; k++)
+        for (long k = 0; k < party->members_num; ++k)
         {
           if (k >= GROUP_MEMBERS_COUNT)
           {
@@ -3537,7 +3537,7 @@ void script_process_new_tunneller_party(PlayerNumber plyr_idx, long prty_id, TbM
 
 void script_process_new_creatures(PlayerNumber plyr_idx, long crmodel, long location, long copies_num, long carried_gold, long crtr_level)
 {
-    for (long i = 0; i < copies_num; i++)
+    for (long i = 0; i < copies_num; ++i)
     {
         script_create_new_creature(plyr_idx, crmodel, location, carried_gold, crtr_level);
     }
@@ -3699,7 +3699,7 @@ TbBool script_change_creature_owner_with_criteria(PlayerNumber origin_plyr_idx, 
 void script_kill_creatures(PlayerNumber plyr_idx, long crmodel, long criteria, long copies_num)
 {
     SYNCDBG(3,"Killing %d of %s owned by player %d.",(int)copies_num,creature_code_name(crmodel),(int)plyr_idx);
-    for (long i = 0; i < copies_num; i++)
+    for (long i = 0; i < copies_num; ++i)
     {
         script_kill_creature_with_criteria(plyr_idx, crmodel, criteria);
     }
@@ -3788,7 +3788,7 @@ TbBool process_activation_status(struct Condition *condt)
     }
     {
         new_status = false;
-        for (long i = plr_start; i < plr_end; i++)
+        for (long i = plr_start; i < plr_end; ++i)
         {
             new_status = action_point_activated_by_player(condt->variabl_idx,i);
             if (new_status) break;
@@ -3998,7 +3998,7 @@ void process_condition(struct Condition *condt)
     if (condt->variabl_type == SVar_ACTION_POINT_TRIGGERED)
     {
         new_status = false;
-        for (i=plr_start; i < plr_end; i++)
+        for (i=plr_start; i < plr_end; ++i)
         {
             new_status = action_point_activated_by_player(condt->variabl_idx,i);
             if (new_status) break;
@@ -4006,7 +4006,7 @@ void process_condition(struct Condition *condt)
     } else
     {
         new_status = false;
-        for (i=plr_start; i < plr_end; i++)
+        for (i=plr_start; i < plr_end; ++i)
         {
             long k = get_condition_value(i, condt->variabl_type, condt->variabl_idx);
             new_status = get_condition_status(condt->operation, k, condt->rvalue);
@@ -4030,7 +4030,7 @@ void process_conditions(void)
 {
     if (game.script.conditions_num > CONDITIONS_COUNT)
       game.script.conditions_num = CONDITIONS_COUNT;
-    for (long i = 0; i < game.script.conditions_num; i++)
+    for (long i = 0; i < game.script.conditions_num; ++i)
     {
       process_condition(&game.script.conditions[i]);
     }
@@ -4038,7 +4038,7 @@ void process_conditions(void)
 
 void process_check_new_creature_partys(void)
 {
-    for (long i = 0; i < game.script.party_triggers_num; i++)
+    for (long i = 0; i < game.script.party_triggers_num; ++i)
     {
         struct PartyTrigger* pr_trig = &game.script.party_triggers[i];
         if ((pr_trig->flags & TrgF_DISABLED) == 0)
@@ -4067,7 +4067,7 @@ void process_check_new_creature_partys(void)
 
 void process_check_new_tunneller_partys(void)
 {
-    for (long i = 0; i < game.script.tunneller_triggers_num; i++)
+    for (long i = 0; i < game.script.tunneller_triggers_num; ++i)
     {
         struct TunnellerTrigger* tn_trig = &game.script.tunneller_triggers[i];
         if ((tn_trig->flags & TrgF_DISABLED) == 0)
@@ -4114,7 +4114,7 @@ void process_win_and_lose_conditions(PlayerNumber plyr_idx)
     struct PlayerInfo* player = get_player(plyr_idx);
     if ((game.system_flags & GSF_NetworkActive) != 0)
       return;
-    for (i=0; i < game.script.win_conditions_num; i++)
+    for (i=0; i < game.script.win_conditions_num; ++i)
     {
       k = game.script.win_conditions[i];
       if (is_condition_met(k)) {
@@ -4122,7 +4122,7 @@ void process_win_and_lose_conditions(PlayerNumber plyr_idx)
           set_player_as_won_level(player);
       }
     }
-    for (i=0; i < game.script.lose_conditions_num; i++)
+    for (i=0; i < game.script.lose_conditions_num; ++i)
     {
       k = game.script.lose_conditions[i];
       if (is_condition_met(k)) {
@@ -4134,7 +4134,7 @@ void process_win_and_lose_conditions(PlayerNumber plyr_idx)
 
 void process_values(void)
 {
-    for (long i = 0; i < game.script.values_num; i++)
+    for (long i = 0; i < game.script.values_num; ++i)
     {
         struct ScriptValue* value = &game.script.values[i];
         if ((value->flags & TrgF_DISABLED) == 0)
@@ -4170,7 +4170,7 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
   switch (var_index)
   {
   case Cmd_SET_HATE:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
         dungeon = get_dungeon(i);
         if (dungeon_invalid(dungeon))
@@ -4183,13 +4183,13 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
       update_dungeon_generation_speeds();
       break;
   case Cmd_ROOM_AVAILABLE:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
         set_room_available(i, val2, val3, val4);
       }
       break;
   case Cmd_CREATURE_AVAILABLE:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           if (!set_creature_available(i,val2,val3,val4)) {
               WARNLOG("Setting creature %s availability for player %d failed.",creature_code_name(val2),(int)i);
@@ -4197,7 +4197,7 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
       }
       break;
   case Cmd_MAGIC_AVAILABLE:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           if (!set_power_available(i,val2,val3,val4)) {
               WARNLOG("Setting power %s availability for player %d failed.",power_code_name(val2),(int)i);
@@ -4205,7 +4205,7 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
       }
       break;
   case Cmd_TRAP_AVAILABLE:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           if (!set_trap_buildable_and_add_to_amount(i, val2, val3, val4)) {
               WARNLOG("Setting trap %s availability for player %d failed.",trap_code_name(val2),(int)i);
@@ -4213,7 +4213,7 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
       }
       break;
   case Cmd_RESEARCH:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           if (!update_or_add_players_research_amount(i, val2, val3, val4)) {
               WARNLOG("Updating research points for type %d kind %d of player %d failed.",(int)val2,(int)val3,(int)i);
@@ -4221,7 +4221,7 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
       }
       break;
   case Cmd_RESEARCH_ORDER:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
         if (!research_overriden_for_player(i))
           remove_all_research_from_player(i);
@@ -4229,19 +4229,19 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
       }
       break;
   case Cmd_SET_TIMER:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           restart_script_timer(i,val2);
       }
       break;
   case Cmd_SET_FLAG:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           set_script_flag(i,val2,saturate_set_unsigned(val3, 8));
       }
       break;
   case Cmd_MAX_CREATURES:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           SYNCDBG(4,"Setting player %d max attracted creatures to %d.",(int)i,(int)val2);
           dungeon = get_dungeon(i);
@@ -4251,7 +4251,7 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
       }
       break;
   case Cmd_DOOR_AVAILABLE:
-      for (i=plr_start; i < plr_end; i++) {
+      for (i=plr_start; i < plr_end; ++i) {
           set_door_buildable_and_add_to_amount(i, val2, val3, val4);
       }
       break;
@@ -4275,7 +4275,7 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
       gui_set_button_flashing(val2, val3);
       break;
   case Cmd_SET_CREATURE_MAX_LEVEL:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           dungeon = get_dungeon(i);
           if (dungeon_invalid(dungeon))
@@ -4315,7 +4315,7 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
       creature_stats_updated(val2);
       break;
   case Cmd_ALLY_PLAYERS:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           set_ally_with_player(i, val2, val3);
           set_ally_with_player(val2, i, val3);
@@ -4357,13 +4357,13 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
       }
       break;
   case Cmd_ADD_GOLD_TO_PLAYER:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           player_add_offmap_gold(i, val2);
       }
       break;
   case Cmd_SET_CREATURE_TENDENCIES:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           player = get_player(i);
           set_creature_tendencies(player, val2, val3);
@@ -4375,57 +4375,57 @@ void script_process_value(unsigned long var_index, unsigned long plr_range_id, l
       }
       break;
   case Cmd_REVEAL_MAP_RECT:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           player_reveal_map_area(i, val2, val3, (val4)&0xffff, (val4>>16)&0xffff);
       }
       break;
   case Cmd_REVEAL_MAP_LOCATION:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           player_reveal_map_location(i, val2, val3);
       }
       break;
   case Cmd_KILL_CREATURE:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           script_kill_creatures(i, val2, val3, val4);
       }
       break;
     case Cmd_LEVEL_UP_CREATURE:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           script_level_up_creature(i, val2, val3, val4);
       }
       break;
     case Cmd_CHANGE_CREATURE_OWNER:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           script_change_creature_owner_with_criteria(i, val2, val3, val4);
       }
       break;
   case Cmd_ADD_TO_FLAG:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           dungeon = get_dungeon(i);
           set_script_flag(i, val2, dungeon->script_flags[val2] + val3);
       }
       break;
   case Cmd_SET_CAMPAIGN_FLAG:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           intralvl.campaign_flags[i][val2] = saturate_set_signed(val3, 32);
       }
       break;
   case Cmd_ADD_TO_CAMPAIGN_FLAG:
 
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           intralvl.campaign_flags[i][val2] = saturate_set_signed(intralvl.campaign_flags[i][val2] + val3, 32);
       }
       break;
   case Cmd_EXPORT_VARIABLE:
-      for (i=plr_start; i < plr_end; i++)
+      for (i=plr_start; i < plr_end; ++i)
       {
           SYNCDBG(8, "Setting campaign flag[%ld][%ld] to %ld.", i, val4, get_condition_value(i, val2, val3));
           intralvl.campaign_flags[i][val4] = get_condition_value(i, val2, val3);

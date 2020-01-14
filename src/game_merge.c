@@ -161,7 +161,7 @@ TbBool set_bonus_level_visibility_for_singleplayer_level(struct PlayerInfo *play
 
 void hide_all_bonus_levels(struct PlayerInfo *player)
 {
-    for (int i = 0; i < BONUS_LEVEL_STORAGE_COUNT; i++)
+    for (int i = 0; i < BONUS_LEVEL_STORAGE_COUNT; ++i)
         intralvl.bonuses_found[i] = 0;
 }
 

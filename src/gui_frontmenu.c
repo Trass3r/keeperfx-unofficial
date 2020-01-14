@@ -42,7 +42,7 @@ struct GuiMenu *get_active_menu(MenuNumber num)
 
 int first_monopoly_menu(void)
 {
-    for (int idx = 0; idx < ACTIVE_MENUS_COUNT; idx++)
+    for (int idx = 0; idx < ACTIVE_MENUS_COUNT; ++idx)
     {
         struct GuiMenu* gmnu = &active_menus[idx];
         if ((gmnu->visual_state != 0) && (gmnu->is_monopoly_menu != 0))
@@ -53,7 +53,7 @@ int first_monopoly_menu(void)
 
 MenuNumber menu_id_to_number(MenuID menu_id)
 {
-    for (MenuNumber idx = 0; idx < ACTIVE_MENUS_COUNT; idx++)
+    for (MenuNumber idx = 0; idx < ACTIVE_MENUS_COUNT; ++idx)
     {
         struct GuiMenu* gmnu = &active_menus[idx];
         //SYNCDBG(8,"ID %d use %d",(int)gmnu->ident,(int)gmnu->field_1);
@@ -71,7 +71,7 @@ MenuNumber menu_id_to_number(MenuID menu_id)
 int point_is_over_gui_menu(long x, long y)
 {
     int gidx = MENU_INVALID_ID;
-    for (int idx = 0; idx < ACTIVE_MENUS_COUNT; idx++)
+    for (int idx = 0; idx < ACTIVE_MENUS_COUNT; ++idx)
     {
         struct GuiMenu* gmnu = &active_menus[idx];
         if (gmnu->visual_state != 2)
@@ -345,7 +345,7 @@ void set_menu_visible_on(MenuID menu_id)
     if (menu_num < 0)
       return;
     get_active_menu(menu_num)->is_turned_on = 1;
-    for (int idx = 0; idx < ACTIVE_BUTTONS_COUNT; idx++)
+    for (int idx = 0; idx < ACTIVE_BUTTONS_COUNT; ++idx)
     {
       struct GuiButton *gbtn = &active_buttons[idx];
       if (gbtn->flags & LbBtnF_Unknown01)
@@ -370,7 +370,7 @@ void kill_menu(struct GuiMenu *gmnu)
     if (gmnu->visual_state != 0)
     {
       gmnu->visual_state = 0;
-      for (int i = 0; i < ACTIVE_BUTTONS_COUNT; i++)
+      for (int i = 0; i < ACTIVE_BUTTONS_COUNT; ++i)
       {
           struct GuiButton* gbtn = &active_buttons[i];
           if ((gbtn->flags & LbBtnF_Unknown01) && (gbtn->gmenu_idx == gmnu->number)) {
@@ -383,7 +383,7 @@ void kill_menu(struct GuiMenu *gmnu)
 void remove_from_menu_stack(short mnu_id)
 {
     unsigned short i;
-    for (i=0; i<no_of_active_menus; i++)
+    for (i=0; i<no_of_active_menus; ++i)
     {
         if (menu_stack[i] == mnu_id)
         {
@@ -407,7 +407,7 @@ void add_to_menu_stack(unsigned char mnu_idx)
       return;
     }
 
-    for (short i = 0; i < no_of_active_menus; i++)
+    for (short i = 0; i < no_of_active_menus; ++i)
     {
       if (menu_stack[i] == mnu_idx)
       { // If already in stack, move it at end of the stack.
@@ -429,7 +429,7 @@ void add_to_menu_stack(unsigned char mnu_idx)
 
 long first_available_menu(void)
 {
-    for (short i = 0; i < ACTIVE_MENUS_COUNT; i++)
+    for (short i = 0; i < ACTIVE_MENUS_COUNT; ++i)
     {
         if (active_menus[i].visual_state == 0)
             return i;

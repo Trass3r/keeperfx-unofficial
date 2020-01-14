@@ -57,7 +57,7 @@ void add_task_list_entry(PlayerNumber plyr_idx, unsigned char kind, SubtlCodedCo
     // Find free task index
     int task_idx;
     struct MapTask  *mtask;
-    for (task_idx=0; task_idx < dungeon->field_AF7; task_idx++)
+    for (task_idx=0; task_idx < dungeon->field_AF7; ++task_idx)
     {
         mtask = &dungeon->task_list[task_idx];
         if (mtask->kind == 0)
@@ -84,7 +84,7 @@ long find_from_task_list(PlayerNumber plyr_idx, SubtlCodedCoords srch_tsk)
     long imax = dungeon->field_AF7;
     if (imax > MAPTASKS_COUNT)
         imax = MAPTASKS_COUNT;
-    for (long i = 0; i < imax; i++)
+    for (long i = 0; i < imax; ++i)
     {
         struct MapTask* mtask = &dungeon->task_list[i];
         if (mtask->coords == srch_tsk)
@@ -100,7 +100,7 @@ long find_from_task_list_by_slab(PlayerNumber plyr_idx, MapSlabCoord slb_x, MapS
     long imax = dungeon->field_AF7;
     if (imax > MAPTASKS_COUNT)
         imax = MAPTASKS_COUNT;
-    for (long i = 0; i < imax; i++)
+    for (long i = 0; i < imax; ++i)
     {
         struct MapTask* mtask = &dungeon->task_list[i];
         if (mtask->coords == srch_tsk)
@@ -116,7 +116,7 @@ long find_from_task_list_by_subtile(PlayerNumber plyr_idx, MapSlabCoord stl_x, M
     long imax = dungeon->field_AF7;
     if (imax > MAPTASKS_COUNT)
         imax = MAPTASKS_COUNT;
-    for (long i = 0; i < imax; i++)
+    for (long i = 0; i < imax; ++i)
     {
         struct MapTask* mtask = &dungeon->task_list[i];
         if (mtask->coords == srch_tsk)
@@ -131,7 +131,7 @@ long find_dig_from_task_list(PlayerNumber plyr_idx, SubtlCodedCoords srch_tsk)
     long imax = dungeon->field_AF7;
     if (imax > MAPTASKS_COUNT)
         imax = MAPTASKS_COUNT;
-    for (long i = 0; i < imax; i++)
+    for (long i = 0; i < imax; ++i)
     {
         struct MapTask* mtask = &dungeon->task_list[i];
         if ((mtask->coords == srch_tsk))
@@ -145,7 +145,7 @@ long find_next_dig_in_dungeon_task_list(struct Dungeon *dungeon, long last_dig)
     long mtasks_num = dungeon->field_AF7;
     if (mtasks_num > MAPTASKS_COUNT)
         mtasks_num = MAPTASKS_COUNT;
-    for (long i = last_dig + 1; i < mtasks_num; i++)
+    for (long i = last_dig + 1; i < mtasks_num; ++i)
     {
         struct MapTask* mtask = &dungeon->task_list[i];
         if ((mtask->kind != SDDigTask_None))

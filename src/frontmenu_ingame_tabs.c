@@ -146,7 +146,7 @@ short get_button_designation(short btn_group, short btn_item)
         case TERRAIN_ITEMS_MAX+1:
             return BID_ROOM_TD16;
         }
-        for (i=0; i < 4*4; i++)
+        for (i=0; i < 4*4; ++i)
         {
             struct GuiButtonInit * ibtn;
             ibtn = &room_menu.buttons[i];
@@ -155,7 +155,7 @@ short get_button_designation(short btn_group, short btn_item)
         }
         break;
     case GID_POWER_PANE:
-        for (i=0; i < 4*4; i++)
+        for (i=0; i < 4*4; ++i)
         {
             struct GuiButtonInit * ibtn;
             ibtn = &spell_menu.buttons[i];
@@ -170,7 +170,7 @@ short get_button_designation(short btn_group, short btn_item)
             return BID_MNFCT_TD10;
         }
         n = get_manufacture_data_index_for_thing(TCls_Trap, btn_item);
-        for (i=0; i < 4*4; i++)
+        for (i=0; i < 4*4; ++i)
         {
             struct GuiButtonInit * ibtn;
             ibtn = &trap_menu.buttons[i];
@@ -185,7 +185,7 @@ short get_button_designation(short btn_group, short btn_item)
             return BID_MNFCT_TD10;
         }
         n = get_manufacture_data_index_for_thing(TCls_Door, btn_item);
-        for (i=0; i < 4*4; i++)
+        for (i=0; i < 4*4; ++i)
         {
             struct GuiButtonInit * ibtn;
             ibtn = &trap_menu.buttons[i];
@@ -462,7 +462,7 @@ void gui_area_big_room_button(struct GuiButton *gbtn)
         }
         // We will use a special coding for our "string" - we want chars to represent
         // sprite index directly, without code pages and multibyte chars interpretation
-        for (i=0; gui_textbuf[i] != '\0'; i++)
+        for (i=0; gui_textbuf[i] != '\0'; ++i)
             gui_textbuf[i] -= 120;
     } else
     {
@@ -609,7 +609,7 @@ void gui_area_big_spell_button(struct GuiButton *gbtn)
         } else {
             draw_gui_panel_sprite_left(gbtn->scr_pos_x - 4*units_per_px/16, gbtn->scr_pos_y - 32*units_per_px/16, ps_units_per_px, gbtn->sprite_idx);
         }
-        for (char* c = text; *c != 0; c++)
+        for (char* c = text; *c != 0; ++c)
         {
             *c -= 120;
         }
@@ -1372,7 +1372,7 @@ void gui_area_anger_button(struct GuiButton *gbtn)
           // sprite index directly, without code pages and multibyte chars interpretation
           if ((cr_total > 0) && (dungeon->guijob_all_creatrs_count[crmodel][(job_idx & 0x03)] ))
           {
-              for (i=0; gui_textbuf[i] != '\0'; i++)
+              for (i=0; gui_textbuf[i] != '\0'; ++i)
                   gui_textbuf[i] -= 120;
           }
           LbTextUseByteCoding(false);
@@ -1390,7 +1390,7 @@ long anger_get_creature_highest_anger_type_and_byte_percentage(struct Thing *cre
     long angr_lmt = crstat->annoy_level;
     int angr_typ = 0;
     long angr_lvl = 0;
-    for (int i = 1; i < 5; i++)
+    for (int i = 1; i < 5; ++i)
     {
         if (angr_lvl < cctrl->annoyance_level[i])
         {
@@ -1579,7 +1579,7 @@ void gui_activity_background(struct GuiMenu *gmnu)
       visible_count = 1;
     if (visible_count >= 6)
         visible_count = 6;
-    for (int i = 0; i < visible_count; i++)
+    for (int i = 0; i < visible_count; ++i)
     {
         ThingModel crmodel;
         if ( (i > 0) && (top_of_breed_list+i < CREATURE_TYPES_COUNT) )
@@ -1590,7 +1590,7 @@ void gui_activity_background(struct GuiMenu *gmnu)
         activity_list[4*i+0] = 0;
         activity_list[4*i+1] = 0;
         activity_list[4*i+2] = 0;
-        for (int n = 0; n < 15; n++)
+        for (int n = 0; n < 15; ++n)
         {
             int job_idx = state_type_to_gui_state[n];
             switch (job_idx)
@@ -2130,7 +2130,7 @@ void update_room_tab_to_config(void)
 {
     int i;
     // Clear 4x4 area of buttons, but skip "sell" button at end
-    for (i=0; i < 4*4-1; i++)
+    for (i=0; i < 4*4-1; ++i)
     {
         struct GuiButtonInit* ibtn = &room_menu.buttons[i];
         ibtn->sprite_idx = 24;
@@ -2141,7 +2141,7 @@ void update_room_tab_to_config(void)
         ibtn->ptover_event = NULL;
         ibtn->draw_call = gui_area_new_null_button;
     }
-    for (i=0; i < slab_conf.room_types_count; i++)
+    for (i=0; i < slab_conf.room_types_count; ++i)
     {
         struct RoomConfigStats* roomst = &slab_conf.room_cfgstats[i];
         if (roomst->panel_tab_idx < 1)
@@ -2161,7 +2161,7 @@ void update_trap_tab_to_config(void)
 {
     int i;
     // Clear 4x4 area of buttons, but skip "sell" button at end
-    for (i=0; i < 4*4-1; i++)
+    for (i=0; i < 4*4-1; ++i)
     {
         struct GuiButtonInit* ibtn = &trap_menu.buttons[i];
         ibtn->sprite_idx = 24;
@@ -2173,7 +2173,7 @@ void update_trap_tab_to_config(void)
         ibtn->draw_call = gui_area_new_null_button;
         ibtn->maintain_call = NULL;
     }
-    for (i=0; i < trapdoor_conf.manufacture_types_count; i++)
+    for (i=0; i < trapdoor_conf.manufacture_types_count; ++i)
     {
         struct ManufactureData* manufctr = get_manufacture_data(i);
         if (manufctr->panel_tab_idx < 1)
@@ -2208,7 +2208,7 @@ void update_powers_tab_to_config(void)
 {
     int i;
     // Clear 4x4 area of buttons, no "sell" button at end
-    for (i=0; i < 4*4; i++)
+    for (i=0; i < 4*4; ++i)
     {
         struct GuiButtonInit* ibtn = &spell_menu.buttons[i];
         ibtn->sprite_idx = 24;
@@ -2220,7 +2220,7 @@ void update_powers_tab_to_config(void)
         ibtn->draw_call = gui_area_new_null_button;
         ibtn->maintain_call = NULL;
     }
-    for (i=0; i < magic_conf.power_types_count; i++)
+    for (i=0; i < magic_conf.power_types_count; ++i)
     {
         struct PowerConfigStats* powerst = get_power_model_stats(i);
         if (powerst->panel_tab_idx < 1)

@@ -391,7 +391,7 @@ long add_creature_to_group_as_leader(struct Thing *creatng, struct Thing *grptng
 
 struct Party *get_party_of_name(const char *prtname)
 {
-    for (int i = 0; i < game.script.creature_partys_num; i++)
+    for (int i = 0; i < game.script.creature_partys_num; ++i)
     {
         struct Party* party = &game.script.creature_partys[i];
         if (strcasecmp(party->prtname, prtname) == 0)
@@ -402,7 +402,7 @@ struct Party *get_party_of_name(const char *prtname)
 
 int get_party_index_of_name(const char *prtname)
 {
-    for (int i = 0; i < game.script.creature_partys_num; i++)
+    for (int i = 0; i < game.script.creature_partys_num; ++i)
     {
         struct Party* party = &game.script.creature_partys[i];
         if (strcasecmp(party->prtname, prtname) == 0)
@@ -471,7 +471,7 @@ TbBool get_free_position_behind_leader(struct Thing *leadtng, struct Coord3d *po
 {
     struct CreatureControl* leadctrl = creature_control_get_from_thing(leadtng);
     int group_len = (leadctrl->group_info >> 12);
-    for (int i = 0; i < group_len; i++)
+    for (int i = 0; i < group_len; ++i)
     {
         struct MemberPos* avail_pos = &leadctrl->followers_pos[i];
         if (((avail_pos->flags & 0x02) != 0) && ((avail_pos->flags & 0x01) == 0))
@@ -560,7 +560,7 @@ void leader_find_positions_for_followers(struct Thing *leadtng)
     {
         SYNCDBG(7,"Reusing positions for %d followers of %s index %d owned by player %d",
             group_len,thing_model_name(leadtng),(int)leadtng->index,(int)leadtng->owner);
-        for (int i = 0; i < GROUP_MEMBERS_COUNT; i++)
+        for (int i = 0; i < GROUP_MEMBERS_COUNT; ++i)
         {
           cctrl->followers_pos[i].flags &= ~0x01;
         }

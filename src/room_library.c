@@ -129,7 +129,7 @@ EventIndex update_library_object_pickup_event(struct Thing *creatng, struct Thin
 
 void init_dungeons_research(void)
 {
-    for (int i = 0; i < DUNGEONS_COUNT; i++)
+    for (int i = 0; i < DUNGEONS_COUNT; ++i)
     {
         struct Dungeon* dungeon = get_dungeon(i);
         dungeon->current_research_idx = get_next_research_item(dungeon);
@@ -152,7 +152,7 @@ TbBool research_overriden_for_player(PlayerNumber plyr_idx)
 
 TbBool clear_research_for_all_players(void)
 {
-    for (int plyr_idx = 0; plyr_idx < DUNGEONS_COUNT; plyr_idx++)
+    for (int plyr_idx = 0; plyr_idx < DUNGEONS_COUNT; ++plyr_idx)
     {
         struct Dungeon* dungeon = get_dungeon(plyr_idx);
         dungeon->research_num = 0;
@@ -215,7 +215,7 @@ TbBool add_research_to_all_players(long rtyp, long rkind, long amount)
 {
     TbBool result = true;
     SYNCDBG(17, "Adding type %d, kind %d, amount %d", rtyp, rkind, amount);
-    for (long i = 0; i < PLAYERS_COUNT; i++)
+    for (long i = 0; i < PLAYERS_COUNT; ++i)
     {
         result &= add_research_to_player(i, rtyp, rkind, amount);
   }
@@ -225,7 +225,7 @@ TbBool add_research_to_all_players(long rtyp, long rkind, long amount)
 TbBool update_players_research_amount(PlayerNumber plyr_idx, long rtyp, long rkind, long amount)
 {
     struct Dungeon* dungeon = get_dungeon(plyr_idx);
-    for (long i = 0; i < dungeon->research_num; i++)
+    for (long i = 0; i < dungeon->research_num; ++i)
     {
         struct ResearchVal* resrch = &dungeon->research[i];
         if ((resrch->rtyp == rtyp) && (resrch->rkind = rkind))

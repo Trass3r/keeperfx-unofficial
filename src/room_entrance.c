@@ -164,7 +164,7 @@ long calculate_excess_attraction_for_creature(ThingModel crmodel, PlayerNumber p
 
     struct CreatureStats* stats = creature_stats_get(crmodel);
     long excess_attraction = 0;
-    for (int i = 0; i < ENTRANCE_ROOMS_COUNT; i++)
+    for (int i = 0; i < ENTRANCE_ROOMS_COUNT; ++i)
     {
         RoomKind room_kind = stats->entrance_rooms[i];
         if ((room_kind != RoK_NONE) && (stats->entrance_slabs_req[i] > 0)) {
@@ -238,7 +238,7 @@ int calculate_creature_to_generate_for_dungeon(const struct Dungeon * dungeon)
     long gen_count = 0;
     long crtr_freq[CREATURE_TYPES_COUNT];
     crtr_freq[0] = 0;
-    for (crmodel = 1; crmodel < CREATURE_TYPES_COUNT; crmodel++)
+    for (crmodel = 1; crmodel < CREATURE_TYPES_COUNT; ++crmodel)
     {
         if (creature_will_generate_for_dungeon(dungeon, crmodel))
         {
@@ -365,7 +365,7 @@ void process_entrance_generation(void)
         }
     }
 
-    for (long i = 0; i < PLAYERS_COUNT; i++)
+    for (long i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* plyr = get_player(i);
         if (!player_exists(plyr)) {

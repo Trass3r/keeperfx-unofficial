@@ -196,7 +196,7 @@ TbBool player_is_friendly_or_defeated(PlayerNumber check_plyr_idx, PlayerNumber 
 
 void clear_players(void)
 {
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = &game.players[i];
         LbMemorySet(player, 0, sizeof(struct PlayerInfo));

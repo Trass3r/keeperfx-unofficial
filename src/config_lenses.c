@@ -133,7 +133,7 @@ TbBool parse_lenses_data_blocks(char *buf, long len, const char *config_textname
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(lenses_conf.lenses)/sizeof(lenses_conf.lenses[0]);
-      for (i=0; i < arr_size; i++)
+      for (i=0; i < arr_size; ++i)
       {
           lenscfg = &lenses_conf.lenses[i];
           LbMemorySet(lenscfg->code_name, 0, COMMAND_WORD_LEN);
@@ -158,7 +158,7 @@ TbBool parse_lenses_data_blocks(char *buf, long len, const char *config_textname
   }
   // Load the file
   arr_size = lenses_conf.lenses_count;
-  for (i=0; i < arr_size; i++)
+  for (i=0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "lens%d", i);

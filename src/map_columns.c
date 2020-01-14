@@ -233,7 +233,7 @@ void make_solidmask(struct Column *col)
 {
   int i;
   col->solidmask = 0;
-  for (i=0; i<COLUMN_STACK_HEIGHT; i++)
+  for (i=0; i<COLUMN_STACK_HEIGHT; ++i)
   {
     if (col->cubes[i] != 0)
       col->solidmask |= (1 << i);
@@ -315,7 +315,7 @@ long find_column(struct Column *colmn)
 /*long find_column(struct Column *srccol)
 {
     int i;
-    for (i=1; i < COLUMNS_COUNT; i++) {
+    for (i=1; i < COLUMNS_COUNT; ++i) {
         struct Column *col;
         col = get_column(i);
         if (column_is_equivalent(srccol, col)) {
@@ -334,7 +334,7 @@ void clear_columns(void)
 {
   struct Column *colmn;
   int i;
-  for (i=0; i < COLUMNS_COUNT; i++)
+  for (i=0; i < COLUMNS_COUNT; ++i)
   {
     colmn = &game.columns_data[i];
     LbMemorySet(colmn, 0, sizeof(struct Column));
@@ -344,7 +344,7 @@ void clear_columns(void)
   game.field_149E6E = -1;
   game.field_149E7C = 24;
   game.unrevealed_column_idx = 0;
-  for (i=0; i < 18; i++)
+  for (i=0; i < 18; ++i)
   {
     game.field_14A818[i] = 0;
   }
@@ -354,7 +354,7 @@ void init_columns(void)
 {
     //_DK_init_columns();
     int i;
-    for (i=1; i < COLUMNS_COUNT; i++)
+    for (i=1; i < COLUMNS_COUNT; ++i)
     {
         struct Column *col;
         col = get_column(i);
@@ -364,7 +364,7 @@ void init_columns(void)
             mskbit = 1;
             col->solidmask = 0;
             int n;
-            for (n=0; n < COLUMN_STACK_HEIGHT; n++)
+            for (n=0; n < COLUMN_STACK_HEIGHT; ++n)
             {
                 if (col->cubes[n] != 0) {
                     col->solidmask |= mskbit;
@@ -373,7 +373,7 @@ void init_columns(void)
             }
             if (col->solidmask)
             {
-                for (n=0; n < COLUMN_STACK_HEIGHT; n++)
+                for (n=0; n < COLUMN_STACK_HEIGHT; ++n)
                 {
                     if (col->cubes[n] == 0) {
                         break;
@@ -385,7 +385,7 @@ void init_columns(void)
             }
             set_column_floor_filled_subtiles(col, n);
             n = get_column_floor_filled_subtiles(col);
-            for (;n < COLUMN_STACK_HEIGHT; n++)
+            for (;n < COLUMN_STACK_HEIGHT; ++n)
             {
                 if (col->cubes[n] != 0) {
                   break;
@@ -440,10 +440,10 @@ void init_top_texture_to_cube_table(void)
     //_DK_init_top_texture_to_cube_table();
     LbMemorySet(game.field_14BB65, 0, sizeof(game.field_14BB65));
     int n;
-    for (n=1; n < 592; n++)
+    for (n=1; n < 592; ++n)
     {
         int i;
-        for (i=1; i < CUBE_ITEMS_MAX; i++)
+        for (i=1; i < CUBE_ITEMS_MAX; ++i)
         {
             struct CubeAttribs * cubed;
             cubed = &game.cubes_data[i];

@@ -419,9 +419,9 @@ TbBool creature_can_pass_throgh_wall_at(const struct Thing *creatng, const struc
         MapSubtlCoord stl_y_beg = coord_subtile(pos->y.val - radius);
         MapSubtlCoord stl_y_end = coord_subtile(pos->y.val + radius);
         TbBool allow = false;
-        for (MapSubtlCoord stl_y = stl_y_beg; stl_y <= stl_y_end; stl_y++)
+        for (MapSubtlCoord stl_y = stl_y_beg; stl_y <= stl_y_end; ++stl_y)
         {
-            for (MapSubtlCoord stl_x = stl_x_beg; stl_x <= stl_x_end; stl_x++)
+            for (MapSubtlCoord stl_x = stl_x_beg; stl_x <= stl_x_end; ++stl_x)
             {
                 if (subtile_is_door(stl_x, stl_y)) {
                     allow = true;
@@ -452,9 +452,9 @@ long thing_in_wall_at(const struct Thing *thing, const struct Coord3d *pos)
     MapSubtlCoord stl_x_end = coord_subtile(pos->x.val + radius);
     MapSubtlCoord stl_y_beg = coord_subtile(pos->y.val - radius);
     MapSubtlCoord stl_y_end = coord_subtile(pos->y.val + radius);
-    for (MapSubtlCoord stl_y = stl_y_beg; stl_y <= stl_y_end; stl_y++)
+    for (MapSubtlCoord stl_y = stl_y_beg; stl_y <= stl_y_end; ++stl_y)
     {
-        for (MapSubtlCoord stl_x = stl_x_beg; stl_x <= stl_x_end; stl_x++)
+        for (MapSubtlCoord stl_x = stl_x_beg; stl_x <= stl_x_end; ++stl_x)
         {
             if (map_is_solid_at_height(stl_x, stl_y, height_beg, height_end)) {
                 return 1;
@@ -472,9 +472,9 @@ long thing_in_wall_at_with_radius(const struct Thing *thing, const struct Coord3
     MapSubtlCoord stl_x_end = coord_subtile(pos->x.val + radius);
     MapSubtlCoord stl_y_beg = coord_subtile(pos->y.val - radius);
     MapSubtlCoord stl_y_end = coord_subtile(pos->y.val + radius);
-    for (MapSubtlCoord stl_y = stl_y_beg; stl_y <= stl_y_end; stl_y++)
+    for (MapSubtlCoord stl_y = stl_y_beg; stl_y <= stl_y_end; ++stl_y)
     {
-        for (MapSubtlCoord stl_x = stl_x_beg; stl_x <= stl_x_end; stl_x++)
+        for (MapSubtlCoord stl_x = stl_x_beg; stl_x <= stl_x_end; ++stl_x)
         {
             struct Map* mapblk = get_map_block_at(stl_x, stl_y);
             if ((mapblk->flags & SlbAtFlg_Blocking) != 0) {
@@ -640,7 +640,7 @@ TbBool things_collide_while_first_moves_to(const struct Thing *firstng, const st
         MapCoordDelta dt_limit = (sectng->solid_size_xy + firstng->solid_size_xy) / 4 + 1;
         interpoints = dt_max / dt_limit;
     }
-    for (int i = 1; i < interpoints; i++)
+    for (int i = 1; i < interpoints; ++i)
     {
         struct Coord3d pos;
         pos.x.val = firstng->mappos.x.val + dt.x.val * i / interpoints;

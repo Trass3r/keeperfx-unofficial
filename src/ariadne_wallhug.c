@@ -237,7 +237,7 @@ long slab_wall_hug_route(struct Thing *thing, struct Coord3d *pos, long max_val)
     next_pos.x.val = curr_pos.x.val;
     next_pos.y.val = curr_pos.y.val;
     next_pos.z.val = curr_pos.z.val;
-    for (int i = 0; i < max_val; i++)
+    for (int i = 0; i < max_val; ++i)
     {
         if ((curr_pos.x.stl.num == stl_x) && (curr_pos.y.stl.num == stl_y)) {
             return i + 1;
@@ -618,7 +618,7 @@ TbBool find_approach_position_to_subtile(const struct Coord3d *srcpos, MapSubtlC
     targetpos.y.val = subtile_coord_center(stl_y);
     targetpos.z.val = 0;
     long min_dist = LONG_MAX;
-    for (long n = 0; n < SMALL_AROUND_SLAB_LENGTH; n++)
+    for (long n = 0; n < SMALL_AROUND_SLAB_LENGTH; ++n)
     {
         long dx = spacing * (long)small_around[n].delta_x;
         long dy = spacing * (long)small_around[n].delta_y;
@@ -1097,7 +1097,7 @@ long dig_to_position(PlayerNumber plyr_idx, MapSubtlCoord basestl_x, MapSubtlCoo
       round_change = 3;
     }
     long round_idx = (direction_around + SMALL_AROUND_LENGTH - round_change) % SMALL_AROUND_LENGTH;
-    for (long i = 0; i < SMALL_AROUND_LENGTH; i++)
+    for (long i = 0; i < SMALL_AROUND_LENGTH; ++i)
     {
         MapSubtlCoord stl_x = basestl_x + STL_PER_SLB * (int)small_around[round_idx].delta_x;
         MapSubtlCoord stl_y = basestl_y + STL_PER_SLB * (int)small_around[round_idx].delta_y;
@@ -1138,7 +1138,7 @@ static inline void get_hug_side_next_step(MapSubtlCoord dst_stl_x, MapSubtlCoord
         // Try directions starting at the one towards the wall, in case wall has ended
         round_idx = (*round + SMALL_AROUND_LENGTH + dirctn) % SMALL_AROUND_LENGTH;
         int n;
-        for (n = 0; n < SMALL_AROUND_LENGTH; n++)
+        for (n = 0; n < SMALL_AROUND_LENGTH; ++n)
         {
             dx = small_around[round_idx].delta_x;
             dy = small_around[round_idx].delta_y;

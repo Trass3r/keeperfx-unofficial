@@ -173,9 +173,9 @@ void set_whole_slab_owner(MapSlabCoord slb_x, MapSlabCoord slb_y, PlayerNumber o
 {
     MapSubtlCoord stl_x = STL_PER_SLB * slb_x;
     MapSubtlCoord stl_y = STL_PER_SLB * slb_y;
-    for (long i = 0; i < STL_PER_SLB; i++)
+    for (long i = 0; i < STL_PER_SLB; ++i)
     {
-        for (long k = 0; k < STL_PER_SLB; k++)
+        for (long k = 0; k < STL_PER_SLB; ++k)
         {
             struct SlabMap* slb = get_slabmap_for_subtile(stl_x + k, stl_y + i);
             slabmap_set_owner(slb, owner);
@@ -276,9 +276,9 @@ TbBool can_build_room_at_slab(PlayerNumber plyr_idx, RoomKind rkind,
  */
 void clear_slabs(void)
 {
-    for (unsigned long y = 0; y < map_tiles_y; y++)
+    for (unsigned long y = 0; y < map_tiles_y; ++y)
     {
-        for (unsigned long x = 0; x < map_tiles_x; x++)
+        for (unsigned long x = 0; x < map_tiles_x; ++x)
         {
             struct SlabMap* slb = &game.slabmap[y * map_tiles_x + x];
             LbMemorySet(slb, 0, sizeof(struct SlabMap));
@@ -432,7 +432,7 @@ void update_map_collide(SlabKind slbkind, MapSubtlCoord stl_x, MapSubtlCoord stl
     }
     unsigned long smask = colmn->solidmask;
     MapSubtlCoord stl_z;
-    for (stl_z=0; stl_z < map_subtiles_z; stl_z++)
+    for (stl_z=0; stl_z < map_subtiles_z; ++stl_z)
     {
         if ((smask & 0x01) == 0)
             break;
@@ -451,7 +451,7 @@ void update_map_collide(SlabKind slbkind, MapSubtlCoord stl_x, MapSubtlCoord stl
 
 void do_slab_efficiency_alteration(MapSlabCoord slb_x, MapSlabCoord slb_y)
 {
-    for (long n = 0; n < SMALL_AROUND_SLAB_LENGTH; n++)
+    for (long n = 0; n < SMALL_AROUND_SLAB_LENGTH; ++n)
     {
         MapSlabCoord sslb_x = slb_x + small_around[n].delta_x;
         MapSlabCoord sslb_y = slb_y + small_around[n].delta_y;
@@ -504,7 +504,7 @@ SlabKind choose_rock_type(PlayerNumber plyr_idx, MapSlabCoord slb_x, MapSlabCoor
 int count_owned_ground_around(PlayerNumber plyr_idx, MapSlabCoord slb_x, MapSlabCoord slb_y)
 {
     int num_owned = 0;
-    for (int i = 0; i < SMALL_AROUND_SLAB_LENGTH; i++)
+    for (int i = 0; i < SMALL_AROUND_SLAB_LENGTH; ++i)
     {
         MapSlabCoord sslb_x = slb_x + small_around[i].delta_x;
         MapSlabCoord sslb_y = slb_y + small_around[i].delta_y;
@@ -527,7 +527,7 @@ int count_owned_ground_around(PlayerNumber plyr_idx, MapSlabCoord slb_x, MapSlab
 void unfill_reinforced_corners(PlayerNumber keep_plyr_idx, MapSlabCoord base_slb_x, MapSlabCoord base_slb_y)
 {
     //_DK_unfill_reinforced_corners(plyr_idx, base_slb_x, base_slb_y); return;
-    for (int i = 0; i < SMALL_AROUND_SLAB_LENGTH; i++)
+    for (int i = 0; i < SMALL_AROUND_SLAB_LENGTH; ++i)
     {
         MapSlabCoord slb_x = base_slb_x + small_around[i].delta_x;
         MapSlabCoord slb_y = base_slb_y + small_around[i].delta_y;
@@ -554,7 +554,7 @@ void unfill_reinforced_corners(PlayerNumber keep_plyr_idx, MapSlabCoord base_slb
  */
 void do_unprettying(PlayerNumber keep_plyr_idx, MapSlabCoord slb_x, MapSlabCoord slb_y)
 {
-    for (long n = 0; n < SMALL_AROUND_SLAB_LENGTH; n++)
+    for (long n = 0; n < SMALL_AROUND_SLAB_LENGTH; ++n)
     {
         long sslb_x = slb_x + (long)small_around[n].delta_x;
         long sslb_y = slb_y + (long)small_around[n].delta_y;

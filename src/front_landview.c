@@ -704,11 +704,11 @@ void frontzoom_to_point(long map_x, long map_y, long zoom)
     unsigned char* dst = dst_buf;
     long dst_width = scr_x;
     long dst_height = scr_y;
-    for (y=0; y <= dst_height; y++)
+    for (y=0; y <= dst_height; ++y)
     {
         bpos_x = 0;
         src = &src_buf[-LANDVIEW_MAP_WIDTH*(bpos_y >> 8)];
-        for (x=0; x <= dst_width; x++)
+        for (x=0; x <= dst_width; ++x)
         {
           bpos_x += src_delta;
           dst[-x] = src[-(bpos_x >> 8)];
@@ -721,11 +721,11 @@ void frontzoom_to_point(long map_x, long map_y, long zoom)
     dst = dst_buf + 1;
     dst_width = -scr_x + lbDisplay.PhysicalScreenWidth - 1; // one pixel less in destination
     dst_height = scr_y;
-    for (y=0; y <= dst_height; y++)
+    for (y=0; y <= dst_height; ++y)
     {
         bpos_x = (1 << 8); // one pixel less in source
         src = &src_buf[-LANDVIEW_MAP_WIDTH*(bpos_y >> 8)];
-        for (x=0; x < dst_width; x++)
+        for (x=0; x < dst_width; ++x)
         {
           bpos_x += src_delta;
           dst[x] = src[(bpos_x >> 8)];
@@ -738,11 +738,11 @@ void frontzoom_to_point(long map_x, long map_y, long zoom)
     dst = dst_buf + dst_scanln;
     dst_width = scr_x;
     dst_height = -scr_y + lbDisplay.PhysicalScreenHeight - 1; // one pixel less in destination
-    for (y=0; y < dst_height; y++)
+    for (y=0; y < dst_height; ++y)
     {
         bpos_x = 0;
         src = &src_buf[LANDVIEW_MAP_WIDTH*(bpos_y >> 8)];
-        for (x=0; x <= dst_width; x++)
+        for (x=0; x <= dst_width; ++x)
         {
             bpos_x += src_delta;
             dst[-x] = src[-(bpos_x >> 8)];
@@ -755,11 +755,11 @@ void frontzoom_to_point(long map_x, long map_y, long zoom)
     dst = dst_buf + dst_scanln + 1;
     dst_width = -scr_x + lbDisplay.PhysicalScreenWidth - 1;
     dst_height = -scr_y + lbDisplay.PhysicalScreenHeight - 1;
-    for (y=0; y < dst_height; y++)
+    for (y=0; y < dst_height; ++y)
     {
         bpos_x = (1 << 8);
         src = &src_buf[LANDVIEW_MAP_WIDTH*(bpos_y >> 8)];
-        for (x=0; x < dst_width; x++)
+        for (x=0; x < dst_width; ++x)
         {
             dst[x] = src[(bpos_x >> 8)];
             bpos_x += src_delta;
@@ -958,7 +958,7 @@ TbBool frontnetmap_load(void)
     if (fe_network_active)
     {
         net_number_of_players = 0;
-        for (long i = 0; i < 4; i++)
+        for (long i = 0; i < 4; ++i)
         {
             struct ScreenPacket* nspck = &net_screen_packet[i];
             if ((nspck->field_4 & 0x01) != 0)
@@ -1279,7 +1279,7 @@ void draw_netmap_players_hands(void)
   long i;
   long k;
   long n;
-  for (i=0; i < NET_PLAYERS_COUNT; i++)
+  for (i=0; i < NET_PLAYERS_COUNT; ++i)
   {
       nspck = &net_screen_packet[i];
       plyr_nam = network_player_name(i);
@@ -1629,7 +1629,7 @@ TbBool frontnetmap_update_players(struct NetMapPlayersState * nmps)
 {
     LbMemorySet(scratch, 0, PALETTE_SIZE);
     long tmp2 = -1;
-    for (long i = 0; i < NET_PLAYERS_COUNT; i++)
+    for (long i = 0; i < NET_PLAYERS_COUNT; ++i)
     {
         struct ScreenPacket* nspck = &net_screen_packet[i];
         if ((nspck->field_4 & 0x01) == 0)

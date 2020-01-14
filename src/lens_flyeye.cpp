@@ -82,7 +82,7 @@ CHex::CHex(long width, long height)
     this->arrB[3] = mheight + 30;
     this->arrA[5] = mwidth - 15;
     this->arrB[5] = mheight + 60;
-    for (i=0; i < 6; i++)
+    for (i=0; i < 6; ++i)
     {
       varA = this->arrA[i];
       varB = this->arrB[i];
@@ -98,7 +98,7 @@ void CHex::DrawOutline(void)
 {
     long i;
     long k;
-    for (i=0; i < 6; i++)
+    for (i=0; i < 6; ++i)
     {
         k = (i + 1) % 6;
         LbDrawLine(this->arrA[i], this->arrB[i], this->arrA[k], this->arrB[k], 0xFFu);
@@ -121,7 +121,7 @@ void CHex::AddScan(struct CScan *scan, long strip_len, long len_limit, long nstr
         return;
     n = 0;
     // Find index for new strip
-    for (i = 0; ; i++)
+    for (i = 0; ; ++i)
     {
       if (i >= scan->strips_num)
       {
@@ -174,7 +174,7 @@ void CHex::BlitHex(void)
     int i;
     int n;
     min_idx = 0;
-    for (i = 1; i < 6; i++)
+    for (i = 1; i < 6; ++i)
     {
         if (this->arrB[i] < this->arrB[min_idx])
             min_idx = i;
@@ -239,12 +239,12 @@ void flyeye_setup(long width, long height)
     ScrCenterY = (height >> 1);
     ScrHeight = height;
     ScanBuffer = (struct CScan *)eye_lens_memory;
-    for (i=0; i < ScrHeight; i++)
+    for (i=0; i < ScrHeight; ++i)
     {
         ScanBuffer[i].strips_num = 0;
     }
-    for (y=-12; y <= 12; y++) {
-        for (x=-12; x <= 12; x++) {
+    for (y=-12; y <= 12; ++y) {
+        for (x=-12; x <= 12; ++x) {
             class CHex chx(x, y);
             chx.BlitHex();
         }
@@ -266,7 +266,7 @@ void CHex::BlitScan(struct CScan *scan, long h)
   long end_w;
   long i;
   SYNCDBG(16,"Starting line %d",h);
-  for(i=0; i < scan->strips_num; i++)
+  for(i=0; i < scan->strips_num; ++i)
   {
       w = scan->strip_len[i];
       if (i == scan->strips_num - 1)
@@ -304,7 +304,7 @@ void flyeye_blitsec(unsigned char *srcbuf, long srcpitch, unsigned char *dstbuf,
     lens_Screen = dstbuf;
     lens_ScreenPitch = dstpitch;
     // Draw lines
-    for (h=start_h; h < end_h; h++)
+    for (h=start_h; h < end_h; ++h)
     {
         CHex::BlitScan(&ScanBuffer[h], h);
     }

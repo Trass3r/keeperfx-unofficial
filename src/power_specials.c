@@ -199,7 +199,7 @@ TbBool steal_hero(struct PlayerInfo *player, struct Coord3d *pos)
         i = cctrl->players_next_creature_idx;
         // Thing list loop body
         TbBool heroallow = true;
-        for (ThingModel skipidx = 0; skipidx < sizeof(skip_steal_models) / sizeof(skip_steal_models[0]); skipidx++)
+        for (ThingModel skipidx = 0; skipidx < sizeof(skip_steal_models) / sizeof(skip_steal_models[0]); ++skipidx)
         {
             if (thing->model == skip_steal_models[skipidx]) {
                 heroallow = false;
@@ -248,9 +248,9 @@ void make_safe(struct PlayerInfo *player)
     MapSlabCoord slb_x;
     MapSlabCoord slb_y;
     // Prepare the array to remember which slabs were already taken care of
-    for (slb_y=0; slb_y < map_tiles_y; slb_y++)
+    for (slb_y=0; slb_y < map_tiles_y; ++slb_y)
     {
-        for (slb_x=0; slb_x < map_tiles_x; slb_x++)
+        for (slb_x=0; slb_x < map_tiles_x; ++slb_x)
         {
             SlabCodedCoords slb_num = get_slab_number(slb_x, slb_y);
             struct SlabMap* slb = get_slabmap_direct(slb_num);

@@ -208,7 +208,7 @@ const struct NamedCommand sacrifice_unique_desc[] = {
  */
 struct SacrificeRecipe *get_unused_sacrifice_recipe_slot(void)
 {
-    for (long i = 1; i < MAX_SACRIFICE_RECIPES; i++)
+    for (long i = 1; i < MAX_SACRIFICE_RECIPES; ++i)
     {
         struct SacrificeRecipe* sac = &gameadd.sacrifice_recipes[i];
         if (sac->action == SacA_None)
@@ -222,7 +222,7 @@ struct SacrificeRecipe *get_unused_sacrifice_recipe_slot(void)
  */
 void clear_sacrifice_recipes(void)
 {
-    for (long i = 0; i < MAX_SACRIFICE_RECIPES; i++)
+    for (long i = 0; i < MAX_SACRIFICE_RECIPES; ++i)
     {
         struct SacrificeRecipe* sac = &gameadd.sacrifice_recipes[i];
         LbMemorySet(sac, '\0', sizeof(struct SacrificeRecipe));
@@ -236,7 +236,7 @@ TbBool add_sacrifice_victim(struct SacrificeRecipe *sac, long crtr_idx)
     if (sac->victims[MAX_SACRIFICE_VICTIMS - 1] != 0)
         return false;
     // Otherwise, find place for our item (array is sorted)
-    for (long i = 0; i < MAX_SACRIFICE_VICTIMS; i++)
+    for (long i = 0; i < MAX_SACRIFICE_VICTIMS; ++i)
     {
         if ((sac->victims[i] == 0) || (sac->victims[i] > crtr_idx))
         {
@@ -1821,7 +1821,7 @@ TbBool parse_rules_research_blocks(char *buf, long len, const char *config_textn
 static void mark_cheaper_diggers_sacrifice(void)
 {
     gameadd.cheaper_diggers_sacrifice_model = 0;
-    for (int i = 1; i < MAX_SACRIFICE_RECIPES; i++)
+    for (int i = 1; i < MAX_SACRIFICE_RECIPES; ++i)
     {
         struct SacrificeRecipe* sac = &gameadd.sacrifice_recipes[i];
         if (sac->action == SacA_None)

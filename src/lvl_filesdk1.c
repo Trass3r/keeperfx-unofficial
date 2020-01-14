@@ -585,7 +585,7 @@ TbBool load_column_file(LevelNumber lv_num)
     }
     i += 4;
     // Fill the columns
-    for (long k = 0; k < total; k++)
+    for (long k = 0; k < total; ++k)
     {
         struct Column* colmn = &game.columns_data[k];
         LbMemoryCopy(colmn, &buf[i], sizeof(struct Column));
@@ -609,9 +609,9 @@ TbBool load_map_data_file(LevelNumber lv_num)
     if (buf == NULL)
         return false;
     unsigned long i = 0;
-    for (y=0; y < (map_subtiles_y+1); y++)
+    for (y=0; y < (map_subtiles_y+1); ++y)
     {
-        for (x=0; x < (map_subtiles_x+1); x++)
+        for (x=0; x < (map_subtiles_x+1); ++x)
         {
             mapblk = get_map_block_at(x,y);
             unsigned long n = -lword(&buf[i]);
@@ -621,9 +621,9 @@ TbBool load_map_data_file(LevelNumber lv_num)
     }
     LbMemoryFree(buf);
     // Clear some bits and do some other setup
-    for (y=0; y < (map_subtiles_y+1); y++)
+    for (y=0; y < (map_subtiles_y+1); ++y)
     {
-        for (x=0; x < (map_subtiles_x+1); x++)
+        for (x=0; x < (map_subtiles_x+1); ++x)
         {
             mapblk = get_map_block_at(x,y);
             unsigned short* wptr = &game.lish.subtile_lightness[get_subtile_number(x, y)];
@@ -658,7 +658,7 @@ TbBool load_thing_file(LevelNumber lv_num)
         total = THINGS_COUNT-2;
     }
     // Create things
-    for (long k = 0; k < total; k++)
+    for (long k = 0; k < total; ++k)
     {
         struct InitThing itng;
         LbMemoryCopy(&itng, &buf[i], sizeof(struct InitThing));
@@ -691,7 +691,7 @@ TbBool load_action_point_file(LevelNumber lv_num)
     total = ACTN_POINTS_COUNT-1;
   }
   // Create action points
-  for (long k = 0; k < total; k++)
+  for (long k = 0; k < total; ++k)
   {
       struct InitActionPoint iapt;
       LbMemoryCopy(&iapt, &buf[i], sizeof(struct InitActionPoint));
@@ -726,8 +726,8 @@ TbBool load_slabdat_file(struct SlabSet *slbset, long *scount)
     WARNMSG("Only %d slabs supported, Slab Set file has %ld.",SLABSET_COUNT,total);
     total = *scount;
   }
-  for (n=0; n < total; n++)
-    for (k=0; k < 9; k++)
+  for (n=0; n < total; ++n)
+    for (k=0; k < 9; ++k)
     {
       slbset[n].col_idx[k] = lword(&buf[i]);
       i += 2;
@@ -745,12 +745,12 @@ TbBool update_columns_use(struct Column *cols,long ccount,struct SlabSet *sset,l
     long i;
     long k;
     long ncol;
-    for (i = 0; i < ccount; i++)
+    for (i = 0; i < ccount; ++i)
     {
         cols[i].use = 0;
   }
-  for (i=0; i < scount; i++)
-    for (k=0; k < 9; k++)
+  for (i=0; i < scount; ++i)
+    for (k=0; k < 9; ++k)
     {
       ncol = -sset[i].col_idx[k];
       if ((ncol >= 0) && (ncol < ccount))
@@ -780,7 +780,7 @@ TbBool load_slabclm_file(struct Column *cols, long *ccount)
     WARNMSG("Only %d columns supported, Column Set file has %ld.",*ccount,total);
     total = *ccount;
   }
-  for (long k = 0; k < total; k++)
+  for (long k = 0; k < total; ++k)
   {
     LbMemoryCopy(&cols[k],&buf[i],sizeof(struct Column));
     i += sizeof(struct Column);
@@ -794,16 +794,16 @@ TbBool columns_add_static_entries(void)
 {
     short c[3];
 
-    for (long i=0; i < 3; i++)
+    for (long i=0; i < 3; ++i)
       c[i] = 0;
     struct Column lcolmn;
     LbMemorySet(&lcolmn, 0, sizeof(struct Column));
     short* wptr = &game.field_14A818[0];
-    for (long i=0; i < 3; i++)
+    for (long i=0; i < 3; ++i)
     {
         LbMemorySet(&lcolmn, 0, sizeof(struct Column));
         lcolmn.baseblock = c[i];
-        for (long k = 0; k < 6; k++)
+        for (long k = 0; k < 6; ++k)
         {
           lcolmn.cubes[0] = player_cubes[k];
           make_solidmask(&lcolmn);
@@ -823,10 +823,10 @@ TbBool update_slabset_column_indices(struct Column *cols, long ccount)
 {
     struct Column lcolmn;
     LbMemorySet(&lcolmn,0,sizeof(struct Column));
-    for (long i = 0; i < game.slabset_num; i++)
+    for (long i = 0; i < game.slabset_num; ++i)
     {
         struct SlabSet* sset = &game.slabset[i];
-        for (long k = 0; k < 9; k++)
+        for (long k = 0; k < 9; ++k)
         {
             long n = sset->col_idx[k];
             long ncol;
@@ -860,7 +860,7 @@ TbBool update_slabset_column_indices(struct Column *cols, long ccount)
 
 TbBool create_columns_from_list(struct Column *cols, long ccount)
 {
-    for (long i = 1; i < ccount; i++)
+    for (long i = 1; i < ccount; ++i)
     {
         if (cols[i].use)
         {
@@ -905,7 +905,7 @@ TbBool load_slab_datclm_files(void)
       return false;
     }
     // Update the structure
-    for (long i = 0; i < slbset_tot; i++)
+    for (long i = 0; i < slbset_tot; ++i)
     {
         struct SlabSet* sset = &game.slabset[i];
         LbMemoryCopy(sset, &slbset[i], sizeof(struct SlabSet));
@@ -957,8 +957,8 @@ long load_map_wibble_file(unsigned long lv_num)
     if (buf == NULL)
       return false;
     i = 0;
-    for (stl_y=0; stl_y < (map_subtiles_y+1); stl_y++)
-      for (stl_x=0; stl_x < (map_subtiles_x+1); stl_x++)
+    for (stl_y=0; stl_y < (map_subtiles_y+1); ++stl_y)
+      for (stl_x=0; stl_x < (map_subtiles_x+1); ++stl_x)
       {
         mapblk = get_map_block_at(stl_x,stl_y);
         k = buf[i];
@@ -982,8 +982,8 @@ short load_map_ownership_file(LevelNumber lv_num)
     if (buf == NULL)
       return false;
     i = 0;
-    for (y=0; y < (map_subtiles_y+1); y++)
-      for (x=0; x < (map_subtiles_x+1); x++)
+    for (y=0; y < (map_subtiles_y+1); ++y)
+      for (x=0; x < (map_subtiles_x+1); ++x)
       {
         slb = get_slabmap_for_subtile(x,y);
         if ((x < map_subtiles_x) && (y < map_subtiles_y))
@@ -1005,8 +1005,8 @@ TbBool initialise_map_wlb_auto(void)
     unsigned long n;
     unsigned long nbridge;
     nbridge = 0;
-    for (y=0; y < map_tiles_y; y++)
-      for (x=0; x < map_tiles_x; x++)
+    for (y=0; y < map_tiles_y; ++y)
+      for (x=0; x < map_tiles_x; ++x)
       {
         slb = get_slabmap_block(x,y);
         if (slb->kind == SlbT_BRIDGE)
@@ -1045,8 +1045,8 @@ TbBool load_map_wlb_file(unsigned long lv_num)
     if (buf == NULL)
       return false;
     i = 0;
-    for (y=0; y < map_tiles_y; y++)
-      for (x=0; x < map_tiles_x; x++)
+    for (y=0; y < map_tiles_y; ++y)
+      for (x=0; x < map_tiles_x; ++x)
       {
         slb = get_slabmap_block(x,y);
         n = (buf[i] << 3);
@@ -1094,8 +1094,8 @@ short load_map_slab_file(unsigned long lv_num)
     if (buf == NULL)
       return false;
     i = 0;
-    for (y=0; y < map_tiles_y; y++)
-      for (x=0; x < map_tiles_x; x++)
+    for (y=0; y < map_tiles_y; ++y)
+      for (x=0; x < map_tiles_x; ++x)
       {
         slb = get_slabmap_block(x,y);
         n = lword(&buf[i]);
@@ -1122,9 +1122,9 @@ short load_map_flag_file(unsigned long lv_num)
     if (buf == NULL)
         return false;
     unsigned long i = 0;
-    for (unsigned long stl_y = 0; stl_y < (map_subtiles_y + 1); stl_y++)
+    for (unsigned long stl_y = 0; stl_y < (map_subtiles_y + 1); ++stl_y)
     {
-        for (unsigned long stl_x = 0; stl_x < (map_subtiles_x + 1); stl_x++)
+        for (unsigned long stl_x = 0; stl_x < (map_subtiles_x + 1); ++stl_x)
         {
             struct Map* mapblk = get_map_block_at(stl_x, stl_y);
             mapblk->flags = buf[i];
@@ -1161,7 +1161,7 @@ long load_static_light_file(unsigned long lv_num)
         WARNMSG("More than %d%% of light slots used by static lights.",100*total/LIGHTS_COUNT);
     }
     // Create the lights
-    for (long k = 0; k < total; k++)
+    for (long k = 0; k < total; ++k)
     {
         struct InitLight ilght;
         LbMemoryCopy(&ilght, &buf[i], sizeof(struct InitLight));

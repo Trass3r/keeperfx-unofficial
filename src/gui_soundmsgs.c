@@ -371,7 +371,7 @@ TbBool remove_message_from_queue(long queue_idx)
     {
         return false;
     }
-    for (i++; i < MESSAGE_QUEUE_COUNT; i++)
+    for (i++; i < MESSAGE_QUEUE_COUNT; ++i)
     {
         struct MessageQueueEntry* mqprev = mqentry;
         mqentry = &message_queue[i];
@@ -420,7 +420,7 @@ TbBool message_can_be_played(long msg_idx)
 
 TbBool message_already_in_queue(long msg_idx)
 {
-    for (long i = 0; i < MESSAGE_QUEUE_COUNT; i++)
+    for (long i = 0; i < MESSAGE_QUEUE_COUNT; ++i)
     {
         struct MessageQueueEntry* mqentry = &message_queue[i];
         if ((mqentry->state == 1) && (msg_idx == mqentry->msg_idx))
@@ -436,7 +436,7 @@ TbBool message_queue_empty(void)
 
 TbBool add_message_to_queue(long msg_idx, long delay)
 {
-    for (long i = 0; i < MESSAGE_QUEUE_COUNT; i++)
+    for (long i = 0; i < MESSAGE_QUEUE_COUNT; ++i)
     {
         struct MessageQueueEntry* mqentry = &message_queue[i];
         if (mqentry->state == 0)
@@ -475,17 +475,17 @@ long get_phrase_sample(long phr_idx)
 void clear_messages(void)
 {
     int i;
-    for (i=0; i < MESSAGE_QUEUE_COUNT; i++)
+    for (i=0; i < MESSAGE_QUEUE_COUNT; ++i)
     {
         LbMemorySet(&message_queue[i], 0, sizeof(struct MessageQueueEntry));
     }
     // Set end turn to 0 for all messages
-    for (i=0; i < sizeof(messages)/sizeof(messages[0]); i++)
+    for (i=0; i < sizeof(messages)/sizeof(messages[0]); ++i)
     {
         messages[i].end_time = 0;
     }
     // Remove when won't be needed anymore
-    for (i=0; i < sizeof(_DK_messages)/sizeof(_DK_messages[0]); i++)
+    for (i=0; i < sizeof(_DK_messages)/sizeof(_DK_messages[0]); ++i)
     {
         _DK_messages[i].end_time = 0;
     }
@@ -494,7 +494,7 @@ void clear_messages(void)
 void init_messages_turns(long delay)
 {
     // Set end turn for all messages
-    for (int i = 0; i < sizeof(messages) / sizeof(messages[0]); i++)
+    for (int i = 0; i < sizeof(messages) / sizeof(messages[0]); ++i)
     {
         struct SMessage* smsg = &messages[i];
         smsg->end_time = game.play_gameturn + delay;

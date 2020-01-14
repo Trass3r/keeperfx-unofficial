@@ -310,7 +310,7 @@ TbBool all_dungeons_destroyed(const struct PlayerInfo *win_player)
     long win_plyr_idx;
     long i;
     win_plyr_idx = win_player->id_number;
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
       if (i == win_plyr_idx)
         continue;
@@ -800,7 +800,7 @@ TbBool setup_move_off_lava(struct Thing *thing)
     slb_x = subtile_slab(thing->mappos.x.stl.num);
     slb_y = subtile_slab(thing->mappos.y.stl.num);
     long i;
-    for (i=0; i < 32; i++)
+    for (i=0; i < 32; ++i)
     {
         struct MapOffset *sstep;
         MapSubtlCoord cx;
@@ -846,7 +846,7 @@ TbBool any_player_close_enough_to_see(const struct Coord3d *pos)
 {
     struct PlayerInfo *player;
     int i;
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
       player = get_player(i);
       if ( (player_exists(player)) && ((player->allocflags & PlaF_CompCtrl) == 0))
@@ -1350,13 +1350,13 @@ void update_creatr_model_activities_list(void)
     int num_breeds;
     num_breeds = no_of_breeds_owned;
     // Add to breed activities
-    for (crmodel=1; crmodel < CREATURE_TYPES_COUNT; crmodel++)
+    for (crmodel=1; crmodel < CREATURE_TYPES_COUNT; ++crmodel)
     {
         if ((dungeon->owned_creatures_of_model[crmodel] > 0)
             && (crmodel != get_players_spectator_model(my_player_number)))
         {
             int i;
-            for (i=0; i < num_breeds; i++)
+            for (i=0; i < num_breeds; ++i)
             {
                 if (breed_activities[i] == crmodel)
                 {
@@ -1371,17 +1371,17 @@ void update_creatr_model_activities_list(void)
         }
     }
     // Remove from breed activities
-    for (crmodel=1; crmodel < CREATURE_TYPES_COUNT; crmodel++)
+    for (crmodel=1; crmodel < CREATURE_TYPES_COUNT; ++crmodel)
     {
         if ((dungeon->owned_creatures_of_model[crmodel] <= 0)
           && (crmodel != get_players_special_digger_model(my_player_number)))
         {
             int i;
-            for (i=0; i < num_breeds; i++)
+            for (i=0; i < num_breeds; ++i)
             {
                 if (breed_activities[i] == crmodel)
                 {
-                    for (; i < num_breeds-1;  i++) {
+                    for (; i < num_breeds-1;  ++i) {
                         breed_activities[i] = breed_activities[i+1];
                     }
                     num_breeds--;
@@ -1445,9 +1445,9 @@ void reinit_tagged_blocks_for_player(PlayerNumber plyr_idx)
     // Clear tagged blocks
     MapSubtlCoord stl_x;
     MapSubtlCoord stl_y;
-    for (stl_y=0; stl_y < map_subtiles_y; stl_y++)
+    for (stl_y=0; stl_y < map_subtiles_y; ++stl_y)
     {
-        for (stl_x=0; stl_x < map_subtiles_x; stl_x++)
+        for (stl_x=0; stl_x < map_subtiles_x; ++stl_x)
         {
             struct Map *mapblk;
             mapblk = get_map_block_at(stl_x, stl_y);
@@ -1459,7 +1459,7 @@ void reinit_tagged_blocks_for_player(PlayerNumber plyr_idx)
     struct Dungeon *dungeon;
     dungeon = get_dungeon(plyr_idx);
     int task_idx;
-    for (task_idx = 0; task_idx < dungeon->field_AF7; task_idx++)
+    for (task_idx = 0; task_idx < dungeon->field_AF7; ++task_idx)
     {
         struct MapTask  *mtask;
         mtask = &dungeon->task_list[task_idx];
@@ -1470,9 +1470,9 @@ void reinit_tagged_blocks_for_player(PlayerNumber plyr_idx)
         switch (mtask->kind)
         {
         case 2:
-            for (stl_y = taskstl_y - 1; stl_y <= taskstl_y + 1; stl_y++)
+            for (stl_y = taskstl_y - 1; stl_y <= taskstl_y + 1; ++stl_y)
             {
-                for (stl_x = taskstl_x - 1; stl_x <= taskstl_x + 1; stl_x++)
+                for (stl_x = taskstl_x - 1; stl_x <= taskstl_x + 1; ++stl_x)
                 {
                     struct Map *mapblk;
                     mapblk = get_map_block_at(stl_x, stl_y);
@@ -1482,9 +1482,9 @@ void reinit_tagged_blocks_for_player(PlayerNumber plyr_idx)
             break;
         case 1:
         case 3:
-            for (stl_y = taskstl_y - 1; stl_y <= taskstl_y + 1; stl_y++)
+            for (stl_y = taskstl_y - 1; stl_y <= taskstl_y + 1; ++stl_y)
             {
-                for (stl_x = taskstl_x - 1; stl_x <= taskstl_x + 1; stl_x++)
+                for (stl_x = taskstl_x - 1; stl_x <= taskstl_x + 1; ++stl_x)
                 {
                     struct Map *mapblk;
                     mapblk = get_map_block_at(stl_x, stl_y);
@@ -1513,7 +1513,7 @@ void instant_instance_selected(CrInstance check_inst_id)
     int match_avail_pos;
     avail_pos = 0;
     match_avail_pos = 0;
-    for (i=0; i < CREATURE_MAX_LEVEL; i++)
+    for (i=0; i < CREATURE_MAX_LEVEL; ++i)
     {
         k = crstat->learned_instance_id[i];
         if (creature_instance_is_available(ctrltng, k))
@@ -1581,7 +1581,7 @@ void reinit_level_after_load(void)
     reinit_packets_after_load();
     game.flags_font |= start_params.flags_font;
     parchment_loaded = 0;
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
       player = get_player(i);
       if (player_exists(player))
@@ -1659,7 +1659,7 @@ void clear_slabsets(void)
     struct SlabSet *sset;
     struct SlabObj *sobj;
     int i;
-    for (i=0; i < SLABSET_COUNT; i++)
+    for (i=0; i < SLABSET_COUNT; ++i)
     {
         sset = &game.slabset[i];
         memset(sset, 0, sizeof(struct SlabSet));
@@ -1667,7 +1667,7 @@ void clear_slabsets(void)
     }
     game.slabset_num = SLABSET_COUNT;
     game.slabobjs_num = 0;
-    for (i=0; i < SLABOBJS_COUNT; i++)
+    for (i=0; i < SLABOBJS_COUNT; ++i)
     {
         sobj = &game.slabobjs[i];
         memset(sobj, 0, sizeof(struct SlabObj));
@@ -1686,7 +1686,7 @@ void clear_things_and_persons_data(void)
 {
     struct Thing *thing;
     long i;
-    for (i=0; i < THINGS_COUNT; i++)
+    for (i=0; i < THINGS_COUNT; ++i)
     {
         thing = &game.things_data[i];
         memset(thing, 0, sizeof(struct Thing));
@@ -1694,7 +1694,7 @@ void clear_things_and_persons_data(void)
         thing->mappos.x.val = subtile_coord_center(map_subtiles_x/2);
         thing->mappos.y.val = subtile_coord_center(map_subtiles_y/2);
     }
-    for (i=0; i < CREATURES_COUNT; i++)
+    for (i=0; i < CREATURES_COUNT; ++i)
     {
       memset(&game.cctrl_data[i], 0, sizeof(struct CreatureControl));
     }
@@ -1704,15 +1704,15 @@ void clear_computer(void)
 {
     long i;
     SYNCDBG(8,"Starting");
-    for (i=0; i < COMPUTER_TASKS_COUNT; i++)
+    for (i=0; i < COMPUTER_TASKS_COUNT; ++i)
     {
         LbMemorySet(&game.computer_task[i], 0, sizeof(struct ComputerTask));
     }
-    for (i=0; i < GOLD_LOOKUP_COUNT; i++)
+    for (i=0; i < GOLD_LOOKUP_COUNT; ++i)
     {
         LbMemorySet(&game.gold_lookup[i], 0, sizeof(struct GoldLookup));
     }
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
         LbMemorySet(&game.computer[i], 0, sizeof(struct Computer2));
     }
@@ -1722,7 +1722,7 @@ void init_keepers_map_exploration(void)
 {
     struct PlayerInfo *player;
     int i;
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
       player = get_player(i);
       if (player_exists(player) && (player->field_2C == 1))
@@ -1744,7 +1744,7 @@ void clear_players_for_save(void)
     unsigned short memflg;
     struct Camera cammem;
     int i;
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
       player = get_player(i);
       id_mem = player->id_number;
@@ -1765,14 +1765,14 @@ void delete_all_thing_structures(void)
 {
     long i;
     struct Thing *thing;
-    for (i=1; i < THINGS_COUNT; i++)
+    for (i=1; i < THINGS_COUNT; ++i)
     {
       thing = thing_get(i);
       if (thing_exists(thing)) {
           delete_thing_structure(thing, 1);
       }
     }
-    for (i=0; i < THINGS_COUNT-1; i++) {
+    for (i=0; i < THINGS_COUNT-1; ++i) {
       game.free_things[i] = i+1;
     }
     game.free_things_start_index = 0;
@@ -1842,11 +1842,11 @@ void reset_creature_max_levels(void)
 {
     int i;
     int k;
-    for (i=0; i < DUNGEONS_COUNT; i++)
+    for (i=0; i < DUNGEONS_COUNT; ++i)
     {
         struct Dungeon *dungeon;
         dungeon = get_dungeon(i);
-        for (k=1; k < CREATURE_TYPES_COUNT; k++)
+        for (k=1; k < CREATURE_TYPES_COUNT; ++k)
         {
             dungeon->creature_max_level[k] = CREATURE_MAX_LEVEL+1;
         }
@@ -1862,18 +1862,18 @@ void reset_script_timers_and_flags(void)
     struct Dungeon *dungeon;
     int plyr_idx;
     int k;
-    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         add_power_to_player(PwrK_HAND, plyr_idx);
         add_power_to_player(PwrK_SLAP, plyr_idx);
         add_power_to_player(PwrK_POSSESS, plyr_idx);
         dungeon = get_dungeon(plyr_idx);
-        for (k=0; k<TURN_TIMERS_COUNT; k++)
+        for (k=0; k<TURN_TIMERS_COUNT; ++k)
         {
             memset(&dungeon->turn_timers[k], 0, sizeof(struct TurnTimer));
             dungeon->turn_timers[k].state = 0;
         }
-        for (k=0; k<SCRIPT_FLAGS_COUNT; k++)
+        for (k=0; k<SCRIPT_FLAGS_COUNT; ++k)
         {
             dungeon->script_flags[k] = 0;
         }
@@ -2142,7 +2142,7 @@ short winning_player_quitting(struct PlayerInfo *player, long *plyr_count)
     }
     k = 0;
     n = 0;
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
       swplyr = get_player(i);
       if (player_exists(swplyr))
@@ -2209,20 +2209,20 @@ void init_lookups(void)
 {
     long i;
     SYNCDBG(8,"Starting");
-    for (i=0; i < THINGS_COUNT; i++)
+    for (i=0; i < THINGS_COUNT; ++i)
     {
       game.things.lookup[i] = &game.things_data[i];
     }
     game.things.end = &game.things_data[THINGS_COUNT];
 
     memset(&game.persons, 0, sizeof(struct Persons));
-    for (i=0; i < CREATURES_COUNT; i++)
+    for (i=0; i < CREATURES_COUNT; ++i)
     {
       game.persons.cctrl_lookup[i] = &game.cctrl_data[i];
     }
     game.persons.cctrl_end = &game.cctrl_data[CREATURES_COUNT];
 
-    for (i=0; i < COLUMNS_COUNT; i++)
+    for (i=0; i < COLUMNS_COUNT; ++i)
     {
       game.columns.lookup[i] = &game.columns_data[i];
     }
@@ -2233,7 +2233,7 @@ void clear_lookups(void)
 {
     long i;
     SYNCDBG(8,"Starting");
-    for (i=0; i < THINGS_COUNT; i++)
+    for (i=0; i < THINGS_COUNT; ++i)
     {
       game.things.lookup[i] = NULL;
     }
@@ -2241,7 +2241,7 @@ void clear_lookups(void)
 
     memset(&game.persons, 0, sizeof(struct Persons));
 
-    for (i=0; i < COLUMNS_COUNT; i++)
+    for (i=0; i < COLUMNS_COUNT; ++i)
     {
       game.columns.lookup[i] = NULL;
     }
@@ -2286,7 +2286,7 @@ void check_players_lost(void)
   long i;
   SYNCDBG(8,"Starting");
   //_DK_check_players_lost(); return;
-  for (i=0; i < PLAYERS_COUNT; i++)
+  for (i=0; i < PLAYERS_COUNT; ++i)
   {
       struct PlayerInfo *player;
       player = get_player(i);
@@ -2345,7 +2345,7 @@ void process_dungeon_devastation_effects(void)
     SYNCDBG(8,"Starting");
     //_DK_process_dungeon_devastation_effects(); return;
     int plyr_idx;
-    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         struct Dungeon *dungeon;
         dungeon = get_players_num_dungeon(plyr_idx);
@@ -2363,12 +2363,12 @@ void process_dungeon_devastation_effects(void)
         slb_x = subtile_slab(dungeon->devastation_centr_x) - dungeon->devastation_turn;
         slb_y = subtile_slab(dungeon->devastation_centr_y) - dungeon->devastation_turn;
         range = 2*dungeon->devastation_turn;
-        for (i = 0; i <= range; i++)
+        for (i = 0; i <= range; ++i)
         {
             blast_slab(slb_x + i, slb_y,         dungeon->owner);
             blast_slab(slb_x + i, slb_y + range, dungeon->owner);
         }
-        for (i = 0; i <= range; i++)
+        for (i = 0; i <= range; ++i)
         {
             blast_slab(slb_x,         slb_y + i, dungeon->owner);
             blast_slab(slb_x + range, slb_y + i, dungeon->owner);
@@ -2428,7 +2428,7 @@ void process_payday(void)
     //_DK_process_payday();
     game.field_15033A++;
     PlayerNumber plyr_idx;
-    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         if ((plyr_idx == game.hero_player_num) || (plyr_idx == game.neutral_player_num)) {
             continue;
@@ -2447,13 +2447,13 @@ void process_payday(void)
         // Prepare a list which counts how many creatures of each owner needs pay
         int player_paid_creatures_count[PLAYERS_EXT_COUNT];
         PlayerNumber plyr_idx;
-        for (plyr_idx=0; plyr_idx < PLAYERS_EXT_COUNT; plyr_idx++)
+        for (plyr_idx=0; plyr_idx < PLAYERS_EXT_COUNT; ++plyr_idx)
         {
             player_paid_creatures_count[plyr_idx] = 0;
         }
         count_players_creatures_being_paid(player_paid_creatures_count);
         // Players which have creatures being paid, should get payday notification
-        for (plyr_idx=0; plyr_idx < PLAYERS_EXT_COUNT; plyr_idx++)
+        for (plyr_idx=0; plyr_idx < PLAYERS_EXT_COUNT; ++plyr_idx)
         {
             if (player_paid_creatures_count[plyr_idx] > 0)
             {
@@ -2476,7 +2476,7 @@ void count_dungeon_stuff(void)
   game.field_14E4A0 = 0;
   game.field_14E49E = 0;
 
-  for (i=0; i < DUNGEONS_COUNT; i++)
+  for (i=0; i < DUNGEONS_COUNT; ++i)
   {
     dungeon = get_dungeon(i);
     player = get_player(i);
@@ -2627,7 +2627,7 @@ void update_research(void)
   int i;
   struct PlayerInfo *player;
   SYNCDBG(6,"Starting");
-  for (i=0; i<PLAYERS_COUNT; i++)
+  for (i=0; i<PLAYERS_COUNT; ++i)
   {
       player = get_player(i);
       if (player_exists(player) && (player->field_2C == 1))
@@ -2642,7 +2642,7 @@ void update_manufacturing(void)
   int i;
   struct PlayerInfo *player;
   SYNCDBG(16,"Starting");
-  for (i=0; i<PLAYERS_COUNT; i++)
+  for (i=0; i<PLAYERS_COUNT; ++i)
   {
       player = get_player(i);
       if (player_exists(player) && (player->field_2C == 1))
@@ -2657,7 +2657,7 @@ void update_all_players_cameras(void)
   int i;
   struct PlayerInfo *player;
   SYNCDBG(6,"Starting");
-  for (i=0; i<PLAYERS_COUNT; i++)
+  for (i=0; i<PLAYERS_COUNT; ++i)
   {
     player = get_player(i);
     if (player_exists(player) && ((player->allocflags & PlaF_CompCtrl) == 0))
@@ -2795,7 +2795,7 @@ void update_footsteps_nearest_camera(struct Camera *cam)
         update_near_creatures_for_footsteps(near_creatures, &srcpos);
     }
     long i;
-    for (i=0; i < 3; i++)
+    for (i=0; i < 3; ++i)
     {
         struct Thing *thing;
         if (near_creatures[i] == 0)
@@ -2831,7 +2831,7 @@ short update_creature_pool_state(void)
 {
   int i;
   game.pool.is_empty = true;
-  for (i=1; i < CREATURE_TYPES_COUNT; i++)
+  for (i=1; i < CREATURE_TYPES_COUNT; ++i)
   {
       if (game.pool.crtr_kind[i] > 0)
       { game.pool.is_empty = false; break; }
@@ -2843,7 +2843,7 @@ int clear_active_dungeons_stats(void)
 {
   struct Dungeon *dungeon;
   int i;
-  for (i=0; i <= game.hero_player_num; i++)
+  for (i=0; i <= game.hero_player_num; ++i)
   {
       dungeon = get_dungeon(i);
       if (dungeon_invalid(dungeon))
@@ -3458,7 +3458,7 @@ void update_blocks_pointed(void)
         lltmp = vert_offset[0] * (long long)hori_offset[1] - hori_offset[0] * (long long)vert_offset[1];
         hvdiv_y = (lltmp >> 11);
         if (hvdiv_y == 0) hvdiv_y = 1;
-        for (i=0; i < 8; i++)
+        for (i=0; i < 8; ++i)
         {
           k = (vert_ptr_x - (vert_ptr_y >> 1)) / hvdiv_x;
           x_frac = (k & 3) << 6;
@@ -3789,17 +3789,17 @@ void initialise_map_collides(void)
     //_DK_initialise_map_collides(); return;
     MapSlabCoord slb_x;
     MapSlabCoord slb_y;
-    for (slb_y=0; slb_y < map_tiles_y; slb_y++)
+    for (slb_y=0; slb_y < map_tiles_y; ++slb_y)
     {
-        for (slb_x=0; slb_x < map_tiles_x; slb_x++)
+        for (slb_x=0; slb_x < map_tiles_x; ++slb_x)
         {
             struct SlabMap *slb;
             slb = get_slabmap_block(slb_x, slb_y);
             int ssub_x;
             int ssub_y;
-            for (ssub_y=0; ssub_y < STL_PER_SLB; ssub_y++)
+            for (ssub_y=0; ssub_y < STL_PER_SLB; ++ssub_y)
             {
-                for (ssub_x=0; ssub_x < STL_PER_SLB; ssub_x++)
+                for (ssub_x=0; ssub_x < STL_PER_SLB; ++ssub_x)
                 {
                     MapSubtlCoord stl_x;
                     MapSubtlCoord stl_y;
@@ -3821,9 +3821,9 @@ void initialise_map_health(void)
     //_DK_initialise_map_health();
     MapSlabCoord slb_x;
     MapSlabCoord slb_y;
-    for (slb_y=0; slb_y < map_tiles_y; slb_y++)
+    for (slb_y=0; slb_y < map_tiles_y; ++slb_y)
     {
-        for (slb_x=0; slb_x < map_tiles_x; slb_x++)
+        for (slb_x=0; slb_x < map_tiles_x; ++slb_x)
         {
             struct SlabMap *slb;
             slb = get_slabmap_block(slb_x, slb_y);
@@ -3871,9 +3871,9 @@ long ceiling_init(unsigned long a1, unsigned long a2)
     //TODO Fix, then enable rewritten version
     MapSubtlCoord stl_x;
     MapSubtlCoord stl_y;
-    for (stl_y=0; stl_y < map_subtiles_y; stl_y++)
+    for (stl_y=0; stl_y < map_subtiles_y; ++stl_y)
     {
-        for (stl_x=0; stl_x < map_subtiles_x; stl_x++)
+        for (stl_x=0; stl_x < map_subtiles_x; ++stl_x)
         {
             int filled_h;
             if (map_pos_solid_at_ceiling(stl_x, stl_y))

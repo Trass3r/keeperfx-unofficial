@@ -328,7 +328,7 @@ void check_and_auto_fix_stats(void)
 {
     SYNCDBG(8,"Starting for %d models",(int)crtr_conf.model_count);
     //_DK_check_and_auto_fix_stats();
-    for (long model = 0; model < crtr_conf.model_count; model++)
+    for (long model = 0; model < crtr_conf.model_count; ++model)
     {
         struct CreatureStats* crstat = creature_stats_get(model);
         if ( (crstat->lair_size <= 0) && (crstat->heal_requirement != 0) )
@@ -370,7 +370,7 @@ void check_and_auto_fix_stats(void)
             ERRORLOG("Creature model %d Rebirth Invalid - Fixing", (int)model);
             crstat->rebirth = 0;
         }
-        for (long i = 0; i < LEARNED_INSTANCES_COUNT; i++)
+        for (long i = 0; i < LEARNED_INSTANCES_COUNT; ++i)
         {
             long n = crstat->learned_instance_level[i];
             if (crstat->learned_instance_id[i] != CrInst_NULL)
@@ -460,7 +460,7 @@ TbBool parse_creaturetypes_common_blocks(char *buf, long len, const char *config
         crtr_conf.spectator_breed = 0;
     }
     int k = sizeof(crtr_conf.model) / sizeof(crtr_conf.model[0]);
-    for (int i = 0; i < k; i++)
+    for (int i = 0; i < k; ++i)
     {
       LbMemorySet(crtr_conf.model[i].name, 0, COMMAND_WORD_LEN);
     }
@@ -795,7 +795,7 @@ TbBool parse_creaturetype_instance_blocks(char *buf, long len, const char *confi
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(crtr_conf.instances)/sizeof(crtr_conf.instances[0]);
-        for (i=0; i < arr_size; i++)
+        for (i=0; i < arr_size; ++i)
         {
             LbMemorySet(crtr_conf.instances[i].name, 0, COMMAND_WORD_LEN);
             if (i < crtr_conf.instances_count)
@@ -811,7 +811,7 @@ TbBool parse_creaturetype_instance_blocks(char *buf, long len, const char *confi
     }
     arr_size = crtr_conf.instances_count;
     // Load the file blocks
-    for (i=0; i < arr_size; i++)
+    for (i=0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "instance%d", i);
@@ -1086,7 +1086,7 @@ TbBool parse_creaturetype_job_blocks(char *buf, long len, const char *config_tex
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(crtr_conf.jobs)/sizeof(crtr_conf.jobs[0]);
-        for (i=0; i < arr_size; i++)
+        for (i=0; i < arr_size; ++i)
         {
             jobcfg = &crtr_conf.jobs[i];
             LbMemorySet(jobcfg->name, 0, COMMAND_WORD_LEN);
@@ -1114,7 +1114,7 @@ TbBool parse_creaturetype_job_blocks(char *buf, long len, const char *config_tex
     }
     arr_size = crtr_conf.jobs_count;
     // Load the file blocks
-    for (i=0; i < arr_size; i++)
+    for (i=0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "job%d", i);
@@ -1342,7 +1342,7 @@ TbBool parse_creaturetype_angerjob_blocks(char *buf, long len, const char *confi
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(crtr_conf.angerjobs)/sizeof(crtr_conf.angerjobs[0]);
-        for (i=0; i < arr_size; i++)
+        for (i=0; i < arr_size; ++i)
         {
             agjobcfg = &crtr_conf.angerjobs[i];
             LbMemorySet(agjobcfg->name, 0, COMMAND_WORD_LEN);
@@ -1362,7 +1362,7 @@ TbBool parse_creaturetype_angerjob_blocks(char *buf, long len, const char *confi
     }
     arr_size = crtr_conf.angerjobs_count;
     // Load the file blocks
-    for (i=0; i < arr_size; i++)
+    for (i=0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "angerjob%d", i);
@@ -1427,7 +1427,7 @@ TbBool parse_creaturetype_attackpref_blocks(char *buf, long len, const char *con
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(crtr_conf.attacktypes)/sizeof(crtr_conf.attacktypes[0]);
-        for (i=0; i < arr_size; i++)
+        for (i=0; i < arr_size; ++i)
         {
             LbMemorySet(crtr_conf.attacktypes[i].text, 0, COMMAND_WORD_LEN);
             if (i < crtr_conf.attacktypes_count)
@@ -1443,7 +1443,7 @@ TbBool parse_creaturetype_attackpref_blocks(char *buf, long len, const char *con
     }
     arr_size = crtr_conf.attacktypes_count;
     // Load the file blocks
-    for (i=0; i < arr_size; i++)
+    for (i=0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "attackpref%d", i);
@@ -1598,7 +1598,7 @@ unsigned short get_creature_model_flags(const struct Thing *thing)
 
 ThingModel get_creature_model_with_model_flags(unsigned short needflags)
 {
-    for (ThingModel crmodel = 0; crmodel < crtr_conf.model_count; crmodel++)
+    for (ThingModel crmodel = 0; crmodel < crtr_conf.model_count; ++crmodel)
     {
         if ((crtr_conf.model[crmodel].model_flags & needflags) == needflags) {
             return crmodel;
@@ -1727,7 +1727,7 @@ const char *creature_own_name(const struct Thing *creatng)
         }
         // Append nucleus items to the name
         int i;
-        for (i=0; i < name_len-1; i++)
+        for (i=0; i < name_len-1; ++i)
         {
             const char *part;
             int n;
@@ -1849,7 +1849,7 @@ CreatureJob get_job_for_subtile(const struct Thing *creatng, MapSubtlCoord stl_x
  */
 CreatureJob get_job_for_room_role(RoomRole rrole, unsigned long required_kind_flags, CreatureJob has_jobs)
 {
-    for (long i = 0; i < crtr_conf.jobs_count; i++)
+    for (long i = 0; i < crtr_conf.jobs_count; ++i)
     {
         struct CreatureJobConfig* jobcfg = &crtr_conf.jobs[i];
         if ((jobcfg->job_flags & required_kind_flags) == required_kind_flags)
@@ -1893,7 +1893,7 @@ CreatureJob get_job_which_qualify_for_room_role(RoomRole rrole, unsigned long qu
     if (rrole == RoRoF_None) {
         return Job_NULL;
     }
-    for (long i = 0; i < crtr_conf.jobs_count; i++)
+    for (long i = 0; i < crtr_conf.jobs_count; ++i)
     {
         struct CreatureJobConfig* jobcfg = &crtr_conf.jobs[i];
         if ((jobcfg->job_flags & qualify_flags) != 0)
@@ -1929,7 +1929,7 @@ CreatureJob get_job_which_qualify_for_room(RoomKind rkind, unsigned long qualify
 CreatureJob get_jobs_enemies_may_do_in_room_role(RoomRole rrole)
 {
     CreatureJob jobpref = Job_NULL;
-    for (long i = 0; i < crtr_conf.jobs_count; i++)
+    for (long i = 0; i < crtr_conf.jobs_count; ++i)
     {
         struct CreatureJobConfig* jobcfg = &crtr_conf.jobs[i];
         // Accept only jobs in given room
@@ -1965,7 +1965,7 @@ CreatureJob get_jobs_enemies_may_do_in_room(RoomKind rkind)
 RoomKind get_room_for_job(CreatureJob job_flags)
 {
     struct CreatureJobConfig* jobcfg = get_config_for_job(job_flags);
-    for (RoomKind rkind = 0; rkind < slab_conf.room_types_count; rkind++)
+    for (RoomKind rkind = 0; rkind < slab_conf.room_types_count; ++rkind)
     {
         if (room_role_matches(rkind, jobcfg->room_role))
             return rkind;
@@ -2042,7 +2042,7 @@ CreatureJob get_job_for_creature_state(CrtrStateId crstat_id)
     if (crstat_id == CrSt_Unused) {
         return Job_NULL;
     }
-    for (long i = 0; i < crtr_conf.jobs_count; i++)
+    for (long i = 0; i < crtr_conf.jobs_count; ++i)
     {
         struct CreatureJobConfig* jobcfg = &crtr_conf.jobs[i];
         //TODO CREATURE_JOBS Add other job-related states here

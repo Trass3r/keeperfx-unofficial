@@ -107,7 +107,7 @@ struct ComputerPlayerConfig comp_player_conf;
 
 int get_computer_process_config_list_index_prc(struct ComputerProcess *cproc)
 {
-    for (int i = 1; i <= comp_player_conf.processes_count; i++)
+    for (int i = 1; i <= comp_player_conf.processes_count; ++i)
     {
         if (computer_process_config_list[i].process == cproc)
             return i;
@@ -117,7 +117,7 @@ int get_computer_process_config_list_index_prc(struct ComputerProcess *cproc)
 
 int get_computer_process_config_list_index_mnem(const char *mnemonic)
 {
-    for (int i = 1; i <= comp_player_conf.processes_count; i++)
+    for (int i = 1; i <= comp_player_conf.processes_count; ++i)
     {
         if (strcasecmp(computer_process_config_list[i].name, mnemonic) == 0)
             return i;
@@ -128,7 +128,7 @@ int get_computer_process_config_list_index_mnem(const char *mnemonic)
 int get_computer_check_config_list_index_mnem(const char *mnemonic)
 {
   const int arr_size = (int)(sizeof(computer_check_config_list)/sizeof(computer_check_config_list[0]));
-  for (int i = 1; i < arr_size; i++)
+  for (int i = 1; i < arr_size; ++i)
   {
     if (strcasecmp(computer_check_config_list[i].name, mnemonic) == 0)
       return i;
@@ -139,7 +139,7 @@ int get_computer_check_config_list_index_mnem(const char *mnemonic)
 int get_computer_event_config_list_index_mnem(const char *mnemonic)
 {
   const int arr_size = (int)(sizeof(computer_event_config_list)/sizeof(computer_event_config_list[0]));
-  for (int i = 1; i < arr_size; i++)
+  for (int i = 1; i < arr_size; ++i)
   {
     if (strcasecmp(computer_event_config_list[i].name, mnemonic) == 0)
       return i;
@@ -156,7 +156,7 @@ struct ComputerProcessTypes *get_computer_process_type_template(long cpt_idx)
 
 TbBool computer_type_clear_processes(struct ComputerProcessTypes *cpt)
 {
-    for (int i = 0; i < COMPUTER_PROCESSES_COUNT; i++)
+    for (int i = 0; i < COMPUTER_PROCESSES_COUNT; ++i)
     {
         cpt->processes[i] = NULL;
   }
@@ -165,7 +165,7 @@ TbBool computer_type_clear_processes(struct ComputerProcessTypes *cpt)
 
 int computer_type_add_process(struct ComputerProcessTypes *cpt, struct ComputerProcess *cproc)
 {
-    for (int i = 0; i < COMPUTER_PROCESSES_COUNT; i++)
+    for (int i = 0; i < COMPUTER_PROCESSES_COUNT; ++i)
     {
         if (cpt->processes[i] == NULL)
         {
@@ -178,7 +178,7 @@ int computer_type_add_process(struct ComputerProcessTypes *cpt, struct ComputerP
 
 short computer_type_clear_checks(struct ComputerProcessTypes *cpt)
 {
-    for (int i = 0; i < COMPUTER_CHECKS_COUNT; i++)
+    for (int i = 0; i < COMPUTER_CHECKS_COUNT; ++i)
     {
         LbMemorySet(&cpt->checks[i], 0, sizeof(struct ComputerCheck));
   }
@@ -187,7 +187,7 @@ short computer_type_clear_checks(struct ComputerProcessTypes *cpt)
 
 int computer_type_add_check(struct ComputerProcessTypes *cpt, struct ComputerCheck *check)
 {
-    for (int i = 0; i < COMPUTER_CHECKS_COUNT; i++)
+    for (int i = 0; i < COMPUTER_CHECKS_COUNT; ++i)
     {
         if (cpt->checks[i].name == NULL)
         {
@@ -200,7 +200,7 @@ int computer_type_add_check(struct ComputerProcessTypes *cpt, struct ComputerChe
 
 short computer_type_clear_events(struct ComputerProcessTypes *cpt)
 {
-    for (int i = 0; i < COMPUTER_EVENTS_COUNT; i++)
+    for (int i = 0; i < COMPUTER_EVENTS_COUNT; ++i)
     {
         LbMemorySet(&cpt->events[i], 0, sizeof(struct ComputerEvent));
   }
@@ -209,7 +209,7 @@ short computer_type_clear_events(struct ComputerProcessTypes *cpt)
 
 int computer_type_add_event(struct ComputerProcessTypes *cpt, struct ComputerEvent *event)
 {
-    for (int i = 0; i < COMPUTER_EVENTS_COUNT; i++)
+    for (int i = 0; i < COMPUTER_EVENTS_COUNT; ++i)
     {
         if (cpt->events[i].name == NULL)
         {
@@ -224,7 +224,7 @@ short init_computer_process_lists(void)
 {
   struct ComputerProcessTypes *cpt;
   int i;
-  for (i=0; i<COMPUTER_MODELS_COUNT; i++)
+  for (i=0; i<COMPUTER_MODELS_COUNT; ++i)
   {
     cpt = &ComputerProcessLists[i];
     LbMemorySet(cpt, 0, sizeof(struct ComputerProcessTypes));
@@ -232,7 +232,7 @@ short init_computer_process_lists(void)
   }
   // Changing this to not subtract 1. This is possibly the bug for the highest computer model assignment
   // not appropriately being applied.
-  for (i=0; i<COMPUTER_MODELS_COUNT; i++)
+  for (i=0; i<COMPUTER_MODELS_COUNT; ++i)
   {
     cpt = &ComputerProcessLists[i];
     cpt->name = ComputerProcessListsNames[i];
@@ -382,7 +382,7 @@ TbBool parse_computer_player_common_blocks(char *buf, long len, const char *conf
 short parse_computer_player_process_blocks(char *buf, long len, const char *config_textname, unsigned short flags)
 {
     // Block name and parameter word store variable
-    for (int i = 1; i <= comp_player_conf.processes_count; i++)
+    for (int i = 1; i <= comp_player_conf.processes_count; ++i)
     {
         char block_buf[32];
         sprintf(block_buf, "process%d", i);
@@ -563,7 +563,7 @@ short parse_computer_player_check_blocks(char *buf, long len, const char *config
     // Block name and parameter word store variables
     // Initialize the checks array
     const int arr_size = sizeof(computer_check_config_list)/sizeof(computer_check_config_list[0]);
-    for (i=0; i < arr_size; i++)
+    for (i=0; i < arr_size; ++i)
     {
       ccheck = &computer_checks[i];
       computer_check_config_list[i].name[0] = '\0';
@@ -573,7 +573,7 @@ short parse_computer_player_check_blocks(char *buf, long len, const char *config
     }
     strcpy(computer_check_names[0],"INCORRECT CHECK");
     // Load the file
-    for (i=1; i < arr_size; i++)
+    for (i=1; i < arr_size; ++i)
     {
         char block_buf[32];
         sprintf(block_buf, "check%d", i);
@@ -704,7 +704,7 @@ short parse_computer_player_event_blocks(char *buf, long len, const char *config
     // Block name and parameter word store variables
     // Initialize the events array
     const int arr_size = (int)(sizeof(computer_event_config_list)/sizeof(computer_event_config_list[0]));
-    for (i=0; i < arr_size; i++)
+    for (i=0; i < arr_size; ++i)
     {
       cevent = &computer_events[i];
       computer_event_config_list[i].name[0] = '\0';
@@ -714,7 +714,7 @@ short parse_computer_player_event_blocks(char *buf, long len, const char *config
     }
     strcpy(computer_event_names[0],"INCORRECT EVENT");
     // Load the file
-    for (i=1; i < arr_size; i++)
+    for (i=1; i < arr_size; ++i)
     {
         char block_buf[32];
         sprintf(block_buf, "event%d", i);
@@ -892,7 +892,7 @@ short parse_computer_player_computer_blocks(char *buf, long len, const char *con
     // The -1 was possibly making the array size 1-too-small. It was originally
     // const int arr_size = (int)(sizeof(ComputerProcessLists)/sizeof(ComputerProcessLists[0]))-1;
     const int arr_size = (int)(sizeof(ComputerProcessLists)/sizeof(ComputerProcessLists[0]));
-    for (int i = 0; i < arr_size; i++)
+    for (int i = 0; i < arr_size; ++i)
     {
         char block_buf[32];
         sprintf(block_buf, "computer%d", i);

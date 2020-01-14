@@ -73,9 +73,9 @@ long triangle_brute_find8_near(long pos_x, long pos_y)
             return tri_id;
     }
     // Try any in cache
-    for (cy=0; cy < 4; cy++)
+    for (cy=0; cy < 4; ++cy)
     {
-        for (cx=0; cx < 4; cx++)
+        for (cx=0; cx < 4; ++cx)
         {
             tri_id = find_cache[cy][cx];
             if (get_triangle_tree_alt(tri_id) != -1)
@@ -132,7 +132,7 @@ void triangle_find_cache_put(long pos_x, long pos_y, long ntri)
 
 void triangulation_init_cache(long tri_idx)
 {
-    for (long i = 0; i < 4; i++)
+    for (long i = 0; i < 4; ++i)
     {
         find_cache[i][0] = tri_idx;
         find_cache[i][1] = tri_idx;
@@ -147,7 +147,7 @@ long triangle_find8(long pt_x, long pt_y)
     //TODO PATHFINDING triangulate_area sub-sub-sub-function
     //return _DK_triangle_find8(pt_x, pt_y);
     long ntri = triangle_find_cache_get(pt_x, pt_y);
-    for (unsigned long k = 0; k < TRIANLGLES_COUNT; k++)
+    for (unsigned long k = 0; k < TRIANLGLES_COUNT; ++k)
     {
         int eqA = triangle_divide_areas_s8differ(ntri, 0, 1, pt_x, pt_y) > 0;
         int eqB = triangle_divide_areas_s8differ(ntri, 1, 2, pt_x, pt_y) > 0;
@@ -210,7 +210,7 @@ TbBool point_find(long pt_x, long pt_y, long *out_tri_idx, long *out_cor_idx)
     {
         return false;
     }
-    for (long cor_id = 0; cor_id < 3; cor_id++)
+    for (long cor_id = 0; cor_id < 3; ++cor_id)
     {
         struct Point* pt = get_triangle_point(tri_idx, cor_id);
         if ((pt->x == pt_x) && (pt->y == pt_y))

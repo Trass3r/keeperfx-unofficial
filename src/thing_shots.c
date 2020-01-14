@@ -183,9 +183,9 @@ struct Thing *get_shot_collided_with_same_type(struct Thing *shotng, struct Coor
     MapSubtlCoord stl_y_end = coord_subtile(nxpos->y.val + 384);
     if (stl_y_end >= map_subtiles_y)
       stl_y_end = map_subtiles_y;
-    for (MapSubtlCoord stl_y = stl_y_beg; stl_y <= stl_y_end; stl_y++)
+    for (MapSubtlCoord stl_y = stl_y_beg; stl_y <= stl_y_end; ++stl_y)
     {
-        for (MapSubtlCoord stl_x = stl_x_beg; stl_x <= stl_x_end; stl_x++)
+        for (MapSubtlCoord stl_x = stl_x_beg; stl_x <= stl_x_end; ++stl_x)
         {
             struct Thing* thing = get_shot_collided_with_same_type_on_subtile(shotng, nxpos, stl_x, stl_y);
             if (!thing_is_invalid(thing)) {
@@ -1072,9 +1072,9 @@ struct Thing *get_thing_collided_with_at_satisfying_filter(struct Thing *shotng,
         if (stl_y_max > map_subtiles_y)
             stl_y_max = map_subtiles_y;
     }
-    for (MapSubtlCoord stl_y = stl_y_min; stl_y <= stl_y_max; stl_y++)
+    for (MapSubtlCoord stl_y = stl_y_min; stl_y <= stl_y_max; ++stl_y)
     {
-        for (MapSubtlCoord stl_x = stl_x_min; stl_x <= stl_x_max; stl_x++)
+        for (MapSubtlCoord stl_x = stl_x_min; stl_x <= stl_x_max; ++stl_x)
         {
             struct Thing* coltng = get_thing_collided_with_at_satisfying_filter_for_subtile(shotng, pos, filter, a4, a5, stl_x, stl_y);
             if (!thing_is_invalid(coltng)) {

@@ -110,7 +110,7 @@ void draw_call_to_arms_circle(unsigned char owner, long x1, long y1, long x2, lo
     {
       sy = base_y;
       i = 3 - 2 * base_y;
-      for (sx=0; sx < sy; sx++)
+      for (sx=0; sx < sy; ++sx)
       {
           dxq1 = center_x - sx;
           dyq1 = center_y - sy;
@@ -523,7 +523,7 @@ int draw_overlay_creatures(struct PlayerInfo *player, long units_per_px, long zo
                 struct CreatureControl *cctrl;
                 cctrl = creature_control_get_from_thing(thing);
                 int m;
-                for (m=0; m < 5; m++)
+                for (m=0; m < 5; ++m)
                 {
                     long memberpos;
                     memberpos = cctrl->party.member_pos_stl[m];
@@ -749,11 +749,11 @@ void pannel_map_update(long x, long y, long w, long h)
     player = get_my_player();
     MapSubtlCoord stl_x;
     MapSubtlCoord stl_y;
-    for (stl_y = y; stl_y < y + h; stl_y++)
+    for (stl_y = y; stl_y < y + h; ++stl_y)
     {
         if (stl_y > map_subtiles_y)
             break;
-        for (stl_x = x; stl_x < x + w; stl_x++)
+        for (stl_x = x; stl_x < x + w; ++stl_x)
         {
             if (stl_x > map_subtiles_x)
                 break;
@@ -898,7 +898,7 @@ void setup_background(long units_per_px)
     long quarter_area;
     quarter_area = radius * radius;
     int i;
-    for (i=0; i < MapDiagonalLength; i++)
+    for (i=0; i < MapDiagonalLength; ++i)
     {
         long n;
         n = (radius - i - 1) * (i - radius + 1) + quarter_area;
@@ -916,15 +916,15 @@ void setup_background(long units_per_px)
     out = &lbDisplay.WScreen[PannelMapX + out_scanline * PannelMapY];
     int w;
     int h;
-    for (h=0; h < MapDiagonalLength; h++)
+    for (h=0; h < MapDiagonalLength; ++h)
     {
-        for (w = MapShapeStart[h]; w < MapShapeEnd[h]; w++)
+        for (w = MapShapeStart[h]; w < MapShapeEnd[h]; ++w)
         {
             TbPixel orig;
             orig = out[w];
             out[w] = 255;
             int colour;
-            for (colour=0; colour < num_colours; colour++)
+            for (colour=0; colour < num_colours; ++colour)
             {
                 if (MapBackColours[colour] == orig) {
                     break;
@@ -952,7 +952,7 @@ void setup_pannel_colours(void)
     int bkcol_idx;
     int pncol_idx;
     pncol_idx = 0;
-    for (bkcol_idx=0; bkcol_idx < NoBackColours; bkcol_idx++)
+    for (bkcol_idx=0; bkcol_idx < NoBackColours; ++bkcol_idx)
     {
         unsigned int bkcol;
         bkcol = MapBackColours[bkcol_idx];
@@ -998,12 +998,12 @@ void setup_pannel_colours(void)
         n = pncol_idx + 8 + 17*6;
         for (i=5; i > 0; i--)
         {
-            for (k=0; k < 6; k++)
+            for (k=0; k < 6; ++k)
             {
               PannelColours[n + k] = 60;
             }
             n += 6;
-            for (k=0; k < 6; k++)
+            for (k=0; k < 6; ++k)
             {
               PannelColours[n + k] = 79;
             }
@@ -1022,7 +1022,7 @@ void update_pannel_colours(void)
     int bkcol_idx;
     int pncol_idx;
     pncol_idx = 0;
-    for (bkcol_idx=0; bkcol_idx < NoBackColours; bkcol_idx++)
+    for (bkcol_idx=0; bkcol_idx < NoBackColours; ++bkcol_idx)
     {
         unsigned int bkcol;
         bkcol = MapBackColours[bkcol_idx];
@@ -1170,7 +1170,7 @@ void pannel_map_draw_slabs(long x, long y, long units_per_px, long zoom)
     TbPixel *out_line;
     out_line = &lbDisplay.WScreen[PannelMapX + lbDisplay.GraphicsScreenWidth * PannelMapY];
     int h;
-    for (h = 0; h < MapDiagonalLength; h++)
+    for (h = 0; h < MapDiagonalLength; ++h)
     {
         int start_w;
         int end_w;
@@ -1190,7 +1190,7 @@ void pannel_map_draw_slabs(long x, long y, long units_per_px, long zoom)
         }
         subpos_y = shift_stl_x + shift_y * start_w;
         subpos_x = shift_stl_y - shift_x * start_w;
-        for (; start_w < end_w; start_w++)
+        for (; start_w < end_w; ++start_w)
         {
             if ((subpos_y >= 0) && (subpos_x >= 0) && (subpos_y < (1<<24)) && (subpos_x < (1<<24))) {
                 break;

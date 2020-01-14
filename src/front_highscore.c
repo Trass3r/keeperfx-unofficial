@@ -77,7 +77,7 @@ void frontend_draw_high_score_table(struct GuiButton *gbtn)
     {
         int orig_size = 0;
         spr = &frontend_sprite[33];
-        for (i=0; i < 6; i++)
+        for (i=0; i < 6; ++i)
         {
             orig_size += spr->SWidth;
             spr++;
@@ -141,7 +141,7 @@ void frontend_draw_high_score_table(struct GuiButton *gbtn)
     long col2_width = LbTextStringWidth(" 99999") * tx_units_per_px / 16;
     long col3_width = LbTextStringWidth(" 9999") * tx_units_per_px / 16;
     long col4_width = LbTextCharWidth('-') * tx_units_per_px / 16;
-    for (k=0; k < VISIBLE_HIGH_SCORES_COUNT-1; k++)
+    for (k=0; k < VISIBLE_HIGH_SCORES_COUNT-1; ++k)
     {
         draw_high_score_entry(k, pos_x, pos_y, col1_width, col2_width, col3_width, col4_width, tx_units_per_px);
         pos_y += LbTextLineHeight() * tx_units_per_px / 16;

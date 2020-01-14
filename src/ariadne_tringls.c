@@ -164,7 +164,7 @@ long link_find(long ntri, long val)
     {
         return -1;
     }
-    for (long i = 0; i < 3; i++)
+    for (long i = 0; i < 3; ++i)
     {
         if (Triangles[ntri].tags[i] == val)
         {
@@ -365,7 +365,7 @@ long reduce_point(long *pt_tri, long *pt_cor)
 
 long triangle_find_first_used(void)
 {
-    for (long tri_idx = 0; tri_idx < ix_Triangles; tri_idx++)
+    for (long tri_idx = 0; tri_idx < ix_Triangles; ++tri_idx)
     {
         struct Triangle* tri = &Triangles[tri_idx];
         if (tri->tree_alt != 255) {

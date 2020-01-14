@@ -99,7 +99,7 @@ int get_next_research_item(const struct Dungeon *dungeon)
 {
     if (dungeon->research_num == 0)
         return -1;
-    for (long resnum = 0; resnum < dungeon->research_num; resnum++)
+    for (long resnum = 0; resnum < dungeon->research_num; ++resnum)
     {
         const struct ResearchVal* rsrchval = &dungeon->research[resnum];
         switch (rsrchval->rtyp)
@@ -131,7 +131,7 @@ int get_next_research_item(const struct Dungeon *dungeon)
 
 TbBool has_new_rooms_to_research(const struct Dungeon *dungeon)
 {
-    for (long resnum = 0; resnum < dungeon->research_num; resnum++)
+    for (long resnum = 0; resnum < dungeon->research_num; ++resnum)
     {
         const struct ResearchVal* rsrchval = &dungeon->research[resnum];
         if (rsrchval->rtyp == RsCat_Room)

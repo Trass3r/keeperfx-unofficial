@@ -43,7 +43,7 @@ extern "C" {
 /******************************************************************************/
 void clear_rooms(void)
 {
-    for (int i = 0; i < ROOMS_COUNT; i++)
+    for (int i = 0; i < ROOMS_COUNT; ++i)
     {
         memset(&game.rooms[i], 0, sizeof(struct Room));
   }
@@ -98,7 +98,7 @@ long calculate_player_num_rooms_built(PlayerNumber plyr_idx)
 {
     long count = 0;
     struct PlayerInfo* player = get_player(plyr_idx);
-    for (long rkind = 1; rkind < ROOM_TYPES_COUNT; rkind++)
+    for (long rkind = 1; rkind < ROOM_TYPES_COUNT; ++rkind)
     {
         if (!room_never_buildable(rkind))
         {
@@ -178,7 +178,7 @@ struct Room *get_player_room_any_kind_nearest_to(PlayerNumber plyr_idx,
 {
     long nearest_dist = LONG_MAX;
     struct Room* nearest_room = INVALID_ROOM;
-    for (RoomKind rkind = 1; rkind < ROOM_TYPES_COUNT; rkind++)
+    for (RoomKind rkind = 1; rkind < ROOM_TYPES_COUNT; ++rkind)
     {
         long dist;
         struct Room* room = get_player_room_of_kind_nearest_to(plyr_idx, rkind, stl_x, stl_y, &dist);
@@ -310,7 +310,7 @@ struct Room *find_nearest_room_for_thing_excluding_two_types(struct Thing *thing
 {
     long neardistance = LONG_MAX;
     struct Room* nearoom = INVALID_ROOM;
-    for (RoomKind rkind = 1; rkind < ROOM_TYPES_COUNT; rkind++)
+    for (RoomKind rkind = 1; rkind < ROOM_TYPES_COUNT; ++rkind)
     {
         if ((rkind == skip_rkind1) || (rkind == skip_rkind2)) {
             continue;
@@ -356,7 +356,7 @@ struct Room *find_nearest_room_to_vandalise(struct Thing *thing, PlayerNumber ow
 {
     long neardistance = LONG_MAX;
     struct Room* nearoom = INVALID_ROOM;
-    for (RoomKind rkind = 1; rkind < ROOM_TYPES_COUNT; rkind++)
+    for (RoomKind rkind = 1; rkind < ROOM_TYPES_COUNT; ++rkind)
     {
 		if (room_cannot_vandalise(rkind)) {
 			continue;

@@ -338,7 +338,7 @@ long get_small_map_inputs(long x, long y, long zoom)
 short get_bookmark_inputs(void)
 {
     struct PlayerInfo* player = get_my_player();
-    for (int i = 0; i < BOOKMARKS_COUNT; i++)
+    for (int i = 0; i < BOOKMARKS_COUNT; ++i)
     {
         struct Bookmark* bmark = &game.bookmark[i];
         int kcode = KC_1 + i;
@@ -371,7 +371,7 @@ short get_bookmark_inputs(void)
 
 short zoom_shortcuts(void)
 {
-    for (int i = 0; i <= ZOOM_KEY_ROOMS_COUNT; i++)
+    for (int i = 0; i <= ZOOM_KEY_ROOMS_COUNT; ++i)
     {
         long val;
         if (is_game_key_pressed(Gkey_ZoomRoom00 + i, &val, false))
@@ -465,7 +465,7 @@ short get_global_inputs(void)
     test_variable = !test_variable;
   }
 
-  for (int idx = KC_F1; idx <= KC_F8; idx++)
+  for (int idx = KC_F1; idx <= KC_F8; ++idx)
   {
       if ( is_key_pressed(idx,KMod_ALT) )
       {
@@ -1169,7 +1169,7 @@ short get_creature_control_action_inputs(void)
         toggle_gui();
     }
     int numkey = -1;
-    for (keycode=KC_1; keycode <= KC_0; keycode++)
+    for (keycode=KC_1; keycode <= KC_0; ++keycode)
     {
         if (is_key_pressed(keycode,KMod_NONE))
         {
@@ -1189,7 +1189,7 @@ short get_creature_control_action_inputs(void)
     if (numkey != -1)
     {
         int num_avail = 0;
-        for (int idx = 0; idx < LEARNED_INSTANCES_COUNT; idx++)
+        for (int idx = 0; idx < LEARNED_INSTANCES_COUNT; ++idx)
         {
             struct Thing* thing = thing_get(player->controlled_thing_idx);
             TRACE_THING(thing);
@@ -2104,7 +2104,7 @@ short get_gui_inputs(short gameplay_on)
   {
       drag_menu_x = -999;
       drag_menu_y = -999;
-      for (int idx = 0; idx < ACTIVE_BUTTONS_COUNT; idx++)
+      for (int idx = 0; idx < ACTIVE_BUTTONS_COUNT; ++idx)
       {
         struct GuiButton *gbtn = &active_buttons[idx];
         if ((gbtn->flags & LbBtnF_Unknown01) && (gbtn->gbtype == LbBtnT_Unknown6))
@@ -2119,7 +2119,7 @@ short get_gui_inputs(short gameplay_on)
   ActiveButtonID nx_over_slider_button = -1;
   struct GuiButton *gbtn;
   // Sweep through buttons
-  for (int gidx = 0; gidx < ACTIVE_BUTTONS_COUNT; gidx++)
+  for (int gidx = 0; gidx < ACTIVE_BUTTONS_COUNT; ++gidx)
   {
       gbtn = &active_buttons[gidx];
       if ((gbtn->flags & LbBtnF_Unknown01) == 0)

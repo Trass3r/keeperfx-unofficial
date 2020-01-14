@@ -65,7 +65,7 @@ long smaller_gold_vein_lookup_idx(long higher_gold_slabs, long higher_gem_slabs)
     long gold_slabs = higher_gold_slabs;
     long gem_slabs = higher_gem_slabs;
     long gold_idx = -1;
-    for (long i = 0; i < GOLD_LOOKUP_COUNT; i++)
+    for (long i = 0; i < GOLD_LOOKUP_COUNT; ++i)
     {
         struct GoldLookup* gldlook = get_gold_lookup(i);
         if (gldlook->num_gem_slabs == gem_slabs)
@@ -100,7 +100,7 @@ void check_treasure_map(unsigned char *treasure_map, unsigned short *vein_list, 
     long gold_slabs = 0;
     SlabCodedCoords slb_num = get_slab_number(slb_x, slb_y);
     treasure_map[slb_num] |= 0x02;
-    for (long vein_idx = 0; vein_idx <= vein_total; vein_idx++)
+    for (long vein_idx = 0; vein_idx <= vein_total; ++vein_idx)
     {
         gld_v1 += slb_x;
         gld_v2 += slb_y;
@@ -181,16 +181,16 @@ void check_map_for_gold(void)
     SlabCodedCoords slb_num;
     SYNCDBG(8,"Starting");
     //_DK_check_map_for_gold();
-    for (long i = 0; i < GOLD_LOOKUP_COUNT; i++)
+    for (long i = 0; i < GOLD_LOOKUP_COUNT; ++i)
     {
         LbMemorySet(&game.gold_lookup[i], 0, sizeof(struct GoldLookup));
     }
     // Make a map with treasure areas marked
     unsigned char* treasure_map = (unsigned char*)scratch;
     unsigned short* vein_list = (unsigned short*)&scratch[map_tiles_x * map_tiles_y];
-    for (slb_y = 0; slb_y < map_tiles_y; slb_y++)
+    for (slb_y = 0; slb_y < map_tiles_y; ++slb_y)
     {
-        for (slb_x = 0; slb_x < map_tiles_x; slb_x++)
+        for (slb_x = 0; slb_x < map_tiles_x; ++slb_x)
         {
             slb_num = get_slab_number(slb_x, slb_y);
             struct SlabMap* slb = get_slabmap_direct(slb_num);
@@ -204,9 +204,9 @@ void check_map_for_gold(void)
     }
     // Add treasures to lookup as gold veins
     long gold_next_idx = 0;
-    for (slb_y = 0; slb_y < map_tiles_y; slb_y++)
+    for (slb_y = 0; slb_y < map_tiles_y; ++slb_y)
     {
-        for (slb_x = 0; slb_x < map_tiles_x; slb_x++)
+        for (slb_x = 0; slb_x < map_tiles_x; ++slb_x)
         {
             slb_num = get_slab_number(slb_x, slb_y);
             if ( ((treasure_map[slb_num] & 0x01) == 0) && ((treasure_map[slb_num] & 0x02) == 0) )

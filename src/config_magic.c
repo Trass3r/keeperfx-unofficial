@@ -244,7 +244,7 @@ long get_special_description_strindex(int spckind)
 
 long get_power_index_for_work_state(long work_state)
 {
-    for (long i = 0; i < magic_conf.power_types_count; i++)
+    for (long i = 0; i < magic_conf.power_types_count; ++i)
     {
         if (magic_conf.power_cfgstats[i].work_state == work_state) {
             return i;
@@ -436,7 +436,7 @@ TbBool parse_magic_spell_blocks(char *buf, long len, const char *config_textname
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(magic_conf.spell_cfgstats)/sizeof(magic_conf.spell_cfgstats[0]);
-      for (i=0; i < arr_size; i++)
+      for (i=0; i < arr_size; ++i)
       {
           spellst = get_spell_model_stats(i);
           LbMemorySet(spellst->code_name, 0, COMMAND_WORD_LEN);
@@ -451,7 +451,7 @@ TbBool parse_magic_spell_blocks(char *buf, long len, const char *config_textname
           }
       }
       arr_size = magic_conf.spell_types_count;
-      for (i=0; i < arr_size; i++)
+      for (i=0; i < arr_size; ++i)
       {
           splconf = &game.spells_config[i];
           splconf->duration = 0;
@@ -467,7 +467,7 @@ TbBool parse_magic_spell_blocks(char *buf, long len, const char *config_textname
   }
   // Load the file
   arr_size = magic_conf.spell_types_count;
-  for (i=0; i < arr_size; i++)
+  for (i=0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "spell%d", i);
@@ -639,7 +639,7 @@ TbBool parse_magic_shot_blocks(char *buf, long len, const char *config_textname,
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(magic_conf.shot_cfgstats)/sizeof(magic_conf.shot_cfgstats[0]);
-      for (i=0; i < arr_size; i++)
+      for (i=0; i < arr_size; ++i)
       {
           shotst = get_shot_model_stats(i);
           LbMemorySet(shotst->code_name, 0, COMMAND_WORD_LEN);
@@ -666,7 +666,7 @@ TbBool parse_magic_shot_blocks(char *buf, long len, const char *config_textname,
   }
   // Load the file
   arr_size = magic_conf.shot_types_count;
-  for (i=0; i < arr_size; i++)
+  for (i=0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "shot%d", i);
@@ -867,7 +867,7 @@ TbBool parse_magic_power_blocks(char *buf, long len, const char *config_textname
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(magic_conf.power_cfgstats)/sizeof(magic_conf.power_cfgstats[0]);
-      for (i=0; i < arr_size; i++)
+      for (i=0; i < arr_size; ++i)
       {
           powerst = get_power_model_stats(i);
           LbMemorySet(powerst->code_name, 0, COMMAND_WORD_LEN);
@@ -895,13 +895,13 @@ TbBool parse_magic_power_blocks(char *buf, long len, const char *config_textname
           }
       }
       arr_size = sizeof(object_conf.object_to_power_artifact)/sizeof(object_conf.object_to_power_artifact[0]);
-      for (i=0; i < arr_size; i++) {
+      for (i=0; i < arr_size; ++i) {
           object_conf.object_to_power_artifact[i] = 0;
       }
   }
   arr_size = magic_conf.power_types_count;
   // Load the file
-  for (i=0; i < arr_size; i++)
+  for (i=0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "power%d", i);
@@ -1218,7 +1218,7 @@ TbBool parse_magic_power_blocks(char *buf, long len, const char *config_textname
   if ((flags & CnfLd_ListOnly) == 0)
   {
     // Mark powers which have children
-    for (i = 0; i < magic_conf.power_types_count; i++)
+    for (i = 0; i < magic_conf.power_types_count; ++i)
     {
         powerst = get_power_model_stats(i);
         struct PowerConfigStats* parent_powerst = get_power_model_stats(powerst->parent_power);
@@ -1240,7 +1240,7 @@ TbBool parse_magic_special_blocks(char *buf, long len, const char *config_textna
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(magic_conf.special_cfgstats)/sizeof(magic_conf.special_cfgstats[0]);
-      for (i=0; i < arr_size; i++)
+      for (i=0; i < arr_size; ++i)
       {
           specst = get_special_model_stats(i);
           LbMemorySet(specst->code_name, 0, COMMAND_WORD_LEN);
@@ -1257,13 +1257,13 @@ TbBool parse_magic_special_blocks(char *buf, long len, const char *config_textna
           }
       }
       arr_size = sizeof(object_conf.object_to_special_artifact)/sizeof(object_conf.object_to_special_artifact[0]);
-      for (i=0; i < arr_size; i++) {
+      for (i=0; i < arr_size; ++i) {
           object_conf.object_to_special_artifact[i] = 0;
       }
   }
   arr_size = magic_conf.special_types_count;
   // Load the file
-  for (i=0; i < arr_size; i++)
+  for (i=0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "special%d", i);
@@ -1562,10 +1562,10 @@ void remove_power_from_player(PowerKind pwkind, PlayerNumber plyr_idx)
  */
 TbBool make_all_powers_cost_free(void)
 {
-    for (long i = 0; i < magic_conf.power_types_count; i++)
+    for (long i = 0; i < magic_conf.power_types_count; ++i)
     {
         struct MagicStats* pwrdynst = get_power_dynamic_stats(i);
-        for (long n = 0; n < MAGIC_OVERCHARGE_LEVELS; n++)
+        for (long n = 0; n < MAGIC_OVERCHARGE_LEVELS; ++n)
             pwrdynst->cost[n] = 0;
   }
   return true;
@@ -1577,7 +1577,7 @@ TbBool make_all_powers_cost_free(void)
 TbBool make_all_powers_researchable(PlayerNumber plyr_idx)
 {
     struct Dungeon* dungeon = get_players_num_dungeon(plyr_idx);
-    for (long i = 0; i < KEEPER_POWERS_COUNT; i++)
+    for (long i = 0; i < KEEPER_POWERS_COUNT; ++i)
     {
         dungeon->magic_resrchable[i] = 1;
     }
@@ -1679,7 +1679,7 @@ TbBool make_available_all_researchable_powers(PlayerNumber plyr_idx)
       ERRORDBG(11,"Cannot do; player %d has no dungeon",(int)plyr_idx);
       return false;
   }
-  for (long i = 0; i < KEEPER_POWERS_COUNT; i++)
+  for (long i = 0; i < KEEPER_POWERS_COUNT; ++i)
   {
     if (dungeon->magic_resrchable[i])
     {

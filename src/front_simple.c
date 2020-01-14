@@ -123,41 +123,41 @@ TbBool copy_raw8_image_buffer(unsigned char *dst_buf,const int scanline,const in
     int sw = 0;
     int sh = 0;
     // Clearing top of the canvas
-    for (sh = 0; sh < sph; sh++)
+    for (sh = 0; sh < sph; ++sh)
     {
         dst = dst_buf + (sh)*scanline;
         LbMemorySet(dst, 0, scanline);
   }
   // Clearing bottom of the canvas
   // (Note: it must be done before drawing, to make sure we won't overwrite last line)
-  for (sh=sph+dst_height; sh<nlines; sh++)
+  for (sh=sph+dst_height; sh<nlines; ++sh)
   {
       dst = dst_buf + (sh)*scanline;
       LbMemorySet(dst, 0, scanline);
   }
   // Now drawing
   int dhstart = sph;
-  for (sh=0; sh<src_height; sh++)
+  for (sh=0; sh<src_height; ++sh)
   {
       int dhend = sph + (dst_height * (sh + 1) / src_height);
       const unsigned char* src = src_buf + sh * src_width;
-      // make for(k=0;k<dhend-dhstart;k++) but restrict k to draw area
+      // make for(k=0;k<dhend-dhstart;++k) but restrict k to draw area
       int mhmin = max(0, -dhstart);
       int mhmax = min(dhend - dhstart, nlines - dhstart);
-      for (int k = mhmin; k < mhmax; k++)
+      for (int k = mhmin; k < mhmax; ++k)
       {
           dst = dst_buf + (dhstart+k)*scanline;
           int dwstart = spw;
           if (dwstart > 0) {
               LbMemorySet(dst, 0, dwstart);
           }
-          for (sw=0; sw<src_width; sw++)
+          for (sw=0; sw<src_width; ++sw)
           {
               int dwend = spw + (dst_width * (sw + 1) / src_width);
-              // make for(i=0;i<dwend-dwstart;i++) but restrict i to draw area
+              // make for(i=0;i<dwend-dwstart;++i) but restrict i to draw area
               int mwmin = max(0, -dwstart);
               int mwmax = min(dwend - dwstart, scanline - dwstart);
-              for (int i = mwmin; i < mwmax; i++)
+              for (int i = mwmin; i < mwmax; ++i)
               {
                   dst[dwstart+i] = src[sw];
               }
@@ -436,7 +436,7 @@ TbBool wait_for_cd_to_be_available(void)
   {
       if ( LbFileExists(ffullpath) )
         break;
-      for (unsigned int i = 0; i < 10; i++)
+      for (unsigned int i = 0; i < 10; ++i)
       {
         redraw_bitmap_screen(&nocd_bmp);
         do

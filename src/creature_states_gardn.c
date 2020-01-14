@@ -111,7 +111,7 @@ void person_search_for_food_again(struct Thing *creatng, struct Room *room)
         MapSlabCoord slb_x = slb_num_decode_x(i);
         MapSlabCoord slb_y = slb_num_decode_y(i);
         // Per-slab code
-        for (long n = 0; n < 9; n++)
+        for (long n = 0; n < 9; ++n)
         {
             MapSubtlCoord x = slab_subtile(slb_x, n % 3);
             MapSubtlCoord y = slab_subtile(slb_y, n / 3);

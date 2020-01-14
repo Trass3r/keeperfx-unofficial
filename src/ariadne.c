@@ -258,7 +258,7 @@ static void ariadne_compare_ways(const struct Ariadne *arid1, const struct Ariad
         ERRORLOG("current_waypoint DIFFERS");
     }
     int i;
-    for (i=0; i < ARID_WAYPOINTS_COUNT; i++) {
+    for (i=0; i < ARID_WAYPOINTS_COUNT; ++i) {
         const struct Coord2d* w1;
         const struct Coord2d* w2;
         w1 = &arid1->waypoints[i]; w2 = &arid2->waypoints[i];
@@ -344,9 +344,9 @@ void init_navigation_map(void)
     MapSubtlCoord stl_x;
     MapSubtlCoord stl_y;
     LbMemorySet(game.navigation_map, 0, navigation_map_size_x*navigation_map_size_y);
-    for (stl_y=0; stl_y < navigation_map_size_y; stl_y++)
+    for (stl_y=0; stl_y < navigation_map_size_y; ++stl_y)
     {
-        for (stl_x=0; stl_x < navigation_map_size_x; stl_x++)
+        for (stl_x=0; stl_x < navigation_map_size_x; ++stl_x)
         {
             set_navigation_map(stl_x, stl_y, get_navigation_colour(stl_x, stl_y));
         }
@@ -435,9 +435,9 @@ long update_navigation_triangulation(long start_x, long start_y, long end_x, lon
     ey = end_y + 1;
     if (ey >= map_subtiles_y-2)
       ey = map_subtiles_y-2;
-    for (y = sy; y <= ey; y++)
+    for (y = sy; y <= ey; ++y)
     {
-        for (x = sx; x <= ex; x++)
+        for (x = sx; x <= ex; ++x)
         {
             set_navigation_map(x, y, get_navigation_colour(x, y));
         }
@@ -737,7 +737,7 @@ void path_out_a_bit(struct Path *path, const long *route)
     //_DK_path_out_a_bit(path, route); return;
     wpoint = &wayPoints.wpfield_10[0];
     ppoint = &path->waypoints[0];
-    for (i=0; i < path->waypoints_num-1; i++)
+    for (i=0; i < path->waypoints_num-1; ++i)
     {
         prev_pt = route[*wpoint];
         curr_pt = route[*wpoint+1];
@@ -1070,7 +1070,7 @@ long gate_route_to_coords(long trAx, long trAy, long trBx, long trBy, long *a5, 
     struct Gate *gt;
     gt = pway->points;
     int wpi;
-    for (wpi=1; wpi <= a6; wpi++)
+    for (wpi=1; wpi <= a6; ++wpi)
     {
         long edge_x1;
         long edge_y1;
@@ -1281,7 +1281,7 @@ void route_through_gates(const struct Pathway *pway, struct Path *path, long sub
     path->waypoints_num = pway->points_num;
     ppoint = &pway->points[0];
     wpoint = &path->waypoints[0];
-    for (i=0; i < pway->points_num-1; i++)
+    for (i=0; i < pway->points_num-1; ++i)
     {
         if (ppoint->field_18)
         {
@@ -1309,7 +1309,7 @@ static long triangle_findSE8(long ptfind_x, long ptfind_y)
     if (ntri < 0) {
         return ntri;
     }
-    for (ncor=0; ncor < 3; ncor++)
+    for (ncor=0; ncor < 3; ++ncor)
     {
         struct Point *pt;
         pt = get_triangle_point(ntri,ncor);
@@ -1319,7 +1319,7 @@ static long triangle_findSE8(long ptfind_x, long ptfind_y)
             return ntri;
         }
     }
-    for (ncor=0; ncor < 3; ncor++)
+    for (ncor=0; ncor < 3; ++ncor)
     {
         struct Point *pt;
         pt = get_triangle_point(ntri,ncor);
@@ -1489,7 +1489,7 @@ void nearest_search_f(long sizexy, long srcx, long srcy, long dstx, long dsty, l
     seltri_id = 0;
     selcor_id = 0;
     min_dist = LONG_MAX;
-    for (cor_id = 0; cor_id < 3; cor_id++)
+    for (cor_id = 0; cor_id < 3; ++cor_id)
     {
         int pt_id;
         pt_id = Triangles[tri1_id].points[cor_id];
@@ -1520,7 +1520,7 @@ void nearest_search_f(long sizexy, long srcx, long srcy, long dstx, long dsty, l
         struct Triangle *tri;
         tri = &Triangles[regn];
         unsigned int ncor1;
-        for (ncor1=0; ncor1 < 3; ncor1++)
+        for (ncor1=0; ncor1 < 3; ++ncor1)
         {
             long ntri;
             ntri = tri->tags[ncor1];
@@ -1539,7 +1539,7 @@ void nearest_search_f(long sizexy, long srcx, long srcy, long dstx, long dsty, l
                             return;
                         }
                         unsigned int ncor2;
-                        for (ncor2=0; ncor2 < 3; ncor2++)
+                        for (ncor2=0; ncor2 < 3; ++ncor2)
                         {
                             int pt_id;
                             long diff_x;
@@ -1575,7 +1575,7 @@ long cost_to_start(long tri_idx)
     long i;
     mincost = 16777215;
     tri = get_triangle(tri_idx);
-    for (i=0; i < 3; i++)
+    for (i=0; i < 3; ++i)
     {
         pt = point_get(tri->points[i]);
         len_x = ((tree_Ax8 >> 8) - (long)(pt->x));
@@ -1670,7 +1670,7 @@ TbBool triangle_check_and_add_navitree_fwd(long ttri)
     nskipped = 0;
     long i;
     long k;
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 3; ++i)
     {
         k = tri->tags[i];
         if (!is_current_tag(k))
@@ -1720,7 +1720,7 @@ TbBool triangle_check_and_add_navitree_bak(long ttri)
     nskipped = 0;
     long i;
     long k;
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 3; ++i)
     {
         k = tri->tags[i];
         if (!is_current_tag(k))
@@ -1947,7 +1947,7 @@ long ma_triangle_route(long ttriA, long ttriB, long *routecost)
     NAVIDBG(19,"Selecting route");
     if (par_fwd < par_fwd) // //TODO PATHFINDING maybe condition should be (par_fwd < par_bak) ?
     {
-        for (i=0; i <= sizeof(tree_route)/sizeof(tree_route[0]); i++)
+        for (i=0; i <= sizeof(tree_route)/sizeof(tree_route[0]); ++i)
         {
              tree_route[i] = route_fwd[i];
         }
@@ -1955,7 +1955,7 @@ long ma_triangle_route(long ttriA, long ttriB, long *routecost)
         return len_fwd;
     } else
     {
-        for (i=0; i <= len_bak; i++)
+        for (i=0; i <= len_bak; ++i)
         {
              tree_route[i] = route_bak[len_bak-i];
         }
@@ -1973,22 +1973,22 @@ void edgelen_init(void)
     int i;
     // Fill edge values
     EdgeFit = RadiusEdgeFit[0];
-    for (i=0; i < EDGEFIT_LEN; i++)
+    for (i=0; i < EDGEFIT_LEN; ++i)
     {
         EdgeFit[i] = 0;
     }
     EdgeFit = RadiusEdgeFit[1];
-    for (i=0; i < EDGEFIT_LEN; i++)
+    for (i=0; i < EDGEFIT_LEN; ++i)
     {
         EdgeFit[i] = 1;
     }
     EdgeFit = RadiusEdgeFit[2];
-    for (i=0; i < EDGEFIT_LEN; i++)
+    for (i=0; i < EDGEFIT_LEN; ++i)
     {
         EdgeFit[i] = ((i & 0x2A) == 0x2A);
     }
     EdgeFit = RadiusEdgeFit[3];
-    for (i=0; i < EDGEFIT_LEN; i++)
+    for (i=0; i < EDGEFIT_LEN; ++i)
     {
         EdgeFit[i] = ((i & 0x3F) == 0x3F);
     }
@@ -2193,7 +2193,7 @@ void ariadne_get_starting_angle_and_side_of_wallhug_for_desireable_move(struct T
     struct Coord3d pos;
     int i;
     long hug_angle;
-    for (i = 0; i < whsteps; i++)
+    for (i = 0; i < whsteps; ++i)
     {
         hug_angle = ariadne_get_wallhug_angle(thing, arid);
         if (hug_angle != -1)
@@ -2215,7 +2215,7 @@ void ariadne_get_starting_angle_and_side_of_wallhug_for_desireable_move(struct T
     thing->move_angle_xy = angle_end;
     arid->field_20 = inangle_oneaxis;
     thing->mappos = bkp_mappos;
-    for (i = 0; i < whsteps; i++)
+    for (i = 0; i < whsteps; ++i)
     {
         hug_angle = ariadne_get_wallhug_angle(thing, arid);
         if (hug_angle != -1)
@@ -2451,7 +2451,7 @@ TbBool blocked_by_door_at(struct Thing *thing, struct Coord3d *pos, unsigned lon
             stl_x = start_x;
         if (end_y >= start_y)
         {
-            for (stl_y = start_y; stl_y <= end_y; stl_y++)
+            for (stl_y = start_y; stl_y <= end_y; ++stl_y)
             {
                 if (subtile_is_door(stl_x, stl_y))
                     return true;
@@ -2465,7 +2465,7 @@ TbBool blocked_by_door_at(struct Thing *thing, struct Coord3d *pos, unsigned lon
               stl_y = start_y;
         if (end_x >= start_x)
         {
-            for (stl_x = start_x; stl_x <= end_x; stl_x++)
+            for (stl_x = start_x; stl_x <= end_x; ++stl_x)
             {
                 if (subtile_is_door(stl_x, stl_y))
                     return true;
@@ -2741,7 +2741,7 @@ AriadneReturn ariadne_prepare_creature_route_to_target_f(const struct Thing *thi
     long i;
     long k;
     k = 0;
-    for (i = 0; i < arid->stored_waypoints; i++)
+    for (i = 0; i < arid->stored_waypoints; ++i)
     {
         arid->waypoints[i].x.val = path.waypoints[k].x;
         arid->waypoints[i].y.val = path.waypoints[k].y;
@@ -4066,7 +4066,7 @@ TbBool border_clip_horizontal(const unsigned char *imap, long start_x, long end_
             map_center = *mapp_center;
         }
     }
-    for (i++; i < end_x; i++)
+    for (i++; i < end_x; ++i)
     {
         mapp_center = &imap[navmap_tile_number(i,start_y)];
         mapp_up = &imap[navmap_tile_number(i,start_y-1)];
@@ -4112,7 +4112,7 @@ TbBool border_clip_vertical(const unsigned char *imap, long start_x, long end_x,
             map_center = *mapp_center;
         }
     }
-    for (i++; i < end_y; i++)
+    for (i++; i < end_y; ++i)
     {
         mapp_center = &imap[navmap_tile_number(start_x,i)];
         mapp_left = &imap[navmap_tile_number(start_x-1,i)];
@@ -4610,7 +4610,7 @@ long fringe_scan(long *outfri_x, long *outfri_y, long *outlen_x, long *outlen_y)
         {
           sub_y = fringe_y[loc_x];
           sub_x = loc_x;
-          for (loc_x++; loc_x < fringe_x2; loc_x++)
+          for (loc_x++; loc_x < fringe_x2; ++loc_x)
           {
               if (sub_y != fringe_y[loc_x])
                 break;
@@ -4649,13 +4649,13 @@ long fringe_get_rectangle(long *outfri_x1, long *outfri_y1, long *outfri_x2, lon
     // Find dx and dy
     long dx;
     long dy;
-    for (dx = 1; dx < len_x; dx++)
+    for (dx = 1; dx < len_x; ++dx)
     {
         if (fri_map[dx] != fri_map[0]) {
             break;
         }
     }
-    for (dy = 1; dy < len_y; dy++)
+    for (dy = 1; dy < len_y; ++dy)
     {
         // Our data is 0-terminated, so we can use string functions to compare
         if (memcmp(&fri_map[256*dy], &fri_map[0], dx) != 0) {
@@ -4663,7 +4663,7 @@ long fringe_get_rectangle(long *outfri_x1, long *outfri_y1, long *outfri_x2, lon
         }
     }
     long i;
-    for (i = 0; i < dx; i++) {
+    for (i = 0; i < dx; ++i) {
         fringe_y[fri_x+i] = fri_y+dy;
     }
     *oval = fri_map[0];
@@ -4720,13 +4720,13 @@ TbBool triangulation_border_start(long *border_a, long *border_b)
     long k;
     //_DK_triangulation_border_start(border_a, border_b);
     // First try - border
-    for (brd_idx=0; brd_idx < ix_Border; brd_idx++)
+    for (brd_idx=0; brd_idx < ix_Border; ++brd_idx)
     {
         tri_idx = Border[brd_idx];
         if (get_triangle_tree_alt(tri_idx) != -1)
         {
             tri = get_triangle(tri_idx);
-            for (i=0; i < 3; i++)
+            for (i=0; i < 3; ++i)
             {
                 k = tri->tags[i];
                 if (k == -1)
@@ -4739,12 +4739,12 @@ TbBool triangulation_border_start(long *border_a, long *border_b)
         }
     }
     // Second try - triangles
-    for (tri_idx=0; tri_idx < ix_Triangles; tri_idx++)
+    for (tri_idx=0; tri_idx < ix_Triangles; ++tri_idx)
     {
         if (get_triangle_tree_alt(tri_idx) != -1)
         {
             tri = get_triangle(tri_idx);
-            for (i=0; i < 3; i++)
+            for (i=0; i < 3; ++i)
             {
                 k = tri->tags[i];
                 if (k == -1)
@@ -4828,9 +4828,9 @@ long uniform_area_colour(const unsigned char *imap, long start_x, long start_y, 
     long x;
     long y;
     uniform = imap[navmap_tile_number(start_x,start_y)];
-    for (y = start_y; y < end_y; y++)
+    for (y = start_y; y < end_y; ++y)
     {
-        for (x = start_x; x < end_x; x++)
+        for (x = start_x; x < end_x; ++x)
         {
             if (imap[navmap_tile_number(x,y)] != uniform)
             {
@@ -4884,7 +4884,7 @@ void triangulation_initxy(long startx, long starty, long endx, long endy)
 {
     long i;
     //_DK_triangulation_initxy(startx, starty, endx, endy);return;
-    for (i=0; i < TRIANLGLES_COUNT; i++)
+    for (i=0; i < TRIANLGLES_COUNT; ++i)
     {
         struct Triangle *tri;
         tri = &Triangles[i];
@@ -4989,7 +4989,7 @@ TbBool triangulate_area(unsigned char *imap, long start_x, long start_y, long en
         fringe_y1 = start_y;
         fringe_x2 = end_x;
         fringe_y2 = end_y;
-        for (i = start_x; i < end_x; i++)
+        for (i = start_x; i < end_x; ++i)
         {
             fringe_y[i] = start_y;
         }

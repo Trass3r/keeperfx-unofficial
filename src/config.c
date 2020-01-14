@@ -351,7 +351,7 @@ int get_conf_parameter_whole(const char *buf,long *pos,long buflen,char *dst,lon
     (*pos)++;
     if ((*pos) >= buflen) return 0;
   }
-  for (i=0; i+1 < dstlen; i++)
+  for (i=0; i+1 < dstlen; ++i)
   {
     if ((buf[*pos]=='\r') || (buf[*pos]=='\n') || ((unsigned char)buf[*pos] < 7))
       break;
@@ -373,7 +373,7 @@ int get_conf_parameter_single(const char *buf,long *pos,long buflen,char *dst,lo
         (*pos)++;
         if ((*pos) >= buflen) return 0;
     }
-    for (i=0; i+1 < dstlen; i++)
+    for (i=0; i+1 < dstlen; ++i)
     {
         if ((buf[*pos] == ' ') || (buf[*pos] == '\t') || (buf[*pos] == '\r')
          || (buf[*pos] == '\n') || ((unsigned char)buf[*pos] < 7))
@@ -477,7 +477,7 @@ long get_id(const struct NamedCommand *desc, const char *itmname)
 {
   if ((desc == NULL) || (itmname == NULL))
     return -1;
-  for (long i = 0; desc[i].name != NULL; i++)
+  for (long i = 0; desc[i].name != NULL; ++i)
   {
     if (strcasecmp(desc[i].name, itmname) == 0)
       return desc[i].num;
@@ -496,7 +496,7 @@ long get_rid(const struct NamedCommand *desc, const char *itmname)
   long i;
   if ((desc == NULL) || (itmname == NULL))
     return -1;
-  for (i=0; desc[i].name != NULL; i++)
+  for (i=0; desc[i].name != NULL; ++i)
   {
     if (strcasecmp(desc[i].name, itmname) == 0)
       return desc[i].num;
@@ -609,7 +609,7 @@ short load_configuration(void)
           screenshot_format = i;
           break;
       case 6: // FRONTEND_RES
-          for (i=0; i<3; i++)
+          for (i=0; i<3; ++i)
           {
             if (get_conf_parameter_single(buf,&pos,len,word_buf,sizeof(word_buf)) > 0)
               k = LbRegisterVideoModeString(word_buf);
@@ -636,7 +636,7 @@ short load_configuration(void)
           }
           break;
       case 7: // INGAME_RES
-          for (i=0; i<max_game_vidmode_count(); i++)
+          for (i=0; i<max_game_vidmode_count(); ++i)
           {
             if (get_conf_parameter_single(buf,&pos,len,word_buf,sizeof(word_buf)) > 0)
             {
@@ -720,7 +720,7 @@ short load_configuration(void)
             break;
           }
       case 13: // Atmos_samples
-          for (i=0; i<3; i++)
+          for (i=0; i<3; ++i)
           {
             if (get_conf_parameter_single(buf,&pos,len,word_buf,sizeof(word_buf)) > 0)
               k = atoi(word_buf);
@@ -1149,7 +1149,7 @@ TbBool create_empty_high_score_table(void)
     campaign.hiscore_table = (struct HighScore *)LbMemoryAlloc(arr_size);
   if (campaign.hiscore_table == NULL)
     return false;
-  for (i=0; i < VISIBLE_HIGH_SCORES_COUNT; i++)
+  for (i=0; i < VISIBLE_HIGH_SCORES_COUNT; ++i)
   {
     if (i >= campaign.hiscore_count) break;
     sprintf(campaign.hiscore_table[i].name, "Bullfrog");
@@ -1181,7 +1181,7 @@ int add_high_score_entry(unsigned long score, LevelNumber lvnum, const char *nam
         return false;
     }
     // Determining position of the new entry to keep table sorted with decreasing scores
-    for (dest_idx=0; dest_idx < campaign.hiscore_count; dest_idx++)
+    for (dest_idx=0; dest_idx < campaign.hiscore_count; ++dest_idx)
     {
         if (campaign.hiscore_table[dest_idx].score < score)
             break;
@@ -1236,7 +1236,7 @@ int add_high_score_entry(unsigned long score, LevelNumber lvnum, const char *nam
     } else
     {
         // Moving entries up
-        for (int k = overwrite_idx; k < dest_idx; k++)
+        for (int k = overwrite_idx; k < dest_idx; ++k)
         {
             memcpy(&campaign.hiscore_table[k],&campaign.hiscore_table[k+1],sizeof(struct HighScore));
         }
@@ -1253,7 +1253,7 @@ int add_high_score_entry(unsigned long score, LevelNumber lvnum, const char *nam
  */
 unsigned long get_level_highest_score(LevelNumber lvnum)
 {
-    for (int idx = 0; idx < campaign.hiscore_count; idx++)
+    for (int idx = 0; idx < campaign.hiscore_count; ++idx)
     {
         if (campaign.hiscore_table[idx].lvnum == lvnum)
             return campaign.hiscore_table[idx].score;
@@ -1358,7 +1358,7 @@ short set_level_info_text_name(LevelNumber lvnum, char *name, unsigned long lvop
 
 TbBool reset_credits(struct CreditsItem *credits)
 {
-    for (long i = 0; i < CAMPAIGN_CREDITS_COUNT; i++)
+    for (long i = 0; i < CAMPAIGN_CREDITS_COUNT; ++i)
     {
         LbMemorySet(&credits[i], 0, sizeof(struct CreditsItem));
         credits[i].kind = CIK_None;
@@ -1500,7 +1500,7 @@ TbBool setup_campaign_credits_data(struct GameCampaign *campgn)
 short is_bonus_level(LevelNumber lvnum)
 {
   if (lvnum < 1) return false;
-  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; i++)
+  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; ++i)
   {
     if (campaign.bonus_levels[i] == lvnum)
     {
@@ -1515,7 +1515,7 @@ short is_bonus_level(LevelNumber lvnum)
 short is_extra_level(LevelNumber lvnum)
 {
   if (lvnum < 1) return false;
-  for (int i = 0; i < EXTRA_LEVELS_COUNT; i++)
+  for (int i = 0; i < EXTRA_LEVELS_COUNT; ++i)
   {
       if (campaign.extra_levels[i] == lvnum)
       {
@@ -1536,7 +1536,7 @@ int storage_index_for_bonus_level(LevelNumber bn_lvnum)
     if (bn_lvnum < 1)
         return -1;
     int k = 0;
-    for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; i++)
+    for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; ++i)
     {
         if (campaign.bonus_levels[i] == bn_lvnum)
             return k;
@@ -1553,7 +1553,7 @@ int storage_index_for_bonus_level(LevelNumber bn_lvnum)
 int array_index_for_bonus_level(LevelNumber bn_lvnum)
 {
   if (bn_lvnum < 1) return -1;
-  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; i++)
+  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; ++i)
   {
     if (campaign.bonus_levels[i] == bn_lvnum)
         return i;
@@ -1568,7 +1568,7 @@ int array_index_for_bonus_level(LevelNumber bn_lvnum)
 int array_index_for_extra_level(LevelNumber ex_lvnum)
 {
   if (ex_lvnum < 1) return -1;
-  for (int i = 0; i < EXTRA_LEVELS_COUNT; i++)
+  for (int i = 0; i < EXTRA_LEVELS_COUNT; ++i)
   {
     if (campaign.extra_levels[i] == ex_lvnum)
         return i;
@@ -1583,7 +1583,7 @@ int array_index_for_extra_level(LevelNumber ex_lvnum)
 int array_index_for_singleplayer_level(LevelNumber sp_lvnum)
 {
   if (sp_lvnum < 1) return -1;
-  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; i++)
+  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; ++i)
   {
     if (campaign.single_levels[i] == sp_lvnum)
         return i;
@@ -1598,7 +1598,7 @@ int array_index_for_singleplayer_level(LevelNumber sp_lvnum)
 int array_index_for_multiplayer_level(LevelNumber mp_lvnum)
 {
   if (mp_lvnum < 1) return -1;
-  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; i++)
+  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; ++i)
   {
     if (campaign.multi_levels[i] == mp_lvnum)
         return i;
@@ -1613,7 +1613,7 @@ int array_index_for_multiplayer_level(LevelNumber mp_lvnum)
 int array_index_for_freeplay_level(LevelNumber fp_lvnum)
 {
   if (fp_lvnum < 1) return -1;
-  for (int i = 0; i < FREE_LEVELS_COUNT; i++)
+  for (int i = 0; i < FREE_LEVELS_COUNT; ++i)
   {
     if (campaign.freeplay_levels[i] == fp_lvnum)
         return i;
@@ -1711,7 +1711,7 @@ LevelNumber last_freeplay_level(void)
  */
 LevelNumber first_extra_level(void)
 {
-    for (long lvidx = 0; lvidx < campaign.extra_levels_index; lvidx++)
+    for (long lvidx = 0; lvidx < campaign.extra_levels_index; ++lvidx)
     {
         long lvnum = campaign.extra_levels[lvidx];
         if (lvnum > 0)
@@ -1748,7 +1748,7 @@ LevelNumber next_singleplayer_level(LevelNumber sp_lvnum)
   if (sp_lvnum == SINGLEPLAYER_FINISHED) return SINGLEPLAYER_FINISHED;
   if (sp_lvnum == SINGLEPLAYER_NOTSTARTED) return first_singleplayer_level();
   if (sp_lvnum < 1) return LEVELNUMBER_ERROR;
-  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; i++)
+  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; ++i)
   {
     if (campaign.single_levels[i] == sp_lvnum)
     {
@@ -1771,7 +1771,7 @@ LevelNumber prev_singleplayer_level(LevelNumber sp_lvnum)
   if (sp_lvnum == SINGLEPLAYER_NOTSTARTED) return SINGLEPLAYER_NOTSTARTED;
   if (sp_lvnum == SINGLEPLAYER_FINISHED) return last_singleplayer_level();
   if (sp_lvnum < 1) return LEVELNUMBER_ERROR;
-  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; i++)
+  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; ++i)
   {
     if (campaign.single_levels[i] == sp_lvnum)
     {
@@ -1794,7 +1794,7 @@ LevelNumber next_multiplayer_level(LevelNumber mp_lvnum)
   if (mp_lvnum == SINGLEPLAYER_FINISHED) return SINGLEPLAYER_FINISHED;
   if (mp_lvnum == SINGLEPLAYER_NOTSTARTED) return first_multiplayer_level();
   if (mp_lvnum < 1) return LEVELNUMBER_ERROR;
-  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; i++)
+  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; ++i)
   {
     if (campaign.multi_levels[i] == mp_lvnum)
     {
@@ -1817,7 +1817,7 @@ LevelNumber prev_multiplayer_level(LevelNumber mp_lvnum)
   if (mp_lvnum == SINGLEPLAYER_NOTSTARTED) return SINGLEPLAYER_NOTSTARTED;
   if (mp_lvnum == SINGLEPLAYER_FINISHED) return last_multiplayer_level();
   if (mp_lvnum < 1) return LEVELNUMBER_ERROR;
-  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; i++)
+  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; ++i)
   {
     if (campaign.multi_levels[i] == mp_lvnum)
     {
@@ -1840,7 +1840,7 @@ LevelNumber next_extra_level(LevelNumber ex_lvnum)
   if (ex_lvnum == SINGLEPLAYER_FINISHED) return SINGLEPLAYER_FINISHED;
   if (ex_lvnum == SINGLEPLAYER_NOTSTARTED) return first_extra_level();
   if (ex_lvnum < 1) return LEVELNUMBER_ERROR;
-  for (int i = 0; i < EXTRA_LEVELS_COUNT; i++)
+  for (int i = 0; i < EXTRA_LEVELS_COUNT; ++i)
   {
     if (campaign.extra_levels[i] == ex_lvnum)
     {
@@ -1866,7 +1866,7 @@ LevelNumber next_freeplay_level(LevelNumber fp_lvnum)
   if (fp_lvnum == SINGLEPLAYER_FINISHED) return SINGLEPLAYER_FINISHED;
   if (fp_lvnum == SINGLEPLAYER_NOTSTARTED) return first_freeplay_level();
   if (fp_lvnum < 1) return LEVELNUMBER_ERROR;
-  for (int i = 0; i < FREE_LEVELS_COUNT; i++)
+  for (int i = 0; i < FREE_LEVELS_COUNT; ++i)
   {
     if (campaign.freeplay_levels[i] == fp_lvnum)
     {
@@ -1889,7 +1889,7 @@ LevelNumber prev_freeplay_level(LevelNumber fp_lvnum)
   if (fp_lvnum == SINGLEPLAYER_NOTSTARTED) return SINGLEPLAYER_NOTSTARTED;
   if (fp_lvnum == SINGLEPLAYER_FINISHED) return last_freeplay_level();
   if (fp_lvnum < 1) return LEVELNUMBER_ERROR;
-  for (int i = 0; i < FREE_LEVELS_COUNT; i++)
+  for (int i = 0; i < FREE_LEVELS_COUNT; ++i)
   {
     if (campaign.freeplay_levels[i] == fp_lvnum)
     {
@@ -1924,7 +1924,7 @@ short is_singleplayer_level(LevelNumber lvnum)
     SYNCDBG(17,"Level index %ld is not correct",lvnum);
     return false;
   }
-  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; i++)
+  for (int i = 0; i < CAMPAIGN_LEVELS_COUNT; ++i)
   {
     if (campaign.single_levels[i] == lvnum)
     {
@@ -1940,7 +1940,7 @@ short is_multiplayer_level(LevelNumber lvnum)
 {
   int i;
   if (lvnum < 1) return false;
-  for (i=0; i<CAMPAIGN_LEVELS_COUNT; i++)
+  for (i=0; i<CAMPAIGN_LEVELS_COUNT; ++i)
   {
     if (campaign.multi_levels[i] == lvnum)
     {
@@ -1951,7 +1951,7 @@ short is_multiplayer_level(LevelNumber lvnum)
   // Original MP checking - remove when it's not needed anymore
   if (net_number_of_levels <= 0)
     return false;
-  for (i=0; i < net_number_of_levels; i++)
+  for (i=0; i < net_number_of_levels; ++i)
   {
       struct NetLevelDesc* lvdesc = &net_level_desc[i];
       if (lvdesc->lvnum == lvnum)
@@ -1984,7 +1984,7 @@ short is_campaign_level(LevelNumber lvnum)
 short is_freeplay_level(LevelNumber lvnum)
 {
   if (lvnum < 1) return false;
-  for (int i = 0; i < FREE_LEVELS_COUNT; i++)
+  for (int i = 0; i < FREE_LEVELS_COUNT; ++i)
   {
     if (campaign.freeplay_levels[i] == lvnum)
     {

@@ -71,7 +71,7 @@ TbBool load_stats_files(void)
     // note that rules file requires definitions of magic and creature types
     if (!load_rules_config(keeper_rules_file,CnfLd_Standard))
       result = false;
-    for (int i = 1; i < crtr_conf.model_count; i++)
+    for (int i = 1; i < crtr_conf.model_count; ++i)
     {
       if (!load_creaturemodel_config(i,0))
         result = false;
@@ -226,7 +226,7 @@ TbBool update_dungeon_scores_for_player(struct PlayerInfo *player)
     {
         // Compute amount of different types of rooms built
         unsigned long room_types = 0;
-        for (i=0; i < ROOM_TYPES_COUNT; i++)
+        for (i=0; i < ROOM_TYPES_COUNT; ++i)
         {
             if (dungeon->room_slabs_count[i] > 0)
                 room_types++;
@@ -295,7 +295,7 @@ TbBool update_dungeon_scores_for_player(struct PlayerInfo *player)
 long update_dungeons_scores(void)
 {
     int k = 0;
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if (!player_exists(player))

@@ -68,7 +68,7 @@ long calculate_efficiency(PlayerNumber plyr_idx)
     long count = 0;
     long efficiency = 0;
     struct Dungeon* dungeon = get_dungeon(plyr_idx);
-    for (long rkind = 1; rkind < ROOM_TYPES_COUNT; rkind++)
+    for (long rkind = 1; rkind < ROOM_TYPES_COUNT; ++rkind)
     {
         long i = dungeon->room_kind[rkind];
         unsigned long k = 0;
@@ -102,7 +102,7 @@ long calculate_style(long plyr_idx)
 {
     long area = 0;
     struct Dungeon* dungeon = get_dungeon(plyr_idx);
-    for (long rkind = 1; rkind < ROOM_TYPES_COUNT; rkind++)
+    for (long rkind = 1; rkind < ROOM_TYPES_COUNT; ++rkind)
     {
         long i = dungeon->room_kind[rkind];
         unsigned long k = 0;
@@ -165,7 +165,7 @@ long calculate_doors_unused(PlayerNumber plyr_idx)
 {
     struct Dungeon* dungeon = get_dungeon(plyr_idx);
     long count = 0;
-    for (long i = 1; i < DOOR_TYPES_COUNT; i++)
+    for (long i = 1; i < DOOR_TYPES_COUNT; ++i)
     {
       count += dungeon->door_amount_stored[i];
     }
@@ -176,7 +176,7 @@ long calculate_traps_unused(PlayerNumber plyr_idx)
 {
     struct Dungeon* dungeon = get_dungeon(plyr_idx);
     long count = 0;
-    for (long i = 1; i < TRAP_TYPES_COUNT; i++)
+    for (long i = 1; i < TRAP_TYPES_COUNT; ++i)
     {
       count += dungeon->trap_amount_stored[i];
     }
@@ -224,7 +224,7 @@ void frontstats_draw_main_stats(struct GuiButton *gbtn)
     int ln_height = LbTextLineHeight() * tx_units_per_px / 16;
     int pos_x = gbtn->scr_pos_x;
     int pos_y = gbtn->scr_pos_y + ln_height / 2;
-    for (struct StatsData* stat = main_stats_data; stat->name_stridx > 0; stat++)
+    for (struct StatsData* stat = main_stats_data; stat->name_stridx > 0; ++stat)
     {
         int border;
         {

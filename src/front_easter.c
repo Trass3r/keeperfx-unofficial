@@ -78,7 +78,7 @@ const char *get_team_birthday(void)
 {
   struct TbDate curr_date;
   LbDate(&curr_date);
-  for (int i = 0; team_birthdays[i].day != 0; i++)
+  for (int i = 0; team_birthdays[i].day != 0; ++i)
   {
       if ((team_birthdays[i].day==curr_date.Day) &&
           (team_birthdays[i].month==curr_date.Month))

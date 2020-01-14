@@ -310,7 +310,7 @@ TbBool remove_item_from_dead_creature_list(struct Dungeon *dungeon, ThingModel c
     long rmpos = find_item_in_dead_creature_list(dungeon, crmodel, crlevel);
     if (rmpos < 0)
         return false;
-    for (long i = rmpos; i < DEAD_CREATURES_MAX_COUNT - 1; i++)
+    for (long i = rmpos; i < DEAD_CREATURES_MAX_COUNT - 1; ++i)
     {
         LbMemoryCopy(&dungeon->dead_creatures[i], &dungeon->dead_creatures[i+1], sizeof(struct CreatureStorage));
     }

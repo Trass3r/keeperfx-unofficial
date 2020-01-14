@@ -134,7 +134,7 @@ TbBool S3DEmitterIsPlayingSample(SoundEmitterID eidx, long smpl_idx, long bank_i
     struct SoundEmitter* emit = S3DGetSoundEmitter(eidx);
     if (S3DSoundEmitterInvalid(emit))
         return false;
-    for (long i = 0; i < MaxNoSounds; i++)
+    for (long i = 0; i < MaxNoSounds; ++i)
     {
         struct S3DSample* sample = &SampleList[i];
         if ((sample->is_playing != 0) && (sample->emit_ptr == emit))
@@ -152,7 +152,7 @@ TbBool S3DDeleteSampleFromEmitter(SoundEmitterID eidx, long smpl_idx, long bank_
     struct SoundEmitter* emit = S3DGetSoundEmitter(eidx);
     if (S3DSoundEmitterInvalid(emit))
         return false;
-    for (long i = 0; i < MaxNoSounds; i++)
+    for (long i = 0; i < MaxNoSounds; ++i)
     {
         struct S3DSample* sample = &SampleList[i];
         if ((sample->is_playing != 0) && (sample->emit_ptr == emit))
@@ -490,7 +490,7 @@ long get_emitter_pan_volume_pitch(struct SoundReceiver *recv, struct SoundEmitte
 
 long set_emitter_pan_volume_pitch(struct SoundEmitter *emit, long pan, long volume, long pitch)
 {
-    for (long i = 0; i < MaxNoSounds; i++)
+    for (long i = 0; i < MaxNoSounds; ++i)
     {
         struct S3DSample* sample = &SampleList[i];
         if ((sample->is_playing != 0) && (sample->emit_ptr == emit))
@@ -514,7 +514,7 @@ TbBool process_sound_emitters(void)
     long volume;
     long pitch;
     long i;
-    for (i=1; i < NoSoundEmitters; i++)
+    for (i=1; i < NoSoundEmitters; ++i)
     {
         emit = S3DGetSoundEmitter(i);
         if ( ((emit->flags & Emi_IsAllocated) != 0) && ((emit->flags & Emi_UnknownPlay) != 0) )
@@ -534,7 +534,7 @@ TbBool process_sound_emitters(void)
 
 TbBool emitter_is_playing(struct SoundEmitter *emit)
 {
-    for (long i = 0; i < MaxNoSounds; i++)
+    for (long i = 0; i < MaxNoSounds; ++i)
     {
         struct S3DSample* sample = &SampleList[i];
         if ((sample->is_playing != 0) && (sample->emit_ptr == emit))
@@ -547,7 +547,7 @@ TbBool emitter_is_playing(struct SoundEmitter *emit)
 
 TbBool remove_active_samples_from_emitter(struct SoundEmitter *emit)
 {
-    for (long i = 0; i < MaxNoSounds; i++)
+    for (long i = 0; i < MaxNoSounds; ++i)
     {
         struct S3DSample* sample = &SampleList[i];
         if ( (sample->is_playing != 0) && (sample->emit_ptr == emit) )
@@ -566,7 +566,7 @@ TbBool remove_active_samples_from_emitter(struct SoundEmitter *emit)
 long stop_emitter_samples(struct SoundEmitter *emit)
 {
     long num_stopped = 0;
-    for (long i = 0; i < MaxNoSounds; i++)
+    for (long i = 0; i < MaxNoSounds; ++i)
     {
         struct S3DSample* sample = &SampleList[i];
         if ((sample->is_playing != 0) && (sample->emit_ptr == emit))
@@ -617,7 +617,7 @@ short find_slot(long fild8, SoundBankID bank_id, struct SoundEmitter *emit, long
     short min_sample_id = SOUNDS_MAX_COUNT;
     if ((ctype == 2) || (ctype == 3))
     {
-        for (i=0; i < MaxNoSounds; i++)
+        for (i=0; i < MaxNoSounds; ++i)
         {
             sample = &SampleList[i];
             if ( (sample->is_playing) && (sample->emit_ptr != NULL) )
@@ -628,7 +628,7 @@ short find_slot(long fild8, SoundBankID bank_id, struct SoundEmitter *emit, long
             }
         }
     }
-    for (i=0; i < MaxNoSounds; i++)
+    for (i=0; i < MaxNoSounds; ++i)
     {
         sample = &SampleList[i];
         if (sample->is_playing == 0)
@@ -729,7 +729,7 @@ void play_atmos_sound(long smpl_idx)
  */
 SoundEmitterID allocate_free_sound_emitter(void)
 {
-    for (long i = 1; i < NoSoundEmitters; i++)
+    for (long i = 1; i < NoSoundEmitters; ++i)
     {
         if (!S3DEmitterIsAllocated(i))
         {
@@ -760,7 +760,7 @@ void delete_sound_emitter(SoundEmitterID idx)
  */
 void delete_all_sound_emitters(void)
 {
-    for (long i = 0; i < SOUND_EMITTERS_MAX; i++)
+    for (long i = 0; i < SOUND_EMITTERS_MAX; ++i)
     {
         struct SoundEmitter* emit = &emitter[i];
         LbMemorySet(emit, 0, sizeof(struct SoundEmitter));
@@ -769,7 +769,7 @@ void delete_all_sound_emitters(void)
 
 void init_sample_list(void)
 {
-    for (long i = 0; i < SOUNDS_MAX_COUNT; i++)
+    for (long i = 0; i < SOUNDS_MAX_COUNT; ++i)
     {
         struct S3DSample* sample = &SampleList[i];
         LbMemorySet(sample, 0, sizeof(struct S3DSample));
@@ -778,7 +778,7 @@ void init_sample_list(void)
 
 void increment_sample_times(void)
 {
-    for (long i = 0; i < MaxNoSounds; i++)
+    for (long i = 0; i < MaxNoSounds; ++i)
     {
         struct S3DSample* sample = &SampleList[i];
         sample->time_turn++;
@@ -939,7 +939,7 @@ void stop_sample_using_heap(SoundEmitterID emit_id, SoundSmplTblID smptbl_id, So
     }
     StopSample(emit_id, smptbl_id);
     smpinfo_last = GetLastSampleInfoStructure();
-    for (smpinfo = GetFirstSampleInfoStructure(); smpinfo <= smpinfo_last; smpinfo++)
+    for (smpinfo = GetFirstSampleInfoStructure(); smpinfo <= smpinfo_last; ++smpinfo)
     {
         if (smpinfo->field_12 == smptbl_id)
         {
@@ -975,7 +975,7 @@ void stop_sample_using_heap(SoundEmitterID emit_id, SoundSmplTblID smptbl_id, So
 
 TbBool process_sound_samples(void)
 {
-    for (long i = 0; i < MaxNoSounds; i++)
+    for (long i = 0; i < MaxNoSounds; ++i)
     {
         struct S3DSample* sample = &SampleList[i];
         if (sample->is_playing != 0)

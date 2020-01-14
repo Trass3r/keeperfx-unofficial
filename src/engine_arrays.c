@@ -73,7 +73,7 @@ long straight_iso_td(unsigned long n)
 void init_iso_3d_conversion_tables(void)
 {
   long i;
-  for (i=0; i < TD_ISO_POINTS; i++)
+  for (i=0; i < TD_ISO_POINTS; ++i)
   {
     td_iso[i] = -1;
     iso_td[i] = -1;
@@ -981,7 +981,7 @@ void setup_3d(void)
     long k;
     SYNCDBG(6,"Starting");
     seed = 0x0f0f0f0f;
-    for (i=0; i < RANDOMISORS_LEN; i++)
+    for (i=0; i < RANDOMISORS_LEN; ++i)
     {
         // fill with value -RANDOMISORS_RANGE..RANDOMISORS_RANGE
         k = LB_RANDOM(2*RANDOMISORS_RANGE+1, &seed);
@@ -997,20 +997,20 @@ void fill_floor_heights_table(void)
     unsigned long flag_bit;
     long i;
     long n;
-    for (n=0; n < 256; n++)
+    for (n=0; n < 256; ++n)
     {
         i = 0;
         flag_bit = 1;
         btm_height = i;
         top_height = i;
-        for (; i < 8; i++)
+        for (; i < 8; ++i)
         {
             if ((flag_bit & n) == 0)
               break;
             flag_bit = (flag_bit << 1);
         }
         shade_back = i;
-        for (; i < 8; i++)
+        for (; i < 8; ++i)
         {
             if ((flag_bit & n) != 0)
               break;
@@ -1019,7 +1019,7 @@ void fill_floor_heights_table(void)
         if (i < 8)
         {
             btm_height = i;
-            for (; i < 8; i++)
+            for (; i < 8; ++i)
             {
                 if ((flag_bit & n) == 0)
                   break;
@@ -1054,10 +1054,10 @@ void generate_wibble_table(void)
     int i;
     int n;
     // Clear the whole wibble table
-    for (n=0; n < 4; n++)
+    for (n=0; n < 4; ++n)
     {
         wibl = &wibble_table[32*n];
-        for (i=0; i < 32; i++)
+        for (i=0; i < 32; ++i)
         {
             LbMemorySet(wibl, 0, sizeof(struct WibbleTable));
             wibl++;
@@ -1065,7 +1065,7 @@ void generate_wibble_table(void)
     }
     // Set wibble values using special random algorithm
     seed = 0;
-    for (i=0; i < 32; i++)
+    for (i=0; i < 32; ++i)
     {
         wibl = &wibble_table[i+32];
         n = wibble_random(65447,&seed);
@@ -1116,7 +1116,7 @@ TbBool load_ceiling_table(void)
                 continue;
         }
         LbMemorySet(numstr, 0, sizeof(numstr));
-        for (i=0; i < sizeof(numstr); i++)
+        for (i=0; i < sizeof(numstr); ++i)
         {
             numstr[i] = nchr;
             do_next = LbFileRead(fh, &nchr, 1);

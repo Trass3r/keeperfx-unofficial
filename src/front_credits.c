@@ -86,7 +86,7 @@ void frontcredits_draw(void)
     LbTextSetFont(frontend_font[fontid]);
     long h = credits_offset;
     TbBool did_draw = h > 0;
-    for (long i = 0; campaign.credits[i].kind != CIK_None; i++)
+    for (long i = 0; campaign.credits[i].kind != CIK_None; ++i)
     {
         if (h >= lbDisplay.PhysicalScreenHeight)
           break;

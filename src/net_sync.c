@@ -62,7 +62,7 @@ struct Boing boing;
 /******************************************************************************/
 long get_resync_sender(void)
 {
-    for (int i = 0; i < NET_PLAYERS_COUNT; i++)
+    for (int i = 0; i < NET_PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if (player_exists(player) && ((player->allocflags & PlaF_CompCtrl) == 0))
@@ -168,7 +168,7 @@ short perform_checksum_verification(void)
 {
     short result = true;
     unsigned long checksum_mem = 0;
-    for (int i = 1; i < THINGS_COUNT; i++)
+    for (int i = 1; i < THINGS_COUNT; ++i)
     {
         struct Thing* thing = thing_get(i);
         if (thing_exists(thing)) {

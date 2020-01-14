@@ -488,7 +488,7 @@ struct ComputerTask *get_task_in_progress_in_list(const struct Computer2 *comp, 
             if (n == CTT_WaitForBridge)
                 n = ctask->ottype;
             const ComputerTaskType *ttype;
-            for (ttype = ttypes; *ttype > CTT_None; ttype++)
+            for (ttype = ttypes; *ttype > CTT_None; ++ttype)
             {
                 if (n == *ttype) {
                     return ctask;
@@ -698,7 +698,7 @@ TbBool creature_could_be_placed_in_better_room(const struct Computer2 *comp, con
         return true;
     }
     better_job_allowed = false;
-    for (k=0; move_to_best_job[k].job_kind != Job_NULL; k++)
+    for (k=0; move_to_best_job[k].job_kind != Job_NULL; ++k)
     {
         RoomRole rrole;
         rrole = get_room_role_for_job(move_to_best_job[k].job_kind);
@@ -739,7 +739,7 @@ CreatureJob get_job_to_place_creature_in_room(const struct Computer2 *comp, cons
 
     chosen_job = Job_NULL;
     chosen_priority = LONG_MIN;
-    for (k=0; move_to_best_job[k].job_kind != Job_NULL; k++)
+    for (k=0; move_to_best_job[k].job_kind != Job_NULL; ++k)
     {
         const struct MoveToBestJob * mvto;
         mvto = &move_to_best_job[k];
@@ -1142,7 +1142,7 @@ long task_dig_to_entrance(struct Computer2 *comp, struct ComputerTask *ctask)
     long dig_ret;
     dig_ret = 0;
     int n;
-    for (n=0; n < SMALL_AROUND_LENGTH; n++)
+    for (n=0; n < SMALL_AROUND_LENGTH; ++n)
     {
         MapSubtlCoord stl_x;
         MapSubtlCoord stl_y;
@@ -1480,7 +1480,7 @@ short tool_dig_to_pos2_skip_slabs_which_dont_need_digging_f(const struct Compute
     MapSlabCoord nextslb_y;
     long around_index;
     long i;
-    for (i = 0; ; i++)
+    for (i = 0; ; ++i)
     {
         struct SlabMap *slb;
         nextslb_x = subtile_slab(*nextstl_x);
@@ -1551,7 +1551,7 @@ short tool_dig_to_pos2_do_action_on_slab_which_needs_it_f(struct Computer2 * com
     MapSlabCoord nextslb_y;
     long around_index;
     long i;
-    for (i = 0; i < cdig->subfield_2C; i++)
+    for (i = 0; i < cdig->subfield_2C; ++i)
     {
         struct SlabAttr *slbattr;
         struct SlabMap *slb;
@@ -1824,7 +1824,7 @@ int find_trap_location_index(const struct Computer2 * comp, const struct Coord3d
     long i;
     slb_x = subtile_slab(coord->x.stl.num);
     slb_y = subtile_slab(coord->y.stl.num);
-    for (i=0; i < COMPUTER_TRAP_LOC_COUNT; i++)
+    for (i=0; i < COMPUTER_TRAP_LOC_COUNT; ++i)
     {
         location = &comp->trap_locations[i];
         if ((subtile_slab(location->x.stl.num) == slb_x) && (subtile_slab(location->y.stl.num) == slb_y)) {
@@ -1844,7 +1844,7 @@ long add_to_trap_location(struct Computer2 * comp, struct Coord3d * coord)
     struct Coord3d * location;
     long i;
     // Find a free place and add the location
-    for (i=0; i < COMPUTER_TRAP_LOC_COUNT; i++)
+    for (i=0; i < COMPUTER_TRAP_LOC_COUNT; ++i)
     {
         location = &comp->trap_locations[i];
         if ((location->x.val <= 0) && (location->y.val <= 0)) {
@@ -2061,7 +2061,7 @@ long task_dig_to_attack(struct Computer2 *comp, struct ComputerTask *ctask)
         suspend_task_process(comp, ctask);
         break;
       case 0:
-        for (i = 0; i < SMALL_AROUND_MID_LENGTH; i++)
+        for (i = 0; i < SMALL_AROUND_MID_LENGTH; ++i)
         {
             MapSubtlCoord stl_x;
             MapSubtlCoord stl_y;
@@ -2880,7 +2880,7 @@ long task_wait_for_bridge(struct Computer2 *comp, struct ComputerTask *ctask)
         return 4;
     }
     long n;
-    for (n=0; n < SMALL_AROUND_SLAB_LENGTH; n++)
+    for (n=0; n < SMALL_AROUND_SLAB_LENGTH; ++n)
     {
         MapSlabCoord slb_x;
         MapSlabCoord slb_y;
@@ -2956,7 +2956,7 @@ long task_sell_traps_and_doors(struct Computer2 *comp, struct ComputerTask *ctas
         i = 0;
         value = 0;
         item_sold = false;
-        for (i=0; i < sizeof(trapdoor_sell)/sizeof(trapdoor_sell[0]); i++)
+        for (i=0; i < sizeof(trapdoor_sell)/sizeof(trapdoor_sell[0]); ++i)
         {
             tdsell = &trapdoor_sell[ctask->sell_traps_doors.sell_idx];
             switch (tdsell->category)

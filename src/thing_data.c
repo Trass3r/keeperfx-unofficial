@@ -114,7 +114,7 @@ TbBool i_can_allocate_free_thing_structure(unsigned char allocflags)
  */
 TbBool is_in_free_things_list(long tng_idx)
 {
-    for (int i = game.free_things_start_index; i < THINGS_COUNT - 1; i++)
+    for (int i = game.free_things_start_index; i < THINGS_COUNT - 1; ++i)
     {
         if (game.free_things[i] == tng_idx)
             return true;

@@ -215,7 +215,7 @@ void find_nearest_rooms_for_ambient_sound(void)
     }
     long slb_x = subtile_slab(cam->mappos.x.stl.num);
     long slb_y = subtile_slab(cam->mappos.y.stl.num);
-    for (long i = 0; i < 11 * 11; i++)
+    for (long i = 0; i < 11 * 11; ++i)
     {
         struct MapOffset* sstep = &spiral_step[i];
         MapSubtlCoord stl_x = slab_subtile_center(slb_x + sstep->h);
@@ -343,7 +343,7 @@ void process_sound_heap(void)
     struct HeapMgrHandle *hmhndl;
     long i;
     SYNCDBG(9,"Starting");
-    for (i = 0; i < samples_in_bank; i++)
+    for (i = 0; i < samples_in_bank; ++i)
     {
         satab = &sample_table[i];
         hmhndl = satab->hmhandle;
@@ -354,7 +354,7 @@ void process_sound_heap(void)
     }
     if (using_two_banks)
     {
-        for (i = 0; i < samples_in_bank2; i++)
+        for (i = 0; i < samples_in_bank2; ++i)
         {
             satab = &sample_table2[i];
             hmhndl = satab->hmhandle;
@@ -365,7 +365,7 @@ void process_sound_heap(void)
         }
     }
     struct SampleInfo* smpinfo_last = GetLastSampleInfoStructure();
-    for (struct SampleInfo* smpinfo = GetFirstSampleInfoStructure(); smpinfo <= smpinfo_last; smpinfo++)
+    for (struct SampleInfo* smpinfo = GetFirstSampleInfoStructure(); smpinfo <= smpinfo_last; ++smpinfo)
     {
       if ( (smpinfo->field_0 != 0) && ((smpinfo->flags_17 & 0x01) != 0) )
       {
@@ -461,7 +461,7 @@ long parse_sound_file(TbFileHandle fileh, unsigned char *buf, long *nsamples, lo
     _DK_LbFileSeek(fileh, bentry->field_0, Lb_FILE_SEEK_BEGINNING);
     struct SampleTable* smpl = (struct SampleTable*)buf;
     k = bentry->field_4;
-    for (i=0; i < *nsamples; i++)
+    for (i=0; i < *nsamples; ++i)
     {
         struct SoundBankSample bsample;
         _DK_LbFileRead(fileh, &bsample, sizeof(struct SoundBankSample));

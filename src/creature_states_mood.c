@@ -143,7 +143,7 @@ short mad_killing_psycho(struct Thing *creatng)
     struct Coord3d pos;
     int i;
     int n = ACTION_RANDOM(PLAYERS_COUNT);
-    for (i = 0; i < PLAYERS_COUNT; i++)
+    for (i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(n);
         if (player_exists(player)) {
@@ -184,7 +184,7 @@ void anger_calculate_creature_is_angry(struct Thing *creatng)
     struct CreatureStats* crstat = creature_stats_get_from_thing(creatng);
     cctrl->mood_flags &= ~CCMoo_Angry;
     cctrl->mood_flags &= ~CCMoo_Livid;
-    for (int i = 1; i < 5; i++)
+    for (int i = 1; i < 5; ++i)
     {
         if (crstat->annoy_level <= cctrl->annoyance_level[i])
         {
@@ -306,7 +306,7 @@ AnnoyMotive anger_get_creature_anger_type(const struct Thing *creatng)
         return AngR_None;
     AnnoyMotive anger_type = AngR_None;
     long anger_level = 0;
-    for (long i = 1; i < 5; i++)
+    for (long i = 1; i < 5; ++i)
     {
         if (anger_level < cctrl->annoyance_level[i])
         {
@@ -434,9 +434,9 @@ TbBool find_combat_target_passing_by_slab_but_having_unrelated_job(const struct 
 {
     MapSubtlCoord endstl_x = 3 * slb_x + 3;
     MapSubtlCoord endstl_y = 3 * slb_y + 3;
-    for (MapSubtlCoord stl_y = 3 * slb_y; stl_y < endstl_y; stl_y++)
+    for (MapSubtlCoord stl_y = 3 * slb_y; stl_y < endstl_y; ++stl_y)
     {
-        for (MapSubtlCoord stl_x = 3 * slb_x; stl_x < endstl_x; stl_x++)
+        for (MapSubtlCoord stl_x = 3 * slb_x; stl_x < endstl_x; ++stl_x)
         {
             if (find_combat_target_passing_by_subtile_but_having_unrelated_job(creatng, job_kind, stl_x, stl_y, found_dist, found_thing))
                 return true;

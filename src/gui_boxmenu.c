@@ -287,7 +287,7 @@ void gui_insert_box_at_list_top(struct GuiBox *gbox)
 
 struct GuiBox *gui_allocate_box_structure(void)
 {
-    for (int i = 1; i < 3; i++)
+    for (int i = 1; i < 3; ++i)
     {
         struct GuiBox* gbox = &gui_boxes[i];
         if (gui_box_is_not_valid(gbox))

@@ -126,7 +126,7 @@ AridPointId allocated_point_search(long pt_x, long pt_y)
     if (pt_y == 0x8000) {
         return -1;
     }
-    for (AridPointId pt_idx = 0; pt_idx < POINTS_COUNT; pt_idx++)
+    for (AridPointId pt_idx = 0; pt_idx < POINTS_COUNT; ++pt_idx)
     {
         long tip_x = Points[pt_idx].x;
         long tip_y = Points[pt_idx].y;
@@ -153,7 +153,7 @@ AridPointId point_set_new_or_reuse(long pt_x, long pt_y)
 
 void triangulation_initxy_points(long startx, long starty, long endx, long endy)
 {
-    for (long i = 0; i < POINTS_COUNT; i++)
+    for (long i = 0; i < POINTS_COUNT; ++i)
     {
         struct Point* pt = &Points[i];
         pt->y = 0x8000;

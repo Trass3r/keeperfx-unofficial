@@ -231,10 +231,10 @@ void generate_map_fade_ghost_table(const char *fname, unsigned char *palette, un
     if (LbFileLoadAt(fname, ghost_table) != PALETTE_COLORS*PALETTE_COLORS)
     {
         unsigned char* out = ghost_table;
-        for (int i = 0; i < PALETTE_COLORS; i++)
+        for (int i = 0; i < PALETTE_COLORS; ++i)
         {
             unsigned char* bpal = &palette[3 * i];
-            for (int n = 0; n < PALETTE_COLORS; n++)
+            for (int n = 0; n < PALETTE_COLORS; ++n)
             {
                 unsigned char* spal = &palette[3 * n];
                 unsigned char r = bpal[0] + spal[0];
@@ -267,7 +267,7 @@ void prepare_map_fade_buffers(unsigned char *fade_src, unsigned char *fade_dest,
     // Copy the screen to fade source temp buffer
     int i;
     int fadebuf_pos = 0;
-    for (i = 0; i < height; i++)
+    for (i = 0; i < height; ++i)
     {
         unsigned char* src = lbDisplay.WScreen + lbDisplay.GraphicsScreenWidth * i;
         unsigned char* dst = &fade_src[fadebuf_pos];
@@ -279,7 +279,7 @@ void prepare_map_fade_buffers(unsigned char *fade_src, unsigned char *fade_dest,
     redraw_minimal_overhead_view();
     // Copy the screen to fade destination temp buffer
     fadebuf_pos = 0;
-    for (i = 0; i < height; i++)
+    for (i = 0; i < height; ++i)
     {
         unsigned char* src = lbDisplay.WScreen + lbDisplay.GraphicsScreenWidth * i;
         unsigned char* dst = &fade_dest[fadebuf_pos];
@@ -328,7 +328,7 @@ long map_fade_out(long a)
 
 void set_sprite_view_3d(void)
 {
-    for (long i = 1; i < THINGS_COUNT; i++)
+    for (long i = 1; i < THINGS_COUNT; ++i)
     {
         struct Thing* thing = thing_get(i);
         if (thing_exists(thing))
@@ -359,7 +359,7 @@ void set_sprite_view_3d(void)
 
 void set_sprite_view_isometric(void)
 {
-    for (long i = 1; i < THINGS_COUNT; i++)
+    for (long i = 1; i < THINGS_COUNT; ++i)
     {
         struct Thing* thing = thing_get(i);
         if (thing_exists(thing))

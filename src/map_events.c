@@ -51,7 +51,7 @@ TbBool event_is_invalid(const struct Event *event)
 
 struct Event *get_event_nearby_of_type_for_player(MapCoord map_x, MapCoord map_y, long max_dist, EventKind evkind, PlayerNumber plyr_idx)
 {
-    for (int i = 1; i < EVENTS_COUNT; i++)
+    for (int i = 1; i < EVENTS_COUNT; ++i)
     {
         struct Event* event = &game.event[i];
         if (((event->flags & EvF_Exists) != 0) && (event->owner == plyr_idx) && (event->kind == evkind)
@@ -64,7 +64,7 @@ struct Event *get_event_nearby_of_type_for_player(MapCoord map_x, MapCoord map_y
 
 struct Event *get_event_of_target_and_type_for_player(long target, EventKind evkind, PlayerNumber plyr_idx)
 {
-    for (int i = 1; i < EVENTS_COUNT; i++)
+    for (int i = 1; i < EVENTS_COUNT; ++i)
     {
         struct Event* event = &game.event[i];
         if (((event->flags & EvF_Exists) != 0) && (event->owner == plyr_idx) && (event->kind == evkind)
@@ -77,7 +77,7 @@ struct Event *get_event_of_target_and_type_for_player(long target, EventKind evk
 
 struct Event *get_event_of_type_for_player(EventKind evkind, PlayerNumber plyr_idx)
 {
-    for (int i = 1; i < EVENTS_COUNT; i++)
+    for (int i = 1; i < EVENTS_COUNT; ++i)
     {
         struct Event* event = &game.event[i];
         if (((event->flags & EvF_Exists) != 0) && (event->owner == plyr_idx) && (event->kind == evkind)) {
@@ -169,10 +169,10 @@ EventIndex event_create_event_or_update_old_event(MapCoord map_x, MapCoord map_y
 
 void event_initialise_all(void)
 {
-    for (int i = 0; i < DUNGEONS_COUNT; i++)
+    for (int i = 0; i < DUNGEONS_COUNT; ++i)
     {
         struct Dungeon* dungeon = get_dungeon(i);
-        for (int k = 0; k <= EVENT_BUTTONS_COUNT; k++)
+        for (int k = 0; k <= EVENT_BUTTONS_COUNT; ++k)
         {
             dungeon->event_button_index[k] = 0;
         }
@@ -231,7 +231,7 @@ struct Event *event_create_event(MapCoord map_x, MapCoord map_y, EventKind evkin
 
 struct Event *event_allocate_free_event_structure(void)
 {
-    for (long i = 1; i < EVENTS_COUNT; i++)
+    for (long i = 1; i < EVENTS_COUNT; ++i)
     {
         struct Event* event = &game.event[i];
         if ((event->flags & EvF_Exists) == 0)
@@ -295,7 +295,7 @@ void event_delete_event(long plyr_idx, EventIndex evidx)
     struct Event* event = &game.event[evidx];
     event_update_last_use(event);
     struct Dungeon* dungeon = get_dungeon(plyr_idx);
-    for (long i = 0; i <= EVENT_BUTTONS_COUNT; i++)
+    for (long i = 0; i <= EVENT_BUTTONS_COUNT; ++i)
     {
         long k = dungeon->event_button_index[i];
         if (k == evidx)
@@ -310,7 +310,7 @@ void event_delete_event(long plyr_idx, EventIndex evidx)
 
 void event_update_on_battle_removal(void)
 {
-    for (long i = 0; i < EVENTS_COUNT; i++)
+    for (long i = 0; i < EVENTS_COUNT; ++i)
     {
         struct Event* event = &game.event[i];
         if ((event->kind == EvKind_FriendlyFight) || (event->kind == EvKind_EnemyFight))
@@ -330,7 +330,7 @@ void event_update_on_battle_removal(void)
  */
 int event_get_button_index(const struct Dungeon *dungeon, EventIndex evidx)
 {
-    for (int i = 0; i <= EVENT_BUTTONS_COUNT; i++)
+    for (int i = 0; i <= EVENT_BUTTONS_COUNT; ++i)
     {
         if (dungeon->event_button_index[i] == evidx) {
             return i;
@@ -654,7 +654,7 @@ void go_on_then_activate_the_event_box(PlayerNumber plyr_idx, EventIndex evidx)
 
 void maintain_my_event_list(struct Dungeon *dungeon)
 {
-    for (int i = 1; i <= EVENT_BUTTONS_COUNT; i++)
+    for (int i = 1; i <= EVENT_BUTTONS_COUNT; ++i)
     {
         unsigned char curr_ev_idx = dungeon->event_button_index[i];
         if (curr_ev_idx != 0)
@@ -703,7 +703,7 @@ void kill_oldest_my_event(struct Dungeon *dungeon)
 
 void maintain_all_players_event_lists(void)
 {
-    for (long i = 0; i < PLAYERS_COUNT; i++)
+    for (long i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if (player_exists(player))
@@ -746,7 +746,7 @@ struct Thing *event_is_attached_to_thing(EventIndex evidx)
 
 void event_process_events(void)
 {
-    for (long i = 0; i < EVENTS_COUNT; i++)
+    for (long i = 0; i < EVENTS_COUNT; ++i)
     {
         struct Event* event = &game.event[i];
         if ((event->flags & EvF_Exists) == 0) {
@@ -764,7 +764,7 @@ void event_process_events(void)
             {
                 struct Event* subevent = &game.event[subev_idx];
                 event_update_last_use(subevent);
-                for (int i = 0; i <= EVENT_BUTTONS_COUNT; i++)
+                for (int i = 0; i <= EVENT_BUTTONS_COUNT; ++i)
                 {
                     if (dungeon->event_button_index[i] == subev_idx) {
                         turn_off_event_box_if_necessary(ev_owner, dungeon->event_button_index[i]);
@@ -804,7 +804,7 @@ void event_kill_all_players_events(long plyr_idx)
 {
     SYNCDBG(8,"Starting");
     //_DK_event_kill_all_players_events(plyr_idx);
-    for (int i = 1; i < EVENTS_COUNT; i++)
+    for (int i = 1; i < EVENTS_COUNT; ++i)
     {
         struct Event* event = &game.event[i];
         if (((event->flags & EvF_Exists) != 0) && (event->owner == plyr_idx)) {
@@ -817,7 +817,7 @@ void remove_events_thing_is_attached_to(struct Thing *thing)
 {
     SYNCDBG(8,"Starting");
     //_DK_remove_events_thing_is_attached_to(thing);
-    for (int i = 1; i < EVENTS_COUNT; i++)
+    for (int i = 1; i < EVENTS_COUNT; ++i)
     {
         struct Event* event = &game.event[i];
         if (((event->flags & EvF_Exists) != 0) && (event->kind != EvKind_Objective))
@@ -836,14 +836,14 @@ void remove_events_thing_is_attached_to(struct Thing *thing)
 void clear_events(void)
 {
     int i;
-    for (i=0; i < EVENTS_COUNT; i++)
+    for (i=0; i < EVENTS_COUNT; ++i)
     {
       memset(&game.event[i], 0, sizeof(struct Event));
     }
     memset(&game.evntbox_scroll_window, 0, sizeof(struct TextScrollWindow));
     memset(&game.evntbox_text_buffer, 0, MESSAGE_TEXT_LEN);
     memset(&game.evntbox_text_objective, 0, MESSAGE_TEXT_LEN);
-    for (i=0; i < 5; i++)
+    for (i=0; i < 5; ++i)
     {
       memset(&game.bookmark[i], 0, sizeof(struct Bookmark));
     }

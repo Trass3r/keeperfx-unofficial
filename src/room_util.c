@@ -109,11 +109,11 @@ void process_room_surrounding_flames(struct Room *room)
 void recompute_rooms_count_in_dungeons(void)
 {
     SYNCDBG(17,"Starting");
-    for (long i = 0; i < DUNGEONS_COUNT; i++)
+    for (long i = 0; i < DUNGEONS_COUNT; ++i)
     {
         struct Dungeon* dungeon = get_dungeon(i);
         dungeon->total_rooms = 0;
-        for (RoomKind rkind = 1; rkind < ROOM_TYPES_COUNT; rkind++)
+        for (RoomKind rkind = 1; rkind < ROOM_TYPES_COUNT; ++rkind)
         {
             if (!room_never_buildable(rkind))
             {
@@ -127,7 +127,7 @@ void process_rooms(void)
 {
   SYNCDBG(7,"Starting");
   TbBigChecksum sum = 0;
-  for (struct Room* room = start_rooms; room < end_rooms; room++)
+  for (struct Room* room = start_rooms; room < end_rooms; ++room)
   {
       if (!room_exists(room))
           continue;

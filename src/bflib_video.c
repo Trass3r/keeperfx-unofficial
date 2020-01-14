@@ -310,7 +310,7 @@ TbResult LbScreenFindVideoModes(void)
 {
     int avail_num = 0;
     lbScreenModeInfo[0].Available = false;
-    for (int i = 1; i < lbScreenModeInfoNum; i++)
+    for (int i = 1; i < lbScreenModeInfoNum; ++i)
     {
         if (LbHwCheckIsModeAvailable(i))
         {
@@ -593,7 +593,7 @@ TbResult LbPaletteSet(unsigned char *palette)
     if ((destColors == NULL) || (srcColors == NULL))
       return Lb_FAIL;
     TbResult ret = Lb_SUCCESS;
-    for (unsigned long i = 0; i < PALETTE_COLORS; i++)
+    for (unsigned long i = 0; i < PALETTE_COLORS; ++i)
     {
         // note that bufColors and srcColors could be the same pointer
         bufColors[0] = srcColors[0] & 0x3F;
@@ -645,7 +645,7 @@ TbResult LbPaletteGet(unsigned char *palette)
     }
     srcColors = lbDrawSurface->format->palette->colors;
     destColors = palette;
-    for (i = 0; i < colours_num; i++) {
+    for (i = 0; i < colours_num; ++i) {
         destColors[0] = (srcColors[i].r >> 2);
         destColors[1] = (srcColors[i].g >> 2);
         destColors[2] = (srcColors[i].b >> 2);
@@ -836,7 +836,7 @@ TbBool LbScreenIsDoubleBufferred(void)
 
 TbScreenMode LbRecogniseVideoModeString(const char *desc)
 {
-    for (int mode = 0; mode < lbScreenModeInfoNum; mode++)
+    for (int mode = 0; mode < lbScreenModeInfoNum; ++mode)
     {
       if (strcasecmp(lbScreenModeInfo[mode].Desc,desc) == 0)
         return (TbScreenMode)mode;
@@ -933,7 +933,7 @@ TbPixel LbPaletteFindColour(const unsigned char *pal, unsigned char r, unsigned 
     // Compute minimal square difference in color; return exact match if found
     int min_delta = 999999;
     const unsigned char* c = pal;
-    for (i = 0; i < 256; i++)
+    for (i = 0; i < 256; ++i)
     {
         int dr = (r - c[0]) * (r - c[0]);
         int dg = (g - c[1]) * (g - c[1]);
@@ -952,7 +952,7 @@ TbPixel LbPaletteFindColour(const unsigned char *pal, unsigned char r, unsigned 
     unsigned char tmcol[256];
     unsigned char* o = tmcol;
     c = pal;
-    for (i = 0; i < 256; i++)
+    for (i = 0; i < 256; ++i)
     {
         int dr = (r - c[0]) * (r - c[0]);
         int dg = (g - c[1]) * (g - c[1]);
@@ -971,7 +971,7 @@ TbPixel LbPaletteFindColour(const unsigned char *pal, unsigned char r, unsigned 
     }
     // Get minimal linear difference out of remaining colors
     min_delta = 999999;
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n; ++i)
     {
         c = &pal[3 * tmcol[i]];
         int dr = abs(r - c[0]);
@@ -985,7 +985,7 @@ TbPixel LbPaletteFindColour(const unsigned char *pal, unsigned char r, unsigned 
     // Note that we may re-use tmcol array, because (i <= m)
     int m = 0;
     o = tmcol;
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n; ++i)
     {
         c = &pal[3 * tmcol[i]];
         int dr = abs(r - c[0]);
@@ -1005,7 +1005,7 @@ TbPixel LbPaletteFindColour(const unsigned char *pal, unsigned char r, unsigned 
     // It's hard to select best color out of the left ones - use darker one with wages
     min_delta = 999999;
     o = &tmcol[0];
-    for (i = 0; i < m; i++)
+    for (i = 0; i < m; ++i)
     {
         c = &pal[3 * tmcol[i]];
         int dr = (c[0] * c[0]);

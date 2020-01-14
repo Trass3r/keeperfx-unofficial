@@ -512,7 +512,7 @@ long get_doable_manufacture_with_minimal_amount_available(const struct Dungeon *
     int chosen_amount = LONG_MAX;
     int chosen_level = LONG_MAX;
     // Try getting door kind for manufacture
-    for (tngmodel = 1; tngmodel < DOOR_TYPES_COUNT; tngmodel++)
+    for (tngmodel = 1; tngmodel < DOOR_TYPES_COUNT; ++tngmodel)
     {
         mconf = &game.doors_config[tngmodel];
         if (((dungeon->door_build_flags[tngmodel] & MnfBldF_Manufacturable) != 0) && (dungeon->manufacture_level >= mconf->manufct_level))
@@ -529,7 +529,7 @@ long get_doable_manufacture_with_minimal_amount_available(const struct Dungeon *
         }
     }
     // Try getting trap kind for manufacture
-    for (tngmodel = 1; tngmodel < TRAP_TYPES_COUNT; tngmodel++)
+    for (tngmodel = 1; tngmodel < TRAP_TYPES_COUNT; ++tngmodel)
     {
         mconf = &game.traps_config[tngmodel];
         if (((dungeon->trap_build_flags[tngmodel] & MnfBldF_Manufacturable) != 0) && (dungeon->manufacture_level >= mconf->manufct_level))

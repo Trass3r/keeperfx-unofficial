@@ -276,11 +276,11 @@ TbBool setup_head_for_random_unused_lair_subtile(struct Thing *creatng, struct R
     SlabCodedCoords slbnum = start_slbnum;
     // Loop for subtiles on a slab; first check the central one, hopefully we will not get to checking other subtiles
     // It is very rare to have more than one lair on a slab, as it will look overlapping; but may be needed if efficiency is large enough
-    for (n = 0; n < MID_AROUND_LENGTH; n++)
+    for (n = 0; n < MID_AROUND_LENGTH; ++n)
     {
         MapSubtlDelta ssub_x = 1 + start_at_around[n].delta_x;
         MapSubtlDelta ssub_y = 1 + start_at_around[n].delta_y;
-        for (k = 0; k < room->slabs_count; k++)
+        for (k = 0; k < room->slabs_count; ++k)
         {
             MapSlabCoord slb_x = slb_num_decode_x(slbnum);
             MapSlabCoord slb_y = slb_num_decode_y(slbnum);
@@ -419,7 +419,7 @@ long room_has_slab_adjacent(const struct Room *room, long slbkind)
     while (i > 0)
     {
         // Per room tile code
-        for (long n = 0; n < AROUND_SLAB_LENGTH; n++)
+        for (long n = 0; n < AROUND_SLAB_LENGTH; ++n)
         {
             long slab_num = i + around_slab[n];
             struct SlabMap* slb = get_slabmap_direct(slab_num);

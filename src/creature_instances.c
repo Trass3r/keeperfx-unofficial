@@ -195,7 +195,7 @@ TbBool creature_choose_first_available_instance(struct Thing *thing)
 {
     struct CreatureControl* cctrl = creature_control_get_from_thing(thing);
     struct CreatureStats* crstat = creature_stats_get_from_thing(thing);
-    for (long i = 0; i < LEARNED_INSTANCES_COUNT; i++)
+    for (long i = 0; i < LEARNED_INSTANCES_COUNT; ++i)
     {
         long k = crstat->learned_instance_id[i];
         if (k > 0)
@@ -214,7 +214,7 @@ void creature_increase_available_instances(struct Thing *thing)
 {
     struct CreatureStats* crstat = creature_stats_get_from_thing(thing);
     struct CreatureControl* cctrl = creature_control_get_from_thing(thing);
-    for (int i = 0; i < LEARNED_INSTANCES_COUNT; i++)
+    for (int i = 0; i < LEARNED_INSTANCES_COUNT; ++i)
     {
         int k = crstat->learned_instance_id[i];
         if (k > 0)
@@ -237,7 +237,7 @@ int creature_instance_get_available_pos_for_id(struct Thing *thing, CrInstance r
 {
     struct CreatureStats* crstat = creature_stats_get_from_thing(thing);
     int avail_pos = 0;
-    for (int avail_num = 0; avail_num < LEARNED_INSTANCES_COUNT; avail_num++)
+    for (int avail_num = 0; avail_num < LEARNED_INSTANCES_COUNT; ++avail_num)
     {
         CrInstance inst_id = crstat->learned_instance_id[avail_num];
         if (creature_instance_is_available(thing, inst_id))
@@ -262,7 +262,7 @@ int creature_instance_get_available_number_for_pos(struct Thing *thing, int req_
 {
     struct CreatureStats* crstat = creature_stats_get_from_thing(thing);
     int avail_pos = 0;
-    for (int avail_num = 0; avail_num < LEARNED_INSTANCES_COUNT; avail_num++)
+    for (int avail_num = 0; avail_num < LEARNED_INSTANCES_COUNT; ++avail_num)
     {
         CrInstance inst_id = crstat->learned_instance_id[avail_num];
         if (creature_instance_is_available(thing, inst_id))
@@ -287,7 +287,7 @@ CrInstance creature_instance_get_available_id_for_pos(struct Thing *thing, int r
 {
     struct CreatureStats* crstat = creature_stats_get_from_thing(thing);
     int avail_pos = 0;
-    for (int avail_num = 0; avail_num < LEARNED_INSTANCES_COUNT; avail_num++)
+    for (int avail_num = 0; avail_num < LEARNED_INSTANCES_COUNT; ++avail_num)
     {
         CrInstance inst_id = crstat->learned_instance_id[avail_num];
         if (creature_instance_is_available(thing, inst_id))
@@ -363,7 +363,7 @@ TbBool creature_has_ranged_weapon(const struct Thing *creatng)
 {
     TRACE_THING(creatng);
     const struct CreatureControl* cctrl = creature_control_get_from_thing(creatng);
-    for (long inum = 1; inum < CREATURE_INSTANCES_COUNT; inum++)
+    for (long inum = 1; inum < CREATURE_INSTANCES_COUNT; ++inum)
     {
         if (cctrl->instance_available[inum] > 0)
         {
@@ -384,7 +384,7 @@ TbBool creature_has_ranged_object_weapon(const struct Thing *creatng)
 {
     TRACE_THING(creatng);
     const struct CreatureControl* cctrl = creature_control_get_from_thing(creatng);
-    for (long inum = 1; inum < CREATURE_INSTANCES_COUNT; inum++)
+    for (long inum = 1; inum < CREATURE_INSTANCES_COUNT; ++inum)
     {
         if (cctrl->instance_available[inum])
         {
@@ -399,7 +399,7 @@ TbBool creature_has_quick_range_weapon(const struct Thing *creatng)
 {
     TRACE_THING(creatng);
     const struct CreatureControl* cctrl = creature_control_get_from_thing(creatng);
-    for (long inum = 1; inum < CREATURE_INSTANCES_COUNT; inum++)
+    for (long inum = 1; inum < CREATURE_INSTANCES_COUNT; ++inum)
     {
         if (cctrl->instance_available[inum])
         {
@@ -785,7 +785,7 @@ long instf_reinforce(struct Thing *creatng, long *param)
     pos.x.stl.pos = 128;
     pos.y.stl.pos = 128;
     pos.z.stl.pos = 128;
-    for (long n = 0; n < SMALL_AROUND_LENGTH; n++)
+    for (long n = 0; n < SMALL_AROUND_LENGTH; ++n)
     {
         pos.x.stl.num = stl_x + 2 * small_around[n].delta_x;
         pos.y.stl.num = stl_y + 2 * small_around[n].delta_y;

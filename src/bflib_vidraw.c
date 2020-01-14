@@ -570,7 +570,7 @@ static inline void LbDrawBufferTranspr(unsigned char **buf_out,const char *buf_i
   {
     if ((lbDisplay.DrawFlags & Lb_SPRITE_TRANSPAR4) != 0)
     {
-        for (i=0; i<buf_len; i++ )
+        for (i=0; i<buf_len; ++i)
         {
             val = *(const unsigned char *)buf_inp;
             **buf_out = lbDisplay.GlassMap[(val<<8) + **buf_out];
@@ -579,7 +579,7 @@ static inline void LbDrawBufferTranspr(unsigned char **buf_out,const char *buf_i
         }
     } else
     {
-        for (i=0; i<buf_len; i++ )
+        for (i=0; i<buf_len; ++i)
         {
             val = *(const unsigned char *)buf_inp;
             **buf_out = lbDisplay.GlassMap[((**buf_out)<<8) + val];
@@ -591,7 +591,7 @@ static inline void LbDrawBufferTranspr(unsigned char **buf_out,const char *buf_i
   {
     if ( lbDisplay.DrawFlags & Lb_SPRITE_TRANSPAR4 )
     {
-        for (i=0; i<buf_len; i++ )
+        for (i=0; i<buf_len; ++i)
         {
             val = *(const unsigned char *)buf_inp;
             **buf_out = lbDisplay.GlassMap[(val<<8) + **buf_out];
@@ -600,7 +600,7 @@ static inline void LbDrawBufferTranspr(unsigned char **buf_out,const char *buf_i
         }
     } else
     {
-        for (i=0; i<buf_len; i++ )
+        for (i=0; i<buf_len; ++i)
         {
             val = *(const unsigned char *)buf_inp;
             **buf_out = lbDisplay.GlassMap[((**buf_out)<<8) + val];
@@ -626,7 +626,7 @@ static inline void LbDrawBufferSolid(unsigned char **buf_out,const char *buf_inp
     int i;
     if ( mirror )
     {
-        for (i=0; i < buf_len; i++)
+        for (i=0; i < buf_len; ++i)
         {
             **buf_out = *(const unsigned char *)buf_inp;
             buf_inp++;
@@ -634,7 +634,7 @@ static inline void LbDrawBufferSolid(unsigned char **buf_out,const char *buf_inp
         }
     } else
     {
-        for (i=0; i < buf_len; i++)
+        for (i=0; i < buf_len; ++i)
         {
             **buf_out = *(const unsigned char *)buf_inp;
             buf_inp++;
@@ -658,14 +658,14 @@ static inline void LbDrawBufferOneColour(unsigned char **buf_out,const TbPixel c
     {
         if ( lbDisplay.DrawFlags & Lb_SPRITE_TRANSPAR4 )
         {
-            for (i=0; i<buf_len; i++ )
+            for (i=0; i<buf_len; ++i)
             {
                 **buf_out = lbDisplay.GlassMap[(colour<<8) + **buf_out];
                 (*buf_out)--;
             }
         } else
         {
-            for (i=0; i<buf_len; i++ )
+            for (i=0; i<buf_len; ++i)
             {
                 **buf_out = lbDisplay.GlassMap[((**buf_out)<<8) + colour];
                 (*buf_out)--;
@@ -675,14 +675,14 @@ static inline void LbDrawBufferOneColour(unsigned char **buf_out,const TbPixel c
     {
         if ( lbDisplay.DrawFlags & Lb_SPRITE_TRANSPAR4 )
         {
-            for (i=0; i<buf_len; i++ )
+            for (i=0; i<buf_len; ++i)
             {
                 **buf_out = lbDisplay.GlassMap[(colour<<8) + **buf_out];
                 (*buf_out)++;
             }
         } else
         {
-            for (i=0; i<buf_len; i++ )
+            for (i=0; i<buf_len; ++i)
             {
                 **buf_out = lbDisplay.GlassMap[((**buf_out)<<8) + colour];
                 (*buf_out)++;
@@ -703,14 +703,14 @@ static inline void LbDrawBufferOneColorSolid(unsigned char **buf_out,const TbPix
     int i;
     if ( mirror )
     {
-        for (i=0; i < buf_len; i++)
+        for (i=0; i < buf_len; ++i)
         {
             **buf_out = colour;
             (*buf_out)--;
         }
     } else
     {
-        for (i=0; i < buf_len; i++)
+        for (i=0; i < buf_len; ++i)
         {
             **buf_out = colour;
             (*buf_out)++;
@@ -734,7 +734,7 @@ static inline void LbDrawBufferTrRemap(unsigned char **buf_out,const char *buf_i
   {
     if ((lbDisplay.DrawFlags & Lb_SPRITE_TRANSPAR4) != 0)
     {
-        for (i=0; i<buf_len; i++ )
+        for (i=0; i<buf_len; ++i)
         {
             val = cmap[*(const unsigned char *)buf_inp];
             **buf_out = lbDisplay.GlassMap[(val<<8) + **buf_out];
@@ -743,7 +743,7 @@ static inline void LbDrawBufferTrRemap(unsigned char **buf_out,const char *buf_i
         }
     } else
     {
-        for (i=0; i<buf_len; i++ )
+        for (i=0; i<buf_len; ++i)
         {
             val = cmap[*(const unsigned char *)buf_inp];
             **buf_out = lbDisplay.GlassMap[((**buf_out)<<8) + val];
@@ -755,7 +755,7 @@ static inline void LbDrawBufferTrRemap(unsigned char **buf_out,const char *buf_i
   {
     if ( lbDisplay.DrawFlags & Lb_SPRITE_TRANSPAR4 )
     {
-        for (i=0; i<buf_len; i++ )
+        for (i=0; i<buf_len; ++i)
         {
             val = cmap[*(const unsigned char *)buf_inp];
             **buf_out = lbDisplay.GlassMap[(val<<8) + **buf_out];
@@ -764,7 +764,7 @@ static inline void LbDrawBufferTrRemap(unsigned char **buf_out,const char *buf_i
         }
     } else
     {
-        for (i=0; i<buf_len; i++ )
+        for (i=0; i<buf_len; ++i)
         {
             val = cmap[*(const unsigned char *)buf_inp];
             **buf_out = lbDisplay.GlassMap[((**buf_out)<<8) + val];
@@ -786,7 +786,7 @@ static inline void LbDrawBufferSlRemap(unsigned char **buf_out,const char *buf_i
         const int buf_len, const unsigned char *cmap, const TbBool mirror)
 {
     int i;
-    for (i=0; i < buf_len; i++)
+    for (i=0; i < buf_len; ++i)
     {
         **buf_out = cmap[*(const unsigned char *)buf_inp];
         buf_inp++;
@@ -805,7 +805,7 @@ static inline void LbDrawBufferFCRemap(unsigned char **buf_out,const char *buf_i
         const int buf_len, const unsigned char *cmap)
 {
     int i;
-    for (i=0; i < buf_len; i++)
+    for (i=0; i < buf_len; ++i)
     {
         **buf_out = cmap[*(const unsigned char *)buf_inp];
         buf_inp++;
@@ -1849,7 +1849,7 @@ void LbSpriteClearScalingWidthArray(long * xsteps_arr, long swidth)
     int i;
     long *pwidth;
     pwidth = xsteps_arr;
-    for (i=0; i < swidth; i++)
+    for (i=0; i < swidth; ++i)
     {
         pwidth[0] = 0;
         pwidth[1] = 0;
@@ -1984,7 +1984,7 @@ void LbSpriteClearScalingHeightArray(long * ysteps_arr, long sheight)
     int i;
     long *pheight;
     pheight = ysteps_arr;
-    for (i=0; i < sheight; i++)
+    for (i=0; i < sheight; ++i)
     {
         pheight[0] = 0;
         pheight[1] = 0;
@@ -2154,7 +2154,7 @@ TbResult LbHugeSpriteDrawUsingScalingUpData(uchar *outbuf, int scanline, int out
     ycurstep = ystep;
 
     int h;
-    for (h=0; h < sprite->SHeight; h++)
+    for (h=0; h < sprite->SHeight; ++h)
     {
         if (ycurstep[1] != 0)
         {
@@ -2269,12 +2269,12 @@ void LbTiledSpriteDraw(long start_x, long start_y, long units_per_px, struct Til
     int spnum_y;
     delta_y = 0;
     y = start_y;
-    for (spnum_y = 0; spnum_y < bigspr->y_num; spnum_y++)
+    for (spnum_y = 0; spnum_y < bigspr->y_num; ++spnum_y)
     {
         unsigned short *spr_idx;
         x = start_x;
         spr_idx = &bigspr->spr_idx[spnum_y][0];
-        for (spnum_x = 0; spnum_x < bigspr->x_num; spnum_x++)
+        for (spnum_x = 0; spnum_x < bigspr->x_num; ++spnum_x)
         {
             delta_x = sprite[*spr_idx].SWidth * units_per_px / 16;
             delta_y = sprite[*spr_idx].SHeight * units_per_px / 16;
@@ -2286,7 +2286,7 @@ void LbTiledSpriteDraw(long start_x, long start_y, long units_per_px, struct Til
                 unsigned short *prev_spr_idx;
                 prev_spr_idx = (spr_idx - 10);
                 signed int spnum_p;
-                for (spnum_p = 1; spnum_p <= spnum_y; spnum_p++)
+                for (spnum_p = 1; spnum_p <= spnum_y; ++spnum_p)
                 {
                     if (*prev_spr_idx) {
                         delta_x = sprite[bigspr->spr_idx[(spnum_y - spnum_p)][spnum_x]].SWidth * units_per_px / 16;
@@ -2307,7 +2307,7 @@ int LbTiledSpriteHeight(struct TiledSprite *bigspr, struct TbSprite *sprite)
     long height;
     int spnum_y;
     height = 0;
-    for (spnum_y = 0; spnum_y < bigspr->y_num; spnum_y++)
+    for (spnum_y = 0; spnum_y < bigspr->y_num; ++spnum_y)
     {
         unsigned short *spr_idx;
         spr_idx = &bigspr->spr_idx[spnum_y][0];
@@ -2458,7 +2458,7 @@ void LbDrawCircleOutline(long x, long y, long radius, TbPixel colour)
             LbDrawPixelClipOpaq1(x, y, colour);
             return;
         }
-        for (na=0; na < nb; na++)
+        for (na=0; na < nb; ++na)
         {
             LbDrawPixelClipOpaq1(x - na, y - nb, colour);
             LbDrawPixelClipOpaq1(x + na, y - nb, colour);
@@ -2498,7 +2498,7 @@ void LbDrawCircleOutline(long x, long y, long radius, TbPixel colour)
             LbDrawPixelClipOpaq2(x, y, colour);
             return;
         }
-        for (na=0; na < nb; na++)
+        for (na=0; na < nb; ++na)
         {
             LbDrawPixelClipOpaq2(x - na, y - nb, colour);
             LbDrawPixelClipOpaq2(x + na, y - nb, colour);
@@ -2537,7 +2537,7 @@ void LbDrawCircleOutline(long x, long y, long radius, TbPixel colour)
             LbDrawPixelClipSolid(x, y, colour);
             return;
         }
-        for (na=0; na < nb; na++)
+        for (na=0; na < nb; ++na)
         {
             LbDrawPixelClipSolid(x - na, y - nb, colour);
             LbDrawPixelClipSolid(x + na, y - nb, colour);

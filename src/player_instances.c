@@ -881,7 +881,7 @@ void process_player_instance(struct PlayerInfo *player)
 
 void process_player_instances(void)
 {
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if (player_exists(player))

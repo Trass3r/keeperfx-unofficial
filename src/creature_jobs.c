@@ -443,7 +443,7 @@ TbBool creature_find_and_perform_anger_job(struct Thing *creatng)
     // Select a random job as a starting point
     int n = ACTION_RANDOM(i) + 1;
     i = 0;
-    for (k = 0; k < crtr_conf.angerjobs_count; k++)
+    for (k = 0; k < crtr_conf.angerjobs_count; ++k)
     {
         if ((crstat->jobs_anger & (1 << k)) != 0) {
             n--;
@@ -454,7 +454,7 @@ TbBool creature_find_and_perform_anger_job(struct Thing *creatng)
         }
     }
     // Go through all jobs, starting at randomly selected one, attempting to start each one
-    for (k = 0; k < crtr_conf.angerjobs_count; k++)
+    for (k = 0; k < crtr_conf.angerjobs_count; ++k)
     {
         if ((crstat->jobs_anger & (1 << i)) != 0)
         {
@@ -1142,7 +1142,7 @@ TbBool attempt_job_secondary_preference(struct Thing *creatng, long jobpref)
     unsigned long select_curr = select_delta;
     // For some reason, this is a bit different than attempt_job_preference().
     // Probably needs unification
-    for (i=1; i < crtr_conf.jobs_count; i++)
+    for (i=1; i < crtr_conf.jobs_count; ++i)
     {
         CreatureJob new_job = 1<<(i-1);
         if ((jobpref & new_job) == 0) {

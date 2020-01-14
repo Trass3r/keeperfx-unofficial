@@ -371,7 +371,7 @@ long set_game_key(long key_id, unsigned char key, unsigned int mods)
         } else
         {
             struct GameKey  *kbk;
-            for (long i = 0; i < GAME_KEYS_COUNT; i++)
+            for (long i = 0; i < GAME_KEYS_COUNT; ++i)
             {
                 kbk = &settings.kbkeys[i];
                 if ((i != key_id) && (kbk->code == key) && (kbk->mods == mods)) {
@@ -397,7 +397,7 @@ long set_game_key(long key_id, unsigned char key, unsigned int mods)
             return 0;
         }
         struct GameKey *kbk;
-        for (long i = 0; i < GAME_KEYS_COUNT; i++)
+        for (long i = 0; i < GAME_KEYS_COUNT; ++i)
         {
             kbk = &settings.kbkeys[i];
             if ((i != key_id) && (kbk->code == key) && (kbk->mods == mods)) {
@@ -438,7 +438,7 @@ void define_key_input(void)
 void init_key_to_strings(void)
 {
     LbMemorySet(key_to_string, 0, sizeof(key_to_string));
-    for (struct KeyToStringInit* ktsi = &key_to_string_init[0]; ktsi->chr != 0; ktsi++)
+    for (struct KeyToStringInit* ktsi = &key_to_string_init[0]; ktsi->chr != 0; ++ktsi)
     {
         long k = ktsi->chr;
         key_to_string[k] = ktsi->str_idx;

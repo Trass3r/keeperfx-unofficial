@@ -130,7 +130,7 @@ TbLocChar *LbLocTextStringDelete(TbLocChar *str, TbCharCount pos, TbCharCount co
         clen = slen-spos;
     // Remove the chars
     TbSize lim = slen - spos - clen;
-    for (TbSize i = 0; i < lim; i++)
+    for (TbSize i = 0; i < lim; ++i)
     {
         str[spos+i] = str[spos+clen+i];
     }

@@ -54,7 +54,7 @@ int InitializeMusicPlayer(void)
             tracks[0] = NULL;
             tracks[1] = NULL;
             // There is no keeper01.ogg. FIRST_TRACK defined as 2.
-            for (int i = FIRST_TRACK; i <= max_track; i++)
+            for (int i = FIRST_TRACK; i <= max_track; ++i)
             {
                 const char* fname = prepare_file_fmtpath(FGrp_Music, "keeper%02d.ogg", i);
                 tracks[i] = Mix_LoadMUS(fname);
@@ -89,7 +89,7 @@ void ShutdownMusicPlayer(void)
         Mix_Quit();
     }
     Mix_HaltMusic();
-    for (int i = 0; i < max_track; i++)
+    for (int i = 0; i < max_track; ++i)
     {
         if (tracks[i] != NULL)
         {

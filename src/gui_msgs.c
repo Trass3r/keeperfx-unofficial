@@ -41,7 +41,7 @@ void message_draw(void)
     int h = LbTextLineHeight();
     long x = 148 * units_per_pixel / 16;
     long y = 28 * units_per_pixel / 16;
-    for (int i = 0; i < game.active_messages_count; i++)
+    for (int i = 0; i < game.active_messages_count; ++i)
     {
         LbTextSetWindow(0, 0, MyScreenWidth, MyScreenHeight);
         set_flag_word(&lbDisplay.DrawFlags,Lb_TEXT_ONE_COLOR,false);
@@ -71,7 +71,7 @@ void message_update(void)
 void zero_messages(void)
 {
     game.active_messages_count = 0;
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; ++i)
     {
       memset(&game.messages[i], 0, sizeof(struct GuiMessage));
     }

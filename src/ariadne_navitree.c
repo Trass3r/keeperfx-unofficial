@@ -61,7 +61,7 @@ void nodes_classify(void)
 
 void tree_init(void)
 {
-    for (long i = 0; i < TREEVALS_COUNT; i++)
+    for (long i = 0; i < TREEVALS_COUNT; ++i)
     {
         tree_val[i] = -LONG_MAX;
     }
@@ -155,7 +155,7 @@ void tags_init(void)
 long update_border_tags(long tag_id, long *border_pt, long border_len)
 {
     long iset = 0;
-    for (long ipt = 0; ipt < border_len; ipt++)
+    for (long ipt = 0; ipt < border_len; ++ipt)
     {
         long n = border_pt[ipt];
         if ((n < 0) || (n >= TREEITEMS_COUNT))
@@ -247,7 +247,7 @@ static void delaunay_stack_point(long pt_x, long pt_y)
         return;
     }
     delaunay_add_triangle(tri_idx);
-    for (cor_idx=0; cor_idx < 3; cor_idx++)
+    for (cor_idx=0; cor_idx < 3; ++cor_idx)
     {
         tri_id2 = Triangles[tri_idx].tags[cor_idx];
         if (tri_id2 != -1) {
@@ -342,7 +342,7 @@ long delaunay_seeded(long start_x, long start_y, long end_x, long end_y)
     {
         ix_delaunay--;
         long tri_idx = delaunay_stack[ix_delaunay];
-        for (long cor_idx = 0; cor_idx < 3; cor_idx++)
+        for (long cor_idx = 0; cor_idx < 3; ++cor_idx)
         {
             if (!optimise_heuristic(tri_idx, cor_idx))
                 continue;
@@ -353,7 +353,7 @@ long delaunay_seeded(long start_x, long start_y, long end_x, long end_y)
               ERRORLOG("stack full");
               return count;
             }
-            for (long cor_id2 = 0; cor_id2 < 3; cor_id2++)
+            for (long cor_id2 = 0; cor_id2 < 3; ++cor_id2)
             {
                 long tri_id2 = Triangles[tri_idx].tags[cor_id2];
                 if (tri_id2 == -1)

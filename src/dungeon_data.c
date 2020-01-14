@@ -74,7 +74,7 @@ TbBool dungeon_invalid(const struct Dungeon *dungeon)
 void clear_dungeons(void)
 {
   SYNCDBG(6,"Starting");
-  for (int i = 0; i < DUNGEONS_COUNT; i++)
+  for (int i = 0; i < DUNGEONS_COUNT; ++i)
   {
       LbMemorySet(&game.dungeon[i], 0, sizeof(struct Dungeon));
       game.dungeon[i].owner = PLAYERS_COUNT;
@@ -177,7 +177,7 @@ TbBool player_has_room_of_role(PlayerNumber plyr_idx, RoomRole rrole)
     if (plyr_idx == game.neutral_player_num)
         return false;
     struct Dungeon* dungeon = get_players_num_dungeon(plyr_idx);
-    for (RoomKind rkind = 0; rkind < slab_conf.room_types_count; rkind++)
+    for (RoomKind rkind = 0; rkind < slab_conf.room_types_count; ++rkind)
     {
         if (room_role_matches(rkind, rrole))
         {
@@ -320,7 +320,7 @@ TbBool set_door_buildable_and_add_to_amount(PlayerNumber plyr_idx, ThingModel tn
  */
 TbBool dungeon_has_any_buildable_traps(struct Dungeon *dungeon)
 {
-    for (ThingModel tngmodel = 1; tngmodel < trapdoor_conf.trap_types_count; tngmodel++)
+    for (ThingModel tngmodel = 1; tngmodel < trapdoor_conf.trap_types_count; ++tngmodel)
     {
         if ((dungeon->trap_amount_stored[tngmodel] + dungeon->trap_amount_offmap[tngmodel]) > 0)
             return true;
@@ -335,7 +335,7 @@ TbBool dungeon_has_any_buildable_traps(struct Dungeon *dungeon)
  */
 TbBool dungeon_has_any_buildable_doors(struct Dungeon *dungeon)
 {
-    for (ThingModel tngmodel = 1; tngmodel < trapdoor_conf.door_types_count; tngmodel++)
+    for (ThingModel tngmodel = 1; tngmodel < trapdoor_conf.door_types_count; ++tngmodel)
     {
         if ((dungeon->door_amount_stored[tngmodel] + dungeon->door_amount_offmap[tngmodel]) > 0)
             return true;
@@ -400,7 +400,7 @@ TbBool mark_creature_joined_dungeon(struct Thing *creatng)
 void init_dungeon_essential_position(struct Dungeon *dungeon)
 {
     struct Room* room = room_get(dungeon->room_kind[RoK_DUNGHEART]);
-    for (RoomKind rkind = 1; rkind < ROOM_TYPES_COUNT; rkind++)
+    for (RoomKind rkind = 1; rkind < ROOM_TYPES_COUNT; ++rkind)
     {
         if (!room_is_invalid(room))
             break;
@@ -419,7 +419,7 @@ void init_dungeon_essential_position(struct Dungeon *dungeon)
 
 void init_dungeons_essential_position(void)
 {
-    for (int i = 0; i < DUNGEONS_COUNT; i++)
+    for (int i = 0; i < DUNGEONS_COUNT; ++i)
     {
         struct Dungeon* dungeon = get_dungeon(i);
         init_dungeon_essential_position(dungeon);
@@ -440,7 +440,7 @@ const struct Coord3d *dungeon_get_essential_pos(PlayerNumber plyr_idx)
 
 void init_dungeons(void)
 {
-    for (int i = 0; i < DUNGEONS_COUNT; i++)
+    for (int i = 0; i < DUNGEONS_COUNT; ++i)
     {
         struct Dungeon* dungeon = get_dungeon(game.hero_player_num);
         dungeon->hates_player[i] = game.fight_max_hate;
@@ -454,7 +454,7 @@ void init_dungeons(void)
         dungeon->max_creatures_attracted = game.default_max_crtrs_gen_entrance;
         dungeon->dead_creatures_count = 0;
         dungeon->dead_creature_idx = 0;
-        for (int k = 0; k < DUNGEONS_COUNT; k++)
+        for (int k = 0; k < DUNGEONS_COUNT; ++k)
         {
           if (k == i)
             dungeon->hates_player[k] = game.fight_max_love;

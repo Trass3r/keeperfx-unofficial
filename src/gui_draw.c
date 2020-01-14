@@ -47,7 +47,7 @@ int get_bitmap_max_scale(int img_w,int img_h,int rect_w,int rect_h)
     int m;
     int w = 0;
     int h = 0;
-    for (m=0; m < 5; m++)
+    for (m=0; m < 5; ++m)
     {
         w += img_w;
         h += img_h;
@@ -148,7 +148,7 @@ void draw_slab64k_background(long pos_x, long pos_y, long width, long height)
     if (scr_y + scr_h > i)
         scr_h = i - scr_y;
     TbPixel* out = &lbDisplay.WScreen[scr_x + lbDisplay.GraphicsScreenWidth * scr_y];
-    for (i=0; scr_h > i; i++)
+    for (i=0; scr_h > i; ++i)
     {
         TbPixel* inp = &gui_slab[GUI_SLAB_DIMENSION * (i % GUI_SLAB_DIMENSION)];
         if (scr_w >= GUI_SLAB_DIMENSION)
@@ -491,7 +491,7 @@ void draw_message_box_at(long startx, long starty, long box_width, long box_heig
         LbSpriteDrawResized(x, y, units_per_pixel, spr);
         x += spr->SWidth * units_per_pixel / 16;
     }
-    for (n=0; n < spritesx; n++)
+    for (n=0; n < spritesx; ++n)
     {
         spr = &frontend_sprite[(n % 4) + 26];
         LbSpriteDrawResized(x, y, units_per_pixel, spr);
@@ -502,7 +502,7 @@ void draw_message_box_at(long startx, long starty, long box_width, long box_heig
         spr = &frontend_sprite[25];
         x += spr->SWidth * units_per_pixel / 16;
     }
-    for (n=0; n < spritesx; n++)
+    for (n=0; n < spritesx; ++n)
     {
         spr = &frontend_sprite[(n % 4) + 26];
         LbSpriteDrawResized(x, y, units_per_pixel, spr);
@@ -521,7 +521,7 @@ void draw_message_box_at(long startx, long starty, long box_width, long box_heig
         LbSpriteDrawResized(x, y, units_per_pixel, spr);
         x += spr->SWidth * units_per_pixel / 16;
     }
-    for (n=0; n < spritesx; n++)
+    for (n=0; n < spritesx; ++n)
     {
         spr = &frontend_sprite[(n % 4) + 41];
         LbSpriteDrawResized(x, y, units_per_pixel, spr);
@@ -540,7 +540,7 @@ void draw_message_box_at(long startx, long starty, long box_width, long box_heig
         LbSpriteDrawResized(x, y, units_per_pixel, spr);
         x += spr->SWidth * units_per_pixel / 16;
     }
-    for (n=0; n < spritesx; n++)
+    for (n=0; n < spritesx; ++n)
     {
         spr = &frontend_sprite[(n % 4) + 48];
         LbSpriteDrawResized(x, y, units_per_pixel, spr);

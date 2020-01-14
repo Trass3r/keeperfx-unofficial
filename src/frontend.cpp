@@ -384,7 +384,7 @@ TbBool a_menu_window_is_active(void)
     return false;
   int i;
   int k;
-  for (i=0; i<no_of_active_menus; i++)
+  for (i=0; i<no_of_active_menus; ++i)
   {
       k = menu_stack[i];
       if (!is_toggleable_menu(k))
@@ -523,7 +523,7 @@ void add_message(long plyr_idx, char *msg)
     i = net_number_of_messages;
     if (i >= NET_MESSAGES_COUNT)
     {
-      for (k=0; k < (NET_MESSAGES_COUNT-1); k++)
+      for (k=0; k < (NET_MESSAGES_COUNT-1); ++k)
       {
         memcpy(&net_message[k], &net_message[k+1], sizeof(struct NetMessage));
       }
@@ -548,7 +548,7 @@ TbBool validate_versions(void)
     long i;
     long ver;
     ver = -1;
-    for (i=0; i < NET_PLAYERS_COUNT; i++)
+    for (i=0; i < NET_PLAYERS_COUNT; ++i)
     {
       player = get_player(i);
       if ((net_screen_packet[i].field_4 & 0x01) != 0)
@@ -581,7 +581,7 @@ void versions_different_error(void)
     lbKeyOn[KC_RETURN] = 0;
     text[0] = '\0';
     // Preparing message
-    for (i=0; i < NET_PLAYERS_COUNT; i++)
+    for (i=0; i < NET_PLAYERS_COUNT; ++i)
     {
       plyr_nam = network_player_name(i);
       nspckt = &net_screen_packet[i];
@@ -1151,8 +1151,8 @@ TbBool fronttestfont_draw(void)
   long x;
   long y;
   SYNCDBG(9,"Starting");
-  for (y=0; y < lbDisplay.GraphicsScreenHeight; y++)
-    for (x=0; x < lbDisplay.GraphicsScreenWidth; x++)
+  for (y=0; y < lbDisplay.GraphicsScreenHeight; ++y)
+    for (x=0; x < lbDisplay.GraphicsScreenWidth; ++x)
     {
         lbDisplay.WScreen[y*lbDisplay.GraphicsScreenWidth+x] = 0;
     }
@@ -1160,7 +1160,7 @@ TbBool fronttestfont_draw(void)
   // Drawing
   w = 32;
   h = 48;
-  for (i=31; i < num_chars_in_font+31; i++)
+  for (i=31; i < num_chars_in_font+31; ++i)
   {
     k = (i-31);
     SYNCDBG(9,"Drawing char %d",i);
@@ -1185,7 +1185,7 @@ TbBool fronttestfont_input(void)
 {
   const unsigned int keys[] = {KC_Z,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0};
   int i;
-  for (i=0; i < sizeof(keys)/sizeof(keys[0]); i++)
+  for (i=0; i < sizeof(keys)/sizeof(keys[0]); ++i)
   {
     if (lbKeyOn[keys[i]])
     {
@@ -1654,7 +1654,7 @@ TbBool frontend_start_new_campaign(const char *cmpgn_fname)
     if (!change_campaign(cmpgn_fname))
         return false;
     set_continue_level_number(first_singleplayer_level());
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
         player = get_player(i);
         player->flgfield_6 &= ~PlaF6_PlyrHasQuit;
@@ -2187,7 +2187,7 @@ MenuNumber create_menu(struct GuiMenu *gmnu)
     if (callback != NULL)
         callback(amnu);
     btninit = gmnu->buttons;
-    for (i=0; btninit[i].gbtype != -1; i++)
+    for (i=0; btninit[i].gbtype != -1; ++i)
     {
         if (create_button(amnu, &btninit[i], units_per_px) == -1)
         {
@@ -2967,7 +2967,7 @@ void draw_menu_buttons(struct GuiMenu *gmnu)
     struct GuiButton *gbtn;
     Gf_Btn_Callback callback;
     SYNCDBG(18,"Starting phase one");
-    for (i=0; i<ACTIVE_BUTTONS_COUNT; i++)
+    for (i=0; i<ACTIVE_BUTTONS_COUNT; ++i)
     {
         gbtn = &active_buttons[i];
         callback = gbtn->draw_call;
@@ -2978,7 +2978,7 @@ void draw_menu_buttons(struct GuiMenu *gmnu)
         }
     }
     SYNCDBG(18,"Starting phase two");
-    for (i=0; i<ACTIVE_BUTTONS_COUNT; i++)
+    for (i=0; i<ACTIVE_BUTTONS_COUNT; ++i)
     {
         gbtn = &active_buttons[i];
         callback = gbtn->draw_call;
@@ -2996,7 +2996,7 @@ void update_fade_active_menus(void)
     SYNCDBG(8,"Starting");
     struct GuiMenu *gmnu;
     int k;
-    for (k=0; k < ACTIVE_MENUS_COUNT; k++)
+    for (k=0; k < ACTIVE_MENUS_COUNT; ++k)
     {
         gmnu = &active_menus[k];
         if (update_menu_fade_level(gmnu) == -1)
@@ -3015,7 +3015,7 @@ void draw_active_menus_buttons(void)
     long menu_num;
     Gf_Mnu_Callback callback;
     SYNCDBG(8,"Starting with %d active menus",no_of_active_menus);
-    for (k=0; k < no_of_active_menus; k++)
+    for (k=0; k < no_of_active_menus; ++k)
     {
         menu_num = menu_id_to_number(menu_stack[k]);
         if (menu_num < 0) continue;
@@ -3062,7 +3062,7 @@ void draw_menu_spangle(struct GuiMenu *gmnu)
     int i;
     if (gmnu->is_turned_on == 0)
       return;
-    for (i=0; i<ACTIVE_BUTTONS_COUNT; i++)
+    for (i=0; i<ACTIVE_BUTTONS_COUNT; ++i)
     {
         gbtn = &active_buttons[i];
         if ((gbtn->draw_call == NULL) || ((gbtn->flags & LbBtnF_Visible) == 0) || ((gbtn->flags & LbBtnF_Unknown01) == 0) || (game.flash_button_index == 0))
@@ -3085,7 +3085,7 @@ void draw_active_menus_highlights(void)
     struct GuiMenu *gmnu;
     int k;
     SYNCDBG(8,"Starting");
-    for (k=0; k<ACTIVE_MENUS_COUNT; k++)
+    for (k=0; k<ACTIVE_MENUS_COUNT; ++k)
     {
         gmnu = &active_menus[k];
         if ((gmnu->visual_state != 0) && (gmnu->ident == GMnu_MAIN))
@@ -3298,7 +3298,7 @@ void display_objectives(PlayerNumber plyr_idx, long x, long y)
         cor_y = subtile_coord_center(y);
     }
     int evbtn_idx;
-    for (evbtn_idx=0; evbtn_idx < EVENT_BUTTONS_COUNT+1; evbtn_idx++)
+    for (evbtn_idx=0; evbtn_idx < EVENT_BUTTONS_COUNT+1; ++evbtn_idx)
     {
         struct Dungeon *dungeon;
         dungeon = get_players_num_dungeon(plyr_idx);

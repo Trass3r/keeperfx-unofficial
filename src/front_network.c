@@ -173,7 +173,7 @@ void draw_out_of_sync_box(long a1, long a2, long box_width)
 
 void setup_alliances(void)
 {
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if (!is_my_player_number(i) && player_exists(player))
@@ -295,7 +295,7 @@ void frontnet_session_update(void)
             || (!net_session[net_session_index_active]->joinable))
           {
             net_session_index_active = -1;
-            for (long i = 0; i < net_number_of_sessions; i++)
+            for (long i = 0; i < net_number_of_sessions; ++i)
             {
               if (net_session[i]->joinable)
               {
@@ -406,9 +406,9 @@ void frontnet_rewite_net_messages(void)
     struct NetMessage lmsg[NET_MESSAGES_COUNT];
     long k = 0;
     long i = net_number_of_messages;
-    for (i=0; i < NET_MESSAGES_COUNT; i++)
+    for (i=0; i < NET_MESSAGES_COUNT; ++i)
       LbMemorySet(&lmsg[i], 0, sizeof(struct NetMessage));
-    for (i=0; i < net_number_of_messages; i++)
+    for (i=0; i < net_number_of_messages; ++i)
     {
         struct NetMessage* nmsg = &net_message[i];
         if (network_player_active(nmsg->plyr_idx))
@@ -418,7 +418,7 @@ void frontnet_rewite_net_messages(void)
       }
     }
     net_number_of_messages = k;
-    for (i=0; i < NET_MESSAGES_COUNT; i++)
+    for (i=0; i < NET_MESSAGES_COUNT; ++i)
       memcpy(&net_message[i], &lmsg[i], sizeof(struct NetMessage));
 }
 
@@ -534,7 +534,7 @@ void frontnet_start_setup(void)
     net_message_scroll_offset = 0;
     //net_old_number_of_players = 0;
     players_currently_in_session = 0;
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         player->mp_message_text[0] = '\0';

@@ -460,9 +460,9 @@ MapSubtlCoord stl_slab_ending_subtile(MapSubtlCoord stl_v)
 
 void clear_mapwho(void)
 {
-    for (MapSubtlCoord y = 0; y < (map_subtiles_y + 1); y++)
+    for (MapSubtlCoord y = 0; y < (map_subtiles_y + 1); ++y)
     {
-        for (MapSubtlCoord x = 0; x < (map_subtiles_x + 1); x++)
+        for (MapSubtlCoord x = 0; x < (map_subtiles_x + 1); ++x)
         {
             struct Map* mapblk = &game.map[get_subtile_number(x, y)];
             mapblk->data &= 0xFFC007FFu;
@@ -472,9 +472,9 @@ void clear_mapwho(void)
 
 void clear_mapmap_soft(void)
 {
-    for (MapSubtlCoord y = 0; y < (map_subtiles_y + 1); y++)
+    for (MapSubtlCoord y = 0; y < (map_subtiles_y + 1); ++y)
     {
-        for (MapSubtlCoord x = 0; x < (map_subtiles_x + 1); x++)
+        for (MapSubtlCoord x = 0; x < (map_subtiles_x + 1); ++x)
         {
             struct Map* mapblk = &game.map[get_subtile_number(x, y)];
             mapblk->data &= 0xFF3FFFFFu;
@@ -489,9 +489,9 @@ void clear_mapmap_soft(void)
 
 void clear_mapmap(void)
 {
-    for (unsigned long y = 0; y < (map_subtiles_y + 1); y++)
+    for (unsigned long y = 0; y < (map_subtiles_y + 1); ++y)
     {
-        for (unsigned long x = 0; x < (map_subtiles_x + 1); x++)
+        for (unsigned long x = 0; x < (map_subtiles_x + 1); ++x)
         {
             struct Map* mapblk = get_map_block_at(x, y);
             unsigned char* flg = &game.navigation_map[get_subtile_number(x, y)];
@@ -527,8 +527,8 @@ void clear_dig_for_map_rect(long plyr_idx,long start_x,long end_x,long start_y,l
 {
     long x;
     long y;
-    for (y = start_y; y < end_y; y++)
-        for (x = start_x; x < end_x; x++)
+    for (y = start_y; y < end_y; ++y)
+        for (x = start_x; x < end_x; ++x)
         {
             clear_slab_dig(x, y, plyr_idx);
         }
@@ -542,8 +542,8 @@ void reveal_map_rect(PlayerNumber plyr_idx,MapSubtlCoord start_x,MapSubtlCoord e
 {
     MapSubtlCoord x;
     MapSubtlCoord y;
-    for (y = start_y; y < end_y; y++)
-        for (x = start_x; x < end_x; x++)
+    for (y = start_y; y < end_y; ++y)
+        for (x = start_x; x < end_x; ++x)
         {
             reveal_map_subtile(x, y, plyr_idx);
         }

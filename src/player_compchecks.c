@@ -134,7 +134,7 @@ long computer_checks_hates(struct Computer2 *comp, struct ComputerCheck * check)
     int cdngn_spdiggrs = count_diggers_in_dungeon(compdngn);
     int cdngn_enrancs = count_entrances(comp, compdngn->owner);
     // Now check hate for every player
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         struct Dungeon* dungeon = get_players_dungeon(player);
@@ -616,7 +616,7 @@ struct Room *get_opponent_room(struct Computer2 *comp, PlayerNumber plyr_idx)
         return INVALID_ROOM;
     }
     int n = opponent_room_kinds[ACTION_RANDOM(sizeof(opponent_room_kinds) / sizeof(opponent_room_kinds[0]))];
-    for (int i = 0; i < slab_conf.room_types_count; i++)
+    for (int i = 0; i < slab_conf.room_types_count; ++i)
     {
         struct Room* room = room_get(dungeon->room_kind[n]);
         if (room_exists(room)) {
@@ -633,7 +633,7 @@ struct Room *get_hated_room_for_quick_attack(struct Computer2 *comp, long min_ha
     struct THate hates[PLAYERS_COUNT];
     get_opponent(comp, hates);
     // note that 'i' is not player index, player index is inside THate struct
-    for (long i = 0; i < PLAYERS_COUNT; i++)
+    for (long i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct THate* hate = &hates[i];
         if (players_are_enemies(comp->dungeon->owner, hate->plyr_idx))
@@ -779,7 +779,7 @@ long computer_check_for_accelerate(struct Computer2 *comp, struct ComputerCheck 
     long n = check->param1 % (sizeof(workers_in_rooms) / sizeof(workers_in_rooms[0]));
     if (n <= 0)
         n = ACTION_RANDOM(sizeof(workers_in_rooms)/sizeof(workers_in_rooms[0]));
-    for (long i = 0; i < sizeof(workers_in_rooms) / sizeof(workers_in_rooms[0]); i++)
+    for (long i = 0; i < sizeof(workers_in_rooms) / sizeof(workers_in_rooms[0]); ++i)
     {
         struct Thing* thing = computer_check_creatures_in_dungeon_rooms_of_kind_for_accelerate(comp, workers_in_rooms[n]);
         if (!thing_is_invalid(thing))
@@ -813,7 +813,7 @@ long computer_check_enemy_entrances(struct Computer2 *comp, struct ComputerCheck
 {
     SYNCDBG(8,"Starting");
     long result = CTaskRet_Unk4;
-    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         if (comp->dungeon->owner == plyr_idx) {
             continue;
@@ -837,7 +837,7 @@ long computer_check_enemy_entrances(struct Computer2 *comp, struct ComputerCheck
             // Per-room code
             struct OpponentRelation* oprel = &comp->opponent_relations[(int)plyr_idx];
             long n;
-            for (n = 0; n < 64; n++)
+            for (n = 0; n < 64; ++n)
             {
                 struct Coord3d* pos = &oprel->pos_A[n];
                 if ((pos->x.val == subtile_coord(room->central_stl_x,0)) && (pos->y.val == subtile_coord(room->central_stl_y,0))) {
@@ -870,7 +870,7 @@ long computer_check_enemy_entrances(struct Computer2 *comp, struct ComputerCheck
 TbBool find_place_to_put_door_around_room(const struct Room *room, struct Coord3d *pos)
 {
     long m = ACTION_RANDOM(SMALL_AROUND_SLAB_LENGTH);
-    for (long n = 0; n < SMALL_AROUND_SLAB_LENGTH; n++)
+    for (long n = 0; n < SMALL_AROUND_SLAB_LENGTH; ++n)
     {
         // Get position containing room center
         MapSlabCoord slb_x = subtile_slab_fast(room->central_stl_x);
@@ -986,7 +986,7 @@ long computer_check_neutral_places(struct Computer2 *comp, struct ComputerCheck 
     struct Room* near_room = INVALID_ROOM;
     int near_dist = LONG_MAX;
     struct Coord3d* near_pos = &oprel->pos_A[0];
-    for (int i = 0; i < COMPUTER_SPARK_POSITIONS_COUNT; i++)
+    for (int i = 0; i < COMPUTER_SPARK_POSITIONS_COUNT; ++i)
     {
         struct Coord3d* place = &oprel->pos_A[i];
         if ((place->x.val == 0) || (place->y.val == 0)) {
@@ -1036,7 +1036,7 @@ long computer_check_neutral_places(struct Computer2 *comp, struct ComputerCheck 
 int count_slabs_around_of_kind(MapSlabCoord slb_x, MapSlabCoord slb_y, SlabKind slbkind, PlayerNumber owner)
 {
     int matched_slabs = 0;
-    for (unsigned long n = 1; n < MID_AROUND_LENGTH; n++)
+    for (unsigned long n = 1; n < MID_AROUND_LENGTH; ++n)
     {
         MapSlabCoord arslb_x = slb_x + mid_around[n].delta_x;
         MapSlabCoord arslb_y = slb_y + mid_around[n].delta_y;
@@ -1084,7 +1084,7 @@ TbBool computer_check_for_expand_specific_room(struct Computer2 *comp, struct Co
          || ((room_around >= 6) && (claimed_around >= 1))) // Allow fixing one-slab holes inside rooms
         {
             unsigned long m = around_start % SMALL_AROUND_SLAB_LENGTH;
-            for (unsigned long n = 0; n < SMALL_AROUND_SLAB_LENGTH; n++)
+            for (unsigned long n = 0; n < SMALL_AROUND_SLAB_LENGTH; ++n)
             {
                 MapSlabCoord arslb_x = slb_x + small_around[m].delta_x;
                 MapSlabCoord arslb_y = slb_y + small_around[m].delta_y;
@@ -1178,7 +1178,7 @@ long computer_check_for_expand_room(struct Computer2 *comp, struct ComputerCheck
         SYNCDBG(8,"No rooms expansion - not enough money buffer");
         return CTaskRet_Unk0;
     }
-    for (const struct ExpandRooms* expndroom = &expand_rooms[0]; expndroom->rkind != RoK_NONE; expndroom++)
+    for (const struct ExpandRooms* expndroom = &expand_rooms[0]; expndroom->rkind != RoK_NONE; ++expndroom)
     {
         if (computer_check_for_expand_room_kind(comp, check, expndroom->rkind, expndroom->max_slabs, around_start)) {
             return CTaskRet_Unk1;

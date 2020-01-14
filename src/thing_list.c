@@ -1058,7 +1058,7 @@ void setup_computer_player(int plr_idx)
 
 void setup_computer_players(void)
 {
-    for (int plr_idx = 0; plr_idx < PLAYERS_COUNT; plr_idx++)
+    for (int plr_idx = 0; plr_idx < PLAYERS_COUNT; ++plr_idx)
     {
         struct PlayerInfo* player = get_player(plr_idx);
         if (!player_exists(player))
@@ -1070,7 +1070,7 @@ void setup_computer_players(void)
 
 void setup_zombie_players(void)
 {
-    for (int plr_idx = 0; plr_idx < PLAYERS_COUNT; plr_idx++)
+    for (int plr_idx = 0; plr_idx < PLAYERS_COUNT; ++plr_idx)
     {
         struct PlayerInfo* player = get_player(plr_idx);
         if (!player_exists(player))
@@ -1653,7 +1653,7 @@ long creature_of_model_in_prison_or_tortured(ThingModel crmodel)
 
 TbBool lord_of_the_land_in_prison_or_tortured(void)
 {
-    for (long crtr_model = 0; crtr_model < crtr_conf.model_count; crtr_model++)
+    for (long crtr_model = 0; crtr_model < crtr_conf.model_count; ++crtr_model)
     {
         struct CreatureModelConfig* crconf = &crtr_conf.model[crtr_model];
         if ((crconf->model_flags & CMF_IsLordOTLand) != 0)
@@ -1667,7 +1667,7 @@ TbBool lord_of_the_land_in_prison_or_tortured(void)
 
 struct Thing *lord_of_the_land_find(void)
 {
-    for (long crtr_model = 0; crtr_model < crtr_conf.model_count; crtr_model++)
+    for (long crtr_model = 0; crtr_model < crtr_conf.model_count; ++crtr_model)
     {
         struct CreatureModelConfig* crconf = &crtr_conf.model[crtr_model];
         if ((crconf->model_flags & CMF_IsLordOTLand) != 0)
@@ -1800,7 +1800,7 @@ long electricity_affecting_area(const struct Coord3d *pos, PlayerNumber immune_p
 
 long get_free_hero_gate_number(void)
 {
-    for (long n = 1; n < 256; n++)
+    for (long n = 1; n < 256; ++n)
     {
         struct Thing* thing = find_hero_gate_of_number(n);
         if (thing_is_invalid(thing))
@@ -2451,7 +2451,7 @@ struct Thing *get_thing_near_revealed_map_block_with_filter(MapCoord x, MapCoord
     SYNCDBG(19,"Starting");
     struct Thing* retng = INVALID_THING;
     long maximizer = 0;
-    for (int around = 0; around < sizeof(mid_around) / sizeof(mid_around[0]); around++)
+    for (int around = 0; around < sizeof(mid_around) / sizeof(mid_around[0]); ++around)
     {
         MapSubtlCoord sx = coord_subtile(x) + (MapSubtlCoord)mid_around[around].delta_x;
         MapSubtlCoord sy = coord_subtile(y) + (MapSubtlCoord)mid_around[around].delta_y;
@@ -2490,7 +2490,7 @@ struct Thing *get_thing_spiral_near_map_block_with_filter(MapCoord x, MapCoord y
     SYNCDBG(19,"Starting");
     struct Thing* retng = INVALID_THING;
     long maximizer = 0;
-    for (int around = 0; around < spiral_len; around++)
+    for (int around = 0; around < spiral_len; ++around)
     {
         struct MapOffset* sstep = &spiral_step[around];
         MapSubtlCoord sx = coord_subtile(x) + (MapSubtlCoord)sstep->h;
@@ -2524,7 +2524,7 @@ long count_things_spiral_near_map_block_with_filter(MapCoord x, MapCoord y, long
     SYNCDBG(19,"Starting");
     long count = 0;
     long maximizer = 0;
-    for (int around = 0; around < spiral_len; around++)
+    for (int around = 0; around < spiral_len; ++around)
     {
         struct MapOffset* sstep = &spiral_step[around];
         MapSubtlCoord sx = coord_subtile(x) + (MapSubtlCoord)sstep->h;
@@ -2554,7 +2554,7 @@ long do_to_things_spiral_near_map_block(MapCoord x, MapCoord y, long spiral_len,
 {
     SYNCDBG(19,"Starting");
     long count = 0;
-    for (int around = 0; around < spiral_len; around++)
+    for (int around = 0; around < spiral_len; ++around)
     {
         struct MapOffset* sstep = &spiral_step[around];
         MapSubtlCoord sx = coord_subtile(x) + (MapSubtlCoord)sstep->h;
@@ -2577,7 +2577,7 @@ long do_to_things_with_param_around_map_block(const struct Coord3d *center_pos, 
 {
     SYNCDBG(19,"Starting");
     long count = 0;
-    for (int around = 0; around < sizeof(mid_around) / sizeof(mid_around[0]); around++)
+    for (int around = 0; around < sizeof(mid_around) / sizeof(mid_around[0]); ++around)
     {
         const struct Around* caround = &mid_around[around];
         MapSubtlCoord sx = coord_subtile(center_pos->x.val) + caround->delta_x;
@@ -2602,7 +2602,7 @@ long do_to_things_with_param_spiral_near_map_block(const struct Coord3d *center_
     }
     SYNCDBG(19,"Starting");
     long count = 0;
-    for (int around = 0; around < spiral_range * spiral_range; around++)
+    for (int around = 0; around < spiral_range * spiral_range; ++around)
     {
         struct MapOffset* sstep = &spiral_step[around];
         MapSubtlCoord sx = coord_subtile(center_pos->x.val) + sstep->h;
@@ -2620,7 +2620,7 @@ long do_to_things_with_param_spiral_near_map_block(const struct Coord3d *center_
 
 void stop_all_things_playing_samples(void)
 {
-    for (long i = 0; i < THINGS_COUNT; i++)
+    for (long i = 0; i < THINGS_COUNT; ++i)
     {
         struct Thing* thing = thing_get(i);
         if ((thing->alloc_flags & TAlF_Exists) != 0)
@@ -3538,7 +3538,7 @@ void setup_all_player_creatures_and_diggers_leave_or_die(PlayerNumber plyr_idx)
 long count_creatures_in_dungeon_of_model_flags(const struct Dungeon *dungeon, unsigned long need_mdflags, unsigned long excl_mdflags)
 {
     long count = 0;
-    for (ThingModel crmodel = 1; crmodel < crtr_conf.model_count; crmodel++)
+    for (ThingModel crmodel = 1; crmodel < crtr_conf.model_count; ++crmodel)
     {
         struct CreatureModelConfig* crconf = &crtr_conf.model[crmodel];
         if (((crconf->model_flags & need_mdflags) == need_mdflags) &&
@@ -3553,7 +3553,7 @@ long count_creatures_in_dungeon_of_model_flags(const struct Dungeon *dungeon, un
 long count_creatures_in_dungeon_controlled_and_of_model_flags(const struct Dungeon *dungeon, unsigned long need_mdflags, unsigned long excl_mdflags)
 {
     long count = 0;
-    for (ThingModel crmodel = 1; crmodel < crtr_conf.model_count; crmodel++)
+    for (ThingModel crmodel = 1; crmodel < crtr_conf.model_count; ++crmodel)
     {
         struct CreatureModelConfig* crconf = &crtr_conf.model[crmodel];
         if (((crconf->model_flags & need_mdflags) == need_mdflags) &&

@@ -236,7 +236,7 @@ struct ComputerTask *computer_setup_build_room(struct Computer2 *comp, RoomKind 
         }
     }
     const long arr_length = sizeof(look_through_rooms)/sizeof(look_through_rooms[0]);
-    for (long area = area_min; area < area_max; area++)
+    for (long area = area_min; area < area_max; ++area)
     {
         for (long aparam = 1; aparam >= 0; aparam--)
         {
@@ -245,7 +245,7 @@ struct ComputerTask *computer_setup_build_room(struct Computer2 *comp, RoomKind 
             {
                 look_kind = ACTION_RANDOM(arr_length);
             }
-            for (i=0; i < arr_length; i++)
+            for (i=0; i < arr_length; ++i)
             {
                 struct ComputerTask *roomtask;
                 if (look_kind == RoK_TYPES_COUNT)
@@ -285,7 +285,7 @@ long computer_finds_nearest_room_to_gold_lookup(const struct Dungeon *dungeon, c
     gold_pos.y.stl.num = gldlook->y_stl_num;
     long min_distance = LONG_MAX;
     long distance = LONG_MAX;
-    for (long rkind = 1; rkind < ROOM_TYPES_COUNT; rkind++)
+    for (long rkind = 1; rkind < ROOM_TYPES_COUNT; ++rkind)
     {
         struct Room* room = find_room_nearest_to_position(dungeon->owner, rkind, &gold_pos, &distance);
         if (!room_is_invalid(room))
@@ -377,7 +377,7 @@ long computer_finds_nearest_room_to_gold(struct Computer2 *comp, struct Coord3d 
     struct Coord3d* spos = &locpos;
     long lookups_checked = 0;
     long dig_distance = LONG_MAX;
-    for (long i = 0; i < GOLD_LOOKUP_COUNT; i++)
+    for (long i = 0; i < GOLD_LOOKUP_COUNT; ++i)
     {
         struct GoldLookup* gldlook = get_gold_lookup(i);
         if ((gldlook->flags & 0x01) == 0)
@@ -499,7 +499,7 @@ void get_opponent(struct Computer2 *comp, struct THate hates[])
     struct Dungeon* dungeon = comp->dungeon;
     long i;
     // Initialize hate struct
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
         struct THate* hate = &hates[i];
         struct OpponentRelation* oprel = &comp->opponent_relations[i];
@@ -509,9 +509,9 @@ void get_opponent(struct Computer2 *comp, struct THate hates[])
         hate->distance_near = LONG_MAX;
     }
     // Sort the hates, using basic sorting algorithm
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
-        for (long n = 0; n < PLAYERS_COUNT - 1; n++)
+        for (long n = 0; n < PLAYERS_COUNT - 1; ++n)
         {
             struct THate* hat1 = &hates[n];
             struct THate* hat2 = &hates[n + 1];
@@ -529,14 +529,14 @@ void get_opponent(struct Computer2 *comp, struct THate hates[])
     struct Thing* heartng = get_player_soul_container(dungeon->owner);
     MapSubtlCoord dnstl_x = heartng->mappos.x.stl.num;
     MapSubtlCoord dnstl_y = heartng->mappos.y.stl.num;
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
         struct THate* hate = &hates[i];
         struct OpponentRelation* oprel = &comp->opponent_relations[hate->plyr_idx];
         int ptidx = oprel->field_4;
         if (ptidx > 0)
           ptidx--;
-        for (long n = 0; n < COMPUTER_SPARK_POSITIONS_COUNT; n++)
+        for (long n = 0; n < COMPUTER_SPARK_POSITIONS_COUNT; ++n)
         {
             struct Coord3d* pos = &oprel->pos_A[ptidx];
             if ((pos->x.val > 0) && (pos->y.val > 0))
@@ -659,7 +659,7 @@ long buildable_traps_amount(struct Dungeon *dungeon, ThingModel trmodel)
 long get_number_of_trap_kinds_with_amount_at_least(struct Dungeon *dungeon, long base_amount)
 {
     long kinds = 0;
-    for (long i = 1; i < TRAP_TYPES_COUNT; i++)
+    for (long i = 1; i < TRAP_TYPES_COUNT; ++i)
     {
         if (buildable_traps_amount(dungeon, i) >= base_amount)
         {
@@ -676,7 +676,7 @@ long get_number_of_trap_kinds_with_amount_at_least(struct Dungeon *dungeon, long
  */
 long get_nth_of_trap_kinds_with_amount_at_least(struct Dungeon *dungeon, long base_amount, long n)
 {
-    for (long i = 1; i < TRAP_TYPES_COUNT; i++)
+    for (long i = 1; i < TRAP_TYPES_COUNT; ++i)
     {
         if (buildable_traps_amount(dungeon, i) >= base_amount)
         {
@@ -764,7 +764,7 @@ int computer_find_more_trap_place_locations(struct Computer2 *comp)
 TbBool computer_get_trap_place_location_and_update_locations(struct Computer2 *comp, ThingModel trapmodel, struct Coord3d *retloc)
 {
     struct Dungeon* dungeon = comp->dungeon;
-    for (long i = 0; i < COMPUTER_TRAP_LOC_COUNT; i++)
+    for (long i = 0; i < COMPUTER_TRAP_LOC_COUNT; ++i)
     {
         struct Coord3d* location = &comp->trap_locations[i];
         // Check if the entry has coords stored
@@ -929,7 +929,7 @@ long computer_check_for_money(struct Computer2 *comp, struct ComputerCheck * che
     if ((money_left < check->param2) || (money_left < check->param1))
     {
         SYNCDBG(8,"Increasing player %d gold dig process priority",(int)dungeon->owner);
-        for (long i = 0; i <= COMPUTER_PROCESSES_COUNT; i++)
+        for (long i = 0; i <= COMPUTER_PROCESSES_COUNT; ++i)
         {
             struct ComputerProcess* cproc = &comp->processes[i];
             if ((cproc->flags & ComProc_Unkn0002) != 0)
@@ -1047,11 +1047,11 @@ long count_creatures_for_defend_pickup(struct Computer2 *comp)
 TbBool computer_find_non_solid_block(const struct Computer2 *comp, struct Coord3d *pos)
 {
     //return _DK_computer_find_non_solid_block(comp, pos);
-    for (unsigned long n = 0; n < MID_AROUND_LENGTH; n++)
+    for (unsigned long n = 0; n < MID_AROUND_LENGTH; ++n)
     {
         MapSubtlCoord arstl_x = pos->x.stl.num + STL_PER_SLB * start_at_around[n].delta_x;
         MapSubtlCoord arstl_y = pos->y.stl.num + STL_PER_SLB * start_at_around[n].delta_y;
-        for (unsigned long k = 0; k < MID_AROUND_LENGTH; k++)
+        for (unsigned long k = 0; k < MID_AROUND_LENGTH; ++k)
         {
             MapSubtlCoord sstl_x = arstl_x + start_at_around[k].delta_x;
             MapSubtlCoord sstl_y = arstl_y + start_at_around[k].delta_y;
@@ -1171,7 +1171,7 @@ TbBool setup_a_computer_player(PlayerNumber plyr_idx, long comp_model)
     comp->field_C = 1;
     comp->task_state = CTaskSt_Select;
 
-    for (i=0; i < PLAYERS_COUNT; i++)
+    for (i=0; i < PLAYERS_COUNT; ++i)
     {
         struct OpponentRelation* oprel = &comp->opponent_relations[i];
         oprel->field_0 = 0;
@@ -1184,7 +1184,7 @@ TbBool setup_a_computer_player(PlayerNumber plyr_idx, long comp_model)
     }
     comp->field_1C = cpt->field_4;
 
-    for (i=0; i < COMPUTER_PROCESSES_COUNT; i++)
+    for (i=0; i < COMPUTER_PROCESSES_COUNT; ++i)
     {
         struct ComputerProcess* cproc = cpt->processes[i];
         newproc = &comp->processes[i];
@@ -1199,7 +1199,7 @@ TbBool setup_a_computer_player(PlayerNumber plyr_idx, long comp_model)
     newproc = &comp->processes[i];
     newproc->flags |= ComProc_Unkn0002;
 
-    for (i=0; i < COMPUTER_CHECKS_COUNT; i++)
+    for (i=0; i < COMPUTER_CHECKS_COUNT; ++i)
     {
         struct ComputerCheck* ccheck = &cpt->checks[i];
         newchk = &comp->checks[i];
@@ -1216,7 +1216,7 @@ TbBool setup_a_computer_player(PlayerNumber plyr_idx, long comp_model)
     //newchk = &comp->checks[i];
     newchk->flags |= ComTsk_Unkn0002;
 
-    for (i=0; i < COMPUTER_EVENTS_COUNT; i++)
+    for (i=0; i < COMPUTER_EVENTS_COUNT; ++i)
     {
         struct ComputerEvent* event = &cpt->events[i];
         struct ComputerEvent* newevnt = &comp->events[i];
@@ -1234,7 +1234,7 @@ void computer_check_events(struct Computer2 *comp)
 {
     SYNCDBG(17,"Starting");
     struct Dungeon* dungeon = comp->dungeon;
-    for (long i = 0; i < COMPUTER_EVENTS_COUNT; i++)
+    for (long i = 0; i < COMPUTER_EVENTS_COUNT; ++i)
     {
         struct ComputerEvent* cevent = &comp->events[i];
         if (cevent->name == NULL)
@@ -1246,7 +1246,7 @@ void computer_check_events(struct Computer2 *comp)
             {
                 break;
             }
-            for (long n = 0; n < EVENTS_COUNT; n++)
+            for (long n = 0; n < EVENTS_COUNT; ++n)
             {
                 struct Event* event = &game.event[n];
                 if ( ((event->flags & EvF_Exists) != 0) &&
@@ -1285,7 +1285,7 @@ void computer_check_events(struct Computer2 *comp)
 TbBool process_checks(struct Computer2 *comp)
 {
     SYNCDBG(17,"Starting");
-    for (long i = 0; i < COMPUTER_CHECKS_COUNT; i++)
+    for (long i = 0; i < COMPUTER_CHECKS_COUNT; ++i)
     {
         struct ComputerCheck* ccheck = &comp->checks[i];
         if (comp->tasks_did <= 0)
@@ -1439,7 +1439,7 @@ void process_computer_players2(void)
 #ifdef PETTER_AI
     SAI_run_shared();
 #endif
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         struct Dungeon* dungeon = get_players_dungeon(player);
@@ -1478,7 +1478,7 @@ void setup_computer_players2(void)
   int i;
   gameadd.turn_last_checked_for_gold = game.play_gameturn;
   check_map_for_gold();
-  for (i=0; i < COMPUTER_TASKS_COUNT; i++)
+  for (i=0; i < COMPUTER_TASKS_COUNT; ++i)
   {
     LbMemorySet(&game.computer_task[i], 0, sizeof(struct ComputerTask));
   }
@@ -1490,7 +1490,7 @@ void setup_computer_players2(void)
   // random results aren't used in the same order every time.
   srand((unsigned) time(NULL));
 
-  for (i=0; i < PLAYERS_COUNT; i++)
+  for (i=0; i < PLAYERS_COUNT; ++i)
   {
       struct PlayerInfo* player = get_player(i);
       if (player_exists(player))
@@ -1525,7 +1525,7 @@ void setup_computer_players2(void)
 void restore_computer_player_after_load(void)
 {
     SYNCDBG(7,"Starting");
-    for (long plyr_idx = 0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (long plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         struct PlayerInfo* player = get_player(plyr_idx);
         struct Computer2* comp = get_computer_player(plyr_idx);
@@ -1548,7 +1548,7 @@ void restore_computer_player_after_load(void)
         struct ComputerProcessTypes* cpt = get_computer_process_type_template(comp->model);
 
         long i;
-        for (i = 0; i < COMPUTER_PROCESSES_COUNT; i++)
+        for (i = 0; i < COMPUTER_PROCESSES_COUNT; ++i)
         {
             if (cpt->processes[i] == NULL)
                 break;
@@ -1563,7 +1563,7 @@ void restore_computer_player_after_load(void)
             comp->processes[i].func_complete = cpt->processes[i]->func_complete;
             comp->processes[i].func_pause = cpt->processes[i]->func_pause;
         }
-        for (i=0; i < COMPUTER_CHECKS_COUNT; i++)
+        for (i=0; i < COMPUTER_CHECKS_COUNT; ++i)
         {
             if (cpt->checks[i].name == NULL)
               break;
@@ -1571,7 +1571,7 @@ void restore_computer_player_after_load(void)
             comp->checks[i].name = cpt->checks[i].name;
             comp->checks[i].func = cpt->checks[i].func;
         }
-        for (i=0; i < COMPUTER_EVENTS_COUNT; i++)
+        for (i=0; i < COMPUTER_EVENTS_COUNT; ++i)
         {
             if (cpt->events[i].name == NULL)
               break;

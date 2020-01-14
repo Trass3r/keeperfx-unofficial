@@ -1266,7 +1266,7 @@ void process_object_sacrifice(struct Thing *thing, long sacowner)
             process_temple_special(thing, sacowner);
             int num_allies = 0;
             PlayerNumber plyr_idx;
-            for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+            for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
             {
                 if ((slbowner != plyr_idx) && players_are_mutual_allies(slbowner, plyr_idx))
                 {
@@ -1276,7 +1276,7 @@ void process_object_sacrifice(struct Thing *thing, long sacowner)
             if (num_allies > 0)
             {
                 GoldAmount value = thing->valuable.gold_stored / num_allies;
-                for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+                for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
                 {
                     if ((slbowner != plyr_idx) && players_are_mutual_allies(slbowner, plyr_idx))
                     {
@@ -1673,7 +1673,7 @@ TngUpdateRet object_update_power_lightning(struct Thing *objtng)
     objtng->health = 2;
     unsigned long exist_turns = game.play_gameturn - objtng->creation_turn;
     long variation = NUM_ANGLES * exist_turns;
-    for (long i = 0; i < NUM_ANGLES; i++)
+    for (long i = 0; i < NUM_ANGLES; ++i)
     {
         int angle = (variation % NUM_ANGLES) * 2 * LbFPMath_PI / NUM_ANGLES;
         struct Coord3d pos;

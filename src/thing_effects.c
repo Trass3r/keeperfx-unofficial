@@ -649,7 +649,7 @@ void process_spells_affected_by_effect_elements(struct Thing *thing)
         else
             pos.z.val = thing->mappos.z.val + cor_z_max / vrange * (vrange - dturn % vrange);
         int radius = diamtr / 2;
-        for (i=0; i < 16; i++)
+        for (i=0; i < 16; ++i)
         {
             angle = (abs(i) & 0xF) << 7;
             shift_x =  (radius * LbSinL(angle) >> 8) >> 8;
@@ -992,7 +992,7 @@ void effect_generate_effect_elements(const struct Thing *thing)
     case 1:
     {
         unsigned long argZ;
-        for (long i = 0; i < effnfo->field_B; i++)
+        for (long i = 0; i < effnfo->field_B; ++i)
         {
             if (effnfo->kind_min <= 0)
                 continue;
@@ -1022,7 +1022,7 @@ void effect_generate_effect_elements(const struct Thing *thing)
     {
         long k = 0;
         struct Coord3d pos;
-        for (long i=0; i < effnfo->field_B; i++)
+        for (long i=0; i < effnfo->field_B; ++i)
         {
             long n = effnfo->kind_min + ACTION_RANDOM(effnfo->kind_max - effnfo->kind_min + 1);
             long mag = effnfo->start_health - thing->health;
@@ -1039,7 +1039,7 @@ void effect_generate_effect_elements(const struct Thing *thing)
     {
         long k = 0;
         struct Coord3d pos;
-        for (long i=0; i < effnfo->field_B; i++)
+        for (long i=0; i < effnfo->field_B; ++i)
         {
             long n = effnfo->kind_min + ACTION_RANDOM(effnfo->kind_max - effnfo->kind_min + 1);
             long mag = thing->health;
@@ -1110,7 +1110,7 @@ TngUpdateRet process_effect_generator(struct Thing *thing)
         return TUFRet_Modified;
     }
     struct EffectGeneratorStats* egenstat = &effect_generator_stats[thing->model];
-    for (long i = 0; i < egenstat->genation_amount; i++)
+    for (long i = 0; i < egenstat->genation_amount; ++i)
     {
         long deviation_angle = ACTION_RANDOM(0x800);
         long deviation_mag = ACTION_RANDOM(thing->word_13 + 1);
@@ -1410,9 +1410,9 @@ void word_of_power_affecting_area(struct Thing *efftng, struct Thing *owntng, st
     if (stl_ymax > map_subtiles_y) {
       stl_ymax = map_subtiles_y;
     }
-    for (long stl_y = stl_ymin; stl_y <= stl_ymax; stl_y++)
+    for (long stl_y = stl_ymin; stl_y <= stl_ymax; ++stl_y)
     {
-        for (long stl_x = stl_xmin; stl_x <= stl_xmax; stl_x++)
+        for (long stl_x = stl_xmin; stl_x <= stl_xmax; ++stl_x)
         {
             struct Map* mapblk = get_map_block_at(stl_x, stl_y);
             explosion_effect_affecting_map_block(efftng, owntng, mapblk, max_dist,
@@ -1534,9 +1534,9 @@ long explosion_affecting_area(struct Thing *tngsrc, const struct Coord3d *pos, M
         create_price_effect(pos, my_player_number, max_damage);
 #endif
     long num_affected = 0;
-    for (MapSubtlCoord stl_y = start_y; stl_y <= end_y; stl_y++)
+    for (MapSubtlCoord stl_y = start_y; stl_y <= end_y; ++stl_y)
     {
-        for (MapSubtlCoord stl_x = start_x; stl_x <= end_x; stl_x++)
+        for (MapSubtlCoord stl_x = start_x; stl_x <= end_x; ++stl_x)
         {
             const struct Map* mapblk = get_map_block_at(stl_x, stl_y);
             num_affected += explosion_affecting_map_block(tngsrc, mapblk, pos, max_dist, max_damage, blow_strength, hit_targets, damage_type);
@@ -1672,9 +1672,9 @@ long poison_cloud_affecting_area(struct Thing *tngsrc, struct Coord3d *pos, long
         end_y = map_subtiles_y;
     }
     long num_affected = 0;
-    for (MapSubtlCoord stl_y = start_y; stl_y <= end_y; stl_y++)
+    for (MapSubtlCoord stl_y = start_y; stl_y <= end_y; ++stl_y)
     {
-        for (MapSubtlCoord stl_x = start_x; stl_x <= end_x; stl_x++)
+        for (MapSubtlCoord stl_x = start_x; stl_x <= end_x; ++stl_x)
         {
             HitTargetFlags hit_targets = hit_type_to_hit_targets(tngsrc->byte_16);
             struct Map* mapblk = get_map_block_at(stl_x, stl_y);

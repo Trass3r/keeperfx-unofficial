@@ -434,7 +434,7 @@ TbBool load_game(long slot_num)
 int count_valid_saved_games(void)
 {
   number_of_saved_games = 0;
-  for (int i = 0; i < TOTAL_SAVE_SLOTS_COUNT; i++)
+  for (int i = 0; i < TOTAL_SAVE_SLOTS_COUNT; ++i)
   {
       struct CatalogueEntry* centry = &save_game_catalogue[i];
       if ((centry->flags & CEF_InUse) != 0)
@@ -518,7 +518,7 @@ TbBool load_game_save_catalogue(void)
 {
     //return load_game_catalogue(save_game_catalogue);
     long saves_found = 0;
-    for (long slot_num = 0; slot_num < TOTAL_SAVE_SLOTS_COUNT; slot_num++)
+    for (long slot_num = 0; slot_num < TOTAL_SAVE_SLOTS_COUNT; ++slot_num)
     {
         struct CatalogueEntry* centry = &save_game_catalogue[slot_num];
         LbMemorySet(centry, 0, sizeof(struct CatalogueEntry));

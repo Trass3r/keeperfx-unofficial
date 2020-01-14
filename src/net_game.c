@@ -116,7 +116,7 @@ void setup_exchange_player_number(void)
   if (LbNetwork_Exchange(pckt))
       ERRORLOG("Network Exchange failed");
   int k = 0;
-  for (int i = 0; i < NET_PLAYERS_COUNT; i++)
+  for (int i = 0; i < NET_PLAYERS_COUNT; ++i)
   {
       pckt = get_packet_direct(i);
       if ((net_player_info[i].active) && (pckt->action == PckA_InitPlayerNum))
@@ -141,7 +141,7 @@ short setup_select_player_number(void)
     short is_set = 0;
     int k = 0;
     SYNCDBG(6, "Starting");
-    for (int i = 0; i < NET_PLAYERS_COUNT; i++)
+    for (int i = 0; i < NET_PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if (net_player_info[i].active)
@@ -166,7 +166,7 @@ void setup_count_players(void)
   } else
   {
     game.active_players_count = 0;
-    for (int i = 0; i < NET_PLAYERS_COUNT; i++)
+    for (int i = 0; i < NET_PLAYERS_COUNT; ++i)
     {
       if (net_player_info[i].active)
         game.active_players_count++;

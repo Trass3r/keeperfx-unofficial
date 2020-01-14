@@ -257,7 +257,7 @@ void setup_training_search_for_post(struct Thing *creatng)
 struct Thing *find_training_post_just_next_to_creature(struct Thing *creatng)
 {
     struct Thing* traintng = INVALID_THING;
-    for (long i = 0; i < 4; i++)
+    for (long i = 0; i < 4; ++i)
     {
         long stl_x = creatng->mappos.x.stl.num + (long)small_around[i].delta_x;
         long stl_y = creatng->mappos.y.stl.num + (long)small_around[i].delta_y;
@@ -327,7 +327,7 @@ void process_creature_in_training_room(struct Thing *thing, struct Room *room)
         }
         break;
     case CrTrMd_SelectPositionNearTrainPost:
-        for (i=0; i < 4; i++)
+        for (i=0; i < 4; ++i)
         {
             long slb_x;
             long slb_y;

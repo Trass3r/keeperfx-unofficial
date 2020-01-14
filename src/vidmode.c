@@ -178,7 +178,7 @@ TbScreenMode get_next_vidmode(TbScreenMode mode)
   // Do not allow to enter higher modes on low memory systems
   if ((features_enabled & Ft_HiResVideo) == 0)
     return failsafe_vidmode;
-  for (i=0;i<maxmodes;i++)
+  for (i=0;i<maxmodes;++i)
   {
     if (switching_vidmodes[i]==mode) break;
   }
@@ -250,7 +250,7 @@ TbScreenMode validate_vidmode(TbScreenMode mode)
   // Do not allow to enter higher modes on low memory systems
   if ((features_enabled & Ft_HiResVideo) == 0)
     return failsafe_vidmode;
-  for (int i = 0; i < maxmodes; i++)
+  for (int i = 0; i < maxmodes; ++i)
   {
     if (switching_vidmodes[i] == mode) return switching_vidmodes[i];
   }
@@ -502,7 +502,7 @@ TbBool init_fades_table(void)
     lbDisplay.FadeTable = pixmap.fade_tables;
     TbPixel cblack = 144;
     // Update black color
-    for (long i = 0; i < 8192; i++)
+    for (long i = 0; i < 8192; ++i)
     {
         if (pixmap.fade_tables[i] == 0) {
             pixmap.fade_tables[i] = cblack;

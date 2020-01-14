@@ -59,9 +59,9 @@ void init_lens(unsigned long *lens_mem, int width, int height, int pitch, int nl
     {
     case 0:
         mem = lens_mem;
-        for (h=0; h < height; h++)
+        for (h=0; h < height; ++h)
         {
-            for (w = 0; w < width; w++)
+            for (w = 0; w < width; ++w)
             {
                 *mem = ((h+(height>>1))/2) * pitch + ((w+(width>>1))/2);
                 mem++;
@@ -78,10 +78,10 @@ void init_lens(unsigned long *lens_mem, int width, int height, int pitch, int nl
         center_w = flwidth * 0.5;
         flpos_h = -center_h;
         mem = lens_mem;
-        for (h=0; h < height; h++)
+        for (h=0; h < height; ++h)
         {
             flpos_w = -center_w;
-            for (w = 0; w < width; w++)
+            for (w = 0; w < width; ++w)
             {
               shift_w = (long)(sin(flpos_h / flwidth  * flperiod) * flmag + flpos_w + center_w);
               shift_h = (long)(sin(flpos_w / flheight * flperiod) * flmag + flpos_h + center_h);
@@ -112,10 +112,10 @@ void init_lens(unsigned long *lens_mem, int width, int height, int pitch, int nl
             double fldivs = sqrt(center_h * center_h + center_w * center_w + flmag);
             flpos_h = -center_h;
             mem = lens_mem;
-            for (h = 0; h < height; h++)
+            for (h = 0; h < height; ++h)
             {
                 flpos_w = -center_w;
-                for (w = 0; w < width; w++)
+                for (w = 0; w < width; ++w)
                 {
                     double fldist = sqrt(flpos_w * flpos_w + flpos_h * flpos_h + flmag) / fldivs;
                     shift_w = (long)(fldist * flpos_w + center_w);
@@ -290,9 +290,9 @@ void draw_displacement_lens(unsigned char *dstbuf, unsigned char *srcbuf, unsign
     SYNCDBG(16,"Starting");
     unsigned char* dst = dstbuf;
     unsigned long* mem = lens_mem;
-    for (int h = 0; h < height; h++)
+    for (int h = 0; h < height; ++h)
     {
-        for (int w = 0; w < width; w++)
+        for (int w = 0; w < width; ++w)
         {
             long pos_map = *mem;
             dst[w] = srcbuf[pos_map];
@@ -306,7 +306,7 @@ void draw_copy(unsigned char *dstbuf, long dstpitch, unsigned char *srcbuf, long
 {
     unsigned char* dst = dstbuf;
     unsigned char* src = srcbuf;
-    for (long i = 0; i < height; i++)
+    for (long i = 0; i < height; ++i)
     {
         LbMemoryCopy(dst,src,width*sizeof(TbPixel));
         dst += dstpitch;

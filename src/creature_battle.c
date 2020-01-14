@@ -103,7 +103,7 @@ TbBool has_ranged_combat_attackers(const struct Thing *victim)
 
 BattleIndex find_first_battle_of_mine(PlayerNumber plyr_idx)
 {
-    for (long i = 1; i < BATTLES_COUNT; i++)
+    for (long i = 1; i < BATTLES_COUNT; ++i)
     {
         struct CreatureBattle* battle = creature_battle_get(i);
         if (battle->fighters_num != 0)
@@ -319,7 +319,7 @@ long battle_move_player_towards_battle(struct PlayerInfo *player, BattleIndex ba
 
 void battle_initialise(void)
 {
-    for (int battle_idx = 0; battle_idx < BATTLES_COUNT; battle_idx++)
+    for (int battle_idx = 0; battle_idx < BATTLES_COUNT; ++battle_idx)
     {
         LbMemorySet(&game.battles[battle_idx], 0, sizeof(struct CreatureBattle));
     }
@@ -327,7 +327,7 @@ void battle_initialise(void)
 
 BattleIndex find_next_battle_of_mine(PlayerNumber plyr_idx, BattleIndex prev_idx)
 {
-    for (BattleIndex next_idx = prev_idx + 1; next_idx < BATTLES_COUNT; next_idx++)
+    for (BattleIndex next_idx = prev_idx + 1; next_idx < BATTLES_COUNT; ++next_idx)
     {
         if (creature_battle_exists(next_idx) && battle_with_creature_of_player(plyr_idx, next_idx)) {
             return next_idx;
@@ -350,7 +350,7 @@ BattleIndex find_previous_battle_of_mine(PlayerNumber plyr_idx, BattleIndex next
 TbBool battle_in_list(PlayerNumber plyr_idx, BattleIndex battle_id)
 {
     struct Dungeon* dungeon = get_players_num_dungeon(plyr_idx);
-    for (long i = 0; i < 3; i++)
+    for (long i = 0; i < 3; ++i)
     {
         if (battle_id > 0)
         {
@@ -389,7 +389,7 @@ BattleIndex find_previous_battle_of_mine_excluding_current_list(PlayerNumber ply
 
 TbBool clear_battlers(unsigned short *friendly_battlers, unsigned short *enemy_battlers)
 {
-    for (long i = 0; i < MESSAGE_BATTLERS_COUNT; i++)
+    for (long i = 0; i < MESSAGE_BATTLERS_COUNT; ++i)
     {
         friendly_battlers[i] = 0;
         enemy_battlers[i] = 0;
@@ -466,7 +466,7 @@ void maintain_my_battle_list(void)
     struct PlayerInfo* player = get_my_player();
     struct Dungeon* dungeon = get_players_dungeon(player);
     BattleIndex battle_id = 0;
-    for (i=0; i < 3; i++)
+    for (i=0; i < 3; ++i)
     {
         struct CreatureBattle* battle = creature_battle_get(dungeon->visible_battles[i]);
         if (battle->fighters_num > 0) {
@@ -476,12 +476,12 @@ void maintain_my_battle_list(void)
         }
     }
     // Move array items down to make sure empty slots are at end
-    for (i=0; i < 2; i++)
+    for (i=0; i < 2; ++i)
     {
       if (dungeon->visible_battles[i] <= 0)
       {
           // Got empty spot - fill it with first non-empty item
-          for (long n = i + 1; n < 3; n++)
+          for (long n = i + 1; n < 3; ++n)
           {
               if (dungeon->visible_battles[n] > 0)
               {
@@ -493,7 +493,7 @@ void maintain_my_battle_list(void)
       }
     }
     // Find battles to fill empty slots
-    for (i=0; i < 3; i++)
+    for (i=0; i < 3; ++i)
     {
       if (dungeon->visible_battles[i] <= 0)
       {
@@ -503,7 +503,7 @@ void maintain_my_battle_list(void)
           }
       }
     }
-    for (i=0; i < 3; i++)
+    for (i=0; i < 3; ++i)
     {
         battle_id = dungeon->visible_battles[i];
         if (battle_id > 0) {

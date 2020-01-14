@@ -185,7 +185,7 @@ ServiceProvider::ServiceProvider() :
 {
   long i;
   this->localPlayerId = 0;
-  for (i=0; i < SESSION_ENTRIES_COUNT; i++)
+  for (i=0; i < SESSION_ENTRIES_COUNT; ++i)
   {
     nsnames[i].id = 0;
     nsnames[i].in_use = false;
@@ -579,7 +579,7 @@ long ServiceProvider::PlayerIndex(unsigned long plyr_id)
 {
   struct TbNetworkPlayerEntry *netplyr;
   long i;
-  for (i=0; i < this->players_count; i++)
+  for (i=0; i < this->players_count; ++i)
   {
     netplyr = &this->players[i];
     if (plyr_id == netplyr->id)
@@ -638,7 +638,7 @@ long ServiceProvider::SessionIndex(unsigned long sess_id)
 {
   struct TbNetworkSessionNameEntry *nsname;
   int i;
-  for (i=0; i < SESSION_ENTRIES_COUNT; i++)
+  for (i=0; i < SESSION_ENTRIES_COUNT; ++i)
   {
     nsname = &this->nsnames[i];
     if ((nsname->in_use) && (nsname->id == sess_id))
@@ -670,7 +670,7 @@ struct TbNetworkSessionNameEntry *ServiceProvider::AddSession(unsigned long sess
 
   // Search for unused slot
   got = false;
-  for (i=0; i < SESSION_ENTRIES_COUNT; i++)
+  for (i=0; i < SESSION_ENTRIES_COUNT; ++i)
   {
     nsname = &this->nsnames[i];
     if (!nsname->in_use && !(i == SESSION_ENTRIES_COUNT - 1 && localPlayerId == 0)) //reserves last slot if no game is being hosted
@@ -695,7 +695,7 @@ struct TbNetworkSessionNameEntry *ServiceProvider::AddSession(unsigned long sess
 void ServiceProvider::ClearSessions(void)
 {
   long i;
-  for (i=0; i < SESSION_ENTRIES_COUNT; i++)
+  for (i=0; i < SESSION_ENTRIES_COUNT; ++i)
   {
     nsnames[i].in_use = false;
   }
@@ -707,7 +707,7 @@ TbError ServiceProvider::EnumeratePlayers(TbNetworkCallbackFunc callback, void *
   TbError result;
   long i;
   result = Lb_OK;
-  for (i=0; i < players_count; i++)
+  for (i=0; i < players_count; ++i)
   {
     netplyr = &this->players[i];
     callback((struct TbNetworkCallbackData *)netplyr, ptr);
@@ -794,7 +794,7 @@ TbError ServiceProvider::CheckForDeletedHost(const void *enc_buf)
 
   //TODO NET CheckForDeletedHost
   got = 0;
-  for (i=0; i < players_count; i++)
+  for (i=0; i < players_count; ++i)
   {
     netplyr = &this->players[i];
     if ((plyr_id == netplyr->id) && (netplyr->field_9))
@@ -808,7 +808,7 @@ TbError ServiceProvider::CheckForDeletedHost(const void *enc_buf)
     return Lb_OK;
 /*
   got = 0;
-  for (i=0; i < players_count; i++)
+  for (i=0; i < players_count; ++i)
   {
     netplyr = &this->players[i];
     if (!netplyr->field_9)
@@ -869,7 +869,7 @@ TbError ServiceProvider::BroadcastSystemMessage(void *enc_msg)
   }
   inp += sizeof(unsigned long);
   result = Lb_OK;
-  for (i=0; i < this->players_count; i++)
+  for (i=0; i < this->players_count; ++i)
   {
     netplyr = &this->players[i];
     if ((netplyr->id != this->localPlayerId) && (netplyr->id != id))

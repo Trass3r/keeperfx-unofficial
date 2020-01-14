@@ -57,7 +57,7 @@ static unsigned long region_alloc(void)
     NAVIDBG(19,"Starting");
     long reg_id = -1;
     int min_f0 = 2147483647;
-    for (i=1; i < REGIONS_COUNT; i++)
+    for (i=1; i < REGIONS_COUNT; ++i)
     {
         struct RegionT* rgn = &Regions[i];
         if (min_f0 > rgn->num_triangles)
@@ -76,7 +76,7 @@ static unsigned long region_alloc(void)
         return 0;
     }
     NAVIDBG(19,"removing triangles from region %ld",reg_id);
-    for (i=0; i < ix_Triangles; i++)
+    for (i=0; i < ix_Triangles; ++i)
     {
         long sreg_id = get_triangle_region_id(i);
         if (sreg_id >= REGIONS_COUNT)
@@ -102,7 +102,7 @@ static unsigned long region_alloc(void)
 
 void region_lnk(int nreg)
 {
-    for (int ncor = 0; ncor < 3; ncor++)
+    for (int ncor = 0; ncor < 3; ++ncor)
     {
         int ctri_id = nreg;
         int ccor_id = ncor;
@@ -176,7 +176,7 @@ static void region_connect(unsigned long tree_reg)
         long creg_id = region_get();
         if (creg_id == -1)
           break;
-        for (unsigned int ncor1 = 0; ncor1 < 3; ncor1++)
+        for (unsigned int ncor1 = 0; ncor1 < 3; ++ncor1)
         {
             int ntri_id = Triangles[creg_id].tags[ncor1];
             if (ntri_id != -1)

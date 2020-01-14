@@ -187,7 +187,7 @@ long computer_event_battle(struct Computer2 *comp, struct ComputerEvent *cevent,
 long computer_event_find_link(struct Computer2 *comp, struct ComputerEvent *cevent,struct Event *event)
 {
     long cproc_idx = 0;
-    for (int i = 0; i < COMPUTER_PROCESSES_COUNT + 1; i++)
+    for (int i = 0; i < COMPUTER_PROCESSES_COUNT + 1; ++i)
     {
         struct ComputerProcess* cproc = &comp->processes[i];
         if ((cproc->flags & ComProc_Unkn0002) != 0)
@@ -421,7 +421,7 @@ long computer_event_check_rooms_full(struct Computer2 *comp, struct ComputerEven
     SYNCDBG(18,"Starting");
     long ret = 4;
     TbBool emergency_state = computer_player_in_emergency_state(comp);
-    for (struct ValidRooms* bldroom = valid_rooms_to_build; bldroom->rkind > 0; bldroom++)
+    for (struct ValidRooms* bldroom = valid_rooms_to_build; bldroom->rkind > 0; ++bldroom)
     {
         if (computer_get_room_kind_free_capacity(comp, bldroom->rkind) > 0) {
             continue;
@@ -432,7 +432,7 @@ long computer_event_check_rooms_full(struct Computer2 *comp, struct ComputerEven
         }
         SYNCDBG(8,"Player %d needs %s",(int)comp->dungeon->owner,room_code_name(bldroom->rkind));
         // Find the corresponding build process and mark it as needed
-        for (long i = 0; i <= COMPUTER_PROCESSES_COUNT; i++)
+        for (long i = 0; i <= COMPUTER_PROCESSES_COUNT; ++i)
         {
             struct ComputerProcess* cproc = &comp->processes[i];
             if ((cproc->flags & ComProc_Unkn0002) != 0)

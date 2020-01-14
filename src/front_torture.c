@@ -106,7 +106,7 @@ long torture_door_over_point(long x,long y)
     // Starting point coords
     int spx = (LbScreenWidth() - w) >> 1;
     int spy = (LbScreenHeight() - h) >> 1;
-    for (long i = 0; i < torture_doors_available; i++)
+    for (long i = 0; i < torture_doors_available; ++i)
     {
         struct DoorDesc* door = &doors[i];
         if ((x >= spx + door->pos_x * units_per_px / 16) && (x < spx + door->pos_x * units_per_px / 16 + door->width * units_per_px / 16))
@@ -164,7 +164,7 @@ void fronttorture_load(void)
         doors[k].sprites_end =(struct TbSprite *) ptr;
     }
     ptr = &game.land_map_start;
-    for (k=1; k < 8; k++)
+    for (k=1; k < 8; ++k)
     {
         fname = prepare_file_fmtpath(FGrp_LoData,"door%02d.dat",k+1);
         i = LbFileLoadAt(fname, ptr);
@@ -230,7 +230,7 @@ TbBool fronttorture_draw(void)
   copy_raw8_image_buffer(lbDisplay.WScreen,LbGraphicsScreenWidth(),LbGraphicsScreenHeight(),
       w,h,spx,spy,torture_background,img_width,img_height);
 
-  for (int i = 0; i < torture_doors_available; i++)
+  for (int i = 0; i < torture_doors_available; ++i)
   {
       struct TbSprite* spr;
       if (i == torture_door_selected)
@@ -288,7 +288,7 @@ void fronttorture_input(void)
             ERRORLOG("LbNetwork_Exchange failed");
     }
     // Determine the controlling player and get his mouse coords
-    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         player = get_player(plyr_idx);
         pckt = get_packet(plyr_idx);
@@ -392,7 +392,7 @@ void fronttorture_update(void)
       if ( torture_sprite_frame != torture_end_sprite )
         torture_sprite_frame += torture_sprite_direction;
     }
-    for (int i = 0; i < TORTURE_DOORS_COUNT; i++)
+    for (int i = 0; i < TORTURE_DOORS_COUNT; ++i)
     {
         struct DoorDesc* door = &doors[i];
         struct DoorSoundState* doorsnd = &door_sound_state[i];

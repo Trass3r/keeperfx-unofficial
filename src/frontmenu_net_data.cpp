@@ -226,7 +226,7 @@ void frontnet_draw_session_selected(struct GuiButton *gbtn)
     int fs_units_per_px;
     fs_units_per_px = simple_frontend_sprite_height_units_per_px(gbtn, 56, 100);
     spr = &frontend_sprite[55];
-    for (i=0; i < 6; i++)
+    for (i=0; i < 6; ++i)
     {
         LbSpriteDrawResized(pos_x, pos_y, fs_units_per_px, spr);
         pos_x += spr->SWidth * fs_units_per_px / 16;
@@ -295,7 +295,7 @@ void frontnet_session_create(struct GuiButton *gbtn)
   long i;
   long idx;
   idx = 0;
-  for (i=0; i < net_number_of_sessions; i++)
+  for (i=0; i < net_number_of_sessions; ++i)
   {
       nsname = net_session[i];
       if (nsname == NULL)

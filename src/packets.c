@@ -176,7 +176,7 @@ struct Packet *get_packet_direct(long pckt_idx)
 
 void clear_packets(void)
 {
-    for (int i = 0; i < PACKETS_COUNT; i++)
+    for (int i = 0; i < PACKETS_COUNT; ++i)
     {
         LbMemorySet(&game.packets[i], 0, sizeof(struct Packet));
     }
@@ -213,7 +213,7 @@ TbBigChecksum compute_player_checksum(struct PlayerInfo *player)
 TbBigChecksum compute_players_checksum(void)
 {
     TbBigChecksum sum = 0;
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if (player_exists(player))
@@ -246,7 +246,7 @@ short checksums_different(void)
 {
     TbChecksum checksum = 0;
     unsigned short is_set = false;
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if (player_exists(player) && ((player->allocflags & PlaF_CompCtrl) == 0))
@@ -1242,7 +1242,7 @@ TbBigChecksum get_thing_simple_checksum(const struct Thing *tng)
   TbBigChecksum get_packet_save_checksum(void)
   {
       TbBigChecksum sum = 0;
-      for (long tng_idx = 0; tng_idx < THINGS_COUNT; tng_idx++)
+      for (long tng_idx = 0; tng_idx < THINGS_COUNT; ++tng_idx)
       {
           struct Thing* tng = thing_get(tng_idx);
           if ((tng->alloc_flags & TAlF_Exists) != 0)
@@ -1279,7 +1279,7 @@ TbBool open_new_packet_file_for_save(void)
     game.packet_save_head.players_exist = 0;
     game.packet_save_head.players_comp = 0;
     game.packet_save_head.chksum_available = game.packet_checksum_verify;
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if (player_exists(player))
@@ -1332,7 +1332,7 @@ void load_packets_for_turn(GameTurn nturn)
         return;
     }
     game.packet_file_pos += turn_data_size;
-    for (long i = 0; i < NET_PLAYERS_COUNT; i++)
+    for (long i = 0; i < NET_PLAYERS_COUNT; ++i)
         LbMemoryCopy(&game.packets[i], &pckt_buf[i * sizeof(struct Packet)], sizeof(struct Packet));
     TbBigChecksum tot_chksum = llong(&pckt_buf[NET_PLAYERS_COUNT * sizeof(struct Packet)]);
     if (game.turns_fastforward > 0)
@@ -1359,7 +1359,7 @@ void process_pause_packet(long curr_pause, long new_pause)
 {
   struct PlayerInfo *player;
   TbBool can = true;
-  for (long i = 0; i < PLAYERS_COUNT; i++)
+  for (long i = 0; i < PLAYERS_COUNT; ++i)
   {
     player = get_player(i);
     if (player_exists(player) && (player->field_2C == 1))
@@ -1557,7 +1557,7 @@ void process_quit_packet(struct PlayerInfo *player, short complete_quit)
         if (winning_quit)
         {
             // Set other players as losers
-            for (int i = 0; i < PLAYERS_COUNT; i++)
+            for (int i = 0; i < PLAYERS_COUNT; ++i)
             {
                 swplyr = get_player(i);
                 if (player_exists(swplyr))
@@ -1605,7 +1605,7 @@ void process_quit_packet(struct PlayerInfo *player, short complete_quit)
         exit_keeper = 1;
       if (frontend_should_all_players_quit())
       {
-        for (int i=0; i < PLAYERS_COUNT; i++)
+        for (int i=0; i < PLAYERS_COUNT; ++i)
         {
           swplyr = get_player(i);
           if (player_exists(swplyr))
@@ -2329,7 +2329,7 @@ short save_packets(void)
       chksum = 0;
     LbFileSeek(game.packet_save_fp, 0, Lb_FILE_SEEK_END);
     // Prepare data in the buffer
-    for (int i = 0; i < NET_PLAYERS_COUNT; i++)
+    for (int i = 0; i < NET_PLAYERS_COUNT; ++i)
         LbMemoryCopy(&pckt_buf[i*sizeof(struct Packet)], &game.packets[i], sizeof(struct Packet));
     LbMemoryCopy(&pckt_buf[NET_PLAYERS_COUNT*sizeof(struct Packet)], &chksum, sizeof(TbBigChecksum));
     // Write buffer into file
@@ -2394,7 +2394,7 @@ void process_packets(void)
     {
         player = get_my_player();
         int j = 0;
-        for (i = 0; i < 4; i++)
+        for (i = 0; i < 4; ++i)
         {
             if (network_player_active(i))
                 j++;
@@ -2408,14 +2408,14 @@ void process_packets(void)
             }
         }
         int k = 0;
-        for (i = 0; i < 4; i++)
+        for (i = 0; i < 4; ++i)
         {
             if (network_player_active(i))
                 k++;
         }
         if (j != k)
         {
-            for (i = 0; i < 4; i++)
+            for (i = 0; i < 4; ++i)
             {
                 player = get_player(i);
                 if (network_player_active(player->packet_num))
@@ -2454,7 +2454,7 @@ void process_packets(void)
   write_debug_packets();
 #endif
   // Process the packets
-  for (i=0; i<PACKETS_COUNT; i++)
+  for (i=0; i<PACKETS_COUNT; ++i)
   {
     player = get_player(i);
     if (player_exists(player) && ((player->allocflags & PlaF_CompCtrl) == 0))
@@ -2474,7 +2474,7 @@ void process_packets(void)
 void process_frontend_packets(void)
 {
   long i;
-  for (i=0; i < NET_PLAYERS_COUNT; i++)
+  for (i=0; i < NET_PLAYERS_COUNT; ++i)
   {
     net_screen_packet[i].field_4 &= ~0x01;
   }
@@ -2525,7 +2525,7 @@ void process_frontend_packets(void)
 #if DEBUG_NETWORK_PACKETS
   write_debug_screenpackets();
 #endif
-  for (i=0; i < NET_PLAYERS_COUNT; i++)
+  for (i=0; i < NET_PLAYERS_COUNT; ++i)
   {
     nspckt = &net_screen_packet[i];
     struct PlayerInfo* player = get_player(i);
@@ -2613,7 +2613,7 @@ void process_frontend_packets(void)
   }
   if (frontend_alliances == -1)
     frontend_alliances = 0;
-  for (i=0; i < NET_PLAYERS_COUNT; i++)
+  for (i=0; i < NET_PLAYERS_COUNT; ++i)
   {
     nspckt = &net_screen_packet[i];
     if ((nspckt->field_4 & 0x01) == 0)

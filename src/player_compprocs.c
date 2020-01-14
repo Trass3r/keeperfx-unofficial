@@ -435,7 +435,7 @@ long computer_check_build_all_rooms(struct Computer2 *comp, struct ComputerProce
     if (count_no_room_build_tasks(comp) >= comp->max_room_build_tasks) {
         return CProcRet_Wait;
     }
-    for (struct ValidRooms* bldroom = valid_rooms_to_build; bldroom->rkind > 0; bldroom++)
+    for (struct ValidRooms* bldroom = valid_rooms_to_build; bldroom->rkind > 0; ++bldroom)
     {
         if (!dungeon_has_room(dungeon, bldroom->rkind))
         {
@@ -530,7 +530,7 @@ PlayerNumber get_player_with_more_entrances_than_computer(const struct Computer2
     const struct Dungeon* dungeon = comp->dungeon;
     PlayerNumber max_plyr_idx = -1;
     *max_entr_count = dungeon->room_slabs_count[RoK_ENTRANCE];
-    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         if (plyr_idx == dungeon->owner)
             continue;
@@ -878,7 +878,7 @@ long computer_setup_dig_to_entrance(struct Computer2 *comp, struct ComputerProce
     // Let's find a player with highest number of entrance rooms
     PlayerNumber targplyr_idx = -1;
     long targplyr_entrances = 0;
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
       if (dungeon->owner == i) {
           continue;
@@ -1115,7 +1115,7 @@ long computer_check_attack_with_filter(struct Computer2 *comp, struct ComputerPr
     struct THate hates[PLAYERS_COUNT];
     get_opponent(comp, hates);
     // note that 'i' is not player index, player index is inside THate struct
-    for (long i = 0; i < PLAYERS_COUNT; i++)
+    for (long i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct THate* hate = &hates[i];
         if (hate->pos_near != NULL)
@@ -1166,7 +1166,7 @@ long computer_process_sight_of_evil(struct Computer2 *comp, struct ComputerProce
         MapSlabCoord slb_y = map_tiles_y / 2;
         int n = ACTION_RANDOM(GRID * GRID);
         int i;
-        for (i=0; i < GRID*GRID; i++)
+        for (i=0; i < GRID*GRID; ++i)
         {
             unsigned int grid_x = n % GRID;
             unsigned int grid_y = n / GRID;
@@ -1324,7 +1324,7 @@ struct ComputerProcess * find_best_process(struct Computer2 *comp)
 
     struct ComputerProcess* g1max_cproc = INVALID_COMPUTER_PROCESS;
     GameTurnDelta g1max_prior = 100;
-    for (int i = 0; i < COMPUTER_PROCESSES_COUNT + 1; i++)
+    for (int i = 0; i < COMPUTER_PROCESSES_COUNT + 1; ++i)
     {
         struct ComputerProcess* cproc = &comp->processes[i];
         if ((cproc->flags & ComProc_Unkn0002) != 0)

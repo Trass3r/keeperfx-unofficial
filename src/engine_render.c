@@ -1058,7 +1058,7 @@ void frame_wibble_generate(void)
     int i;
     struct WibbleTable *wibl;
     wibl = &wibble_table[64];
-    for (i = 0; i < 16; i++)
+    for (i = 0; i < 16; ++i)
     {
         unsigned short angle;
         int osc;
@@ -1178,7 +1178,7 @@ void find_gamut(void)
         cell_lim = cells_away + 1;
         mml = &minmaxs[31];
         mmr = &minmaxs[31];
-        for (cell_cur = 0; cell_cur < cell_lim; cell_cur++)
+        for (cell_cur = 0; cell_cur < cell_lim; ++cell_cur)
         {
             long dist;
             dist = LbSqrL(cell_lim * cell_lim - cell_cur * cell_cur);
@@ -1222,7 +1222,7 @@ void find_gamut(void)
         delta = ((scr_w1 - cells_w) << 8) / (scr_h1 - cells_h);
         mm = &minmaxs[-cells_away + 31];
         mbase = delta * (-cells_away - cells_h);
-        for (cell_curr = -cells_away; cell_curr <= cells_away; cell_curr++)
+        for (cell_curr = -cells_away; cell_curr <= cells_away; ++cell_curr)
         {
             int nlimit;
             nlimit = cells_w + (mbase >> 8);
@@ -1237,7 +1237,7 @@ void find_gamut(void)
         delta = ((scr_w1 - cells_w) << 8) / (scr_h1 - cells_h);
         mm = &minmaxs[-cells_away + 31];
         mbase = delta * (-cells_away - cells_h);
-        for (cell_curr = -cells_away; cell_curr <= cells_away; cell_curr++)
+        for (cell_curr = -cells_away; cell_curr <= cells_away; ++cell_curr)
         {
             int nlimit;
             nlimit = cells_w + (mbase >> 8);
@@ -1260,7 +1260,7 @@ void find_gamut(void)
         } else
         {
             mm = &minmaxs[cells_h + 31];
-            for (cell_curr = cells_h; cell_curr <= cells_away; cell_curr++)
+            for (cell_curr = cells_h; cell_curr <= cells_away; ++cell_curr)
             {
                 mm->max = 0;
                 mm->min = 0;
@@ -1274,7 +1274,7 @@ void find_gamut(void)
         delta = ((scr_w2 - cells_w) << 8) / (scr_h2 - cells_h);
         mm = &minmaxs[-cells_away + 31];
         mbase = delta * (-cells_away - cells_h);
-        for (cell_curr = -cells_away; cell_curr <= cells_away; cell_curr++)
+        for (cell_curr = -cells_away; cell_curr <= cells_away; ++cell_curr)
         {
             int nlimit;
             nlimit = cells_w + (mbase >> 8);
@@ -1289,7 +1289,7 @@ void find_gamut(void)
         delta = ((scr_w2 - cells_w) << 8) / (scr_h2 - cells_h);
         mm = &minmaxs[-cells_away + 31];
         mbase = delta * (-cells_away - cells_h);
-        for (cell_curr = -cells_away; cell_curr <= cells_away; cell_curr++)
+        for (cell_curr = -cells_away; cell_curr <= cells_away; ++cell_curr)
         {
             int nlimit;
             nlimit = cells_w + (mbase >> 8);
@@ -1312,7 +1312,7 @@ void find_gamut(void)
         } else
         {
             mm = &minmaxs[cells_h + 31];
-            for ( ; cells_away >= cells_h; cells_h++)
+            for ( ; cells_away >= cells_h; ++cells_h)
             {
                 mm->max = 0;
                 mm->min = 0;
@@ -1379,7 +1379,7 @@ void fiddle_half_gamut(long start_stl_x, long start_stl_y, long step, long a4)
     }
 
     end_stl_x = start_stl_x + minmaxs[32].max;
-    for (stl_xc=start_stl_x; 1; stl_xc++)
+    for (stl_xc=start_stl_x; 1; ++stl_xc)
     {
         if (stl_xc > end_stl_x) {
             stl_xc = -4000;
@@ -1391,7 +1391,7 @@ void fiddle_half_gamut(long start_stl_x, long start_stl_y, long step, long a4)
             break;
         }
     }
-    for (stl_xp=start_stl_x; 1; stl_xp++)
+    for (stl_xp=start_stl_x; 1; ++stl_xp)
     {
         if (stl_xp > end_stl_x) {
             stl_xp = -4000;
@@ -1403,7 +1403,7 @@ void fiddle_half_gamut(long start_stl_x, long start_stl_y, long step, long a4)
             break;
         }
     }
-    for (stl_xn=start_stl_x; 1; stl_xn++)
+    for (stl_xn=start_stl_x; 1; ++stl_xn)
     {
         if (stl_xn > end_stl_x) {
             stl_xn = -4000;
@@ -1431,7 +1431,7 @@ void fiddle_half_gamut(long start_stl_x, long start_stl_y, long step, long a4)
     stl_y = start_stl_y + step;
     mm = &minmaxs[step + 32];
     long n;
-    for (n=1; n < a4; n++)
+    for (n=1; n < a4; ++n)
     {
         if (mm->max <= mm->min)
         {
@@ -1478,7 +1478,7 @@ void fiddle_half_gamut(long start_stl_x, long start_stl_y, long step, long a4)
         long stl_x;
         long stl_x_lc_min;
 
-        for (stl_x=stl_x_min-1; stl_x < stl_x_max_limit; stl_x++)
+        for (stl_x=stl_x_min-1; stl_x < stl_x_max_limit; ++stl_x)
         {
             struct Map *mapblk;
             mapblk = get_map_block_at(stl_x+1, stl_y);
@@ -1581,7 +1581,7 @@ void fiddle_half_gamut(long start_stl_x, long start_stl_y, long step, long a4)
               stl_x_max_sublim = stl_x_max;
               mm->max = stl_x_max - start_stl_x + 2;
           }
-          for (stl_x=stl_x_max; stl_x <= stl_x_max_sublim; stl_x++)
+          for (stl_x=stl_x_max; stl_x <= stl_x_max_sublim; ++stl_x)
           {
               struct Map *mapblk;
               mapblk = get_map_block_at(stl_x, stl_y);
@@ -1628,7 +1628,7 @@ void fiddle_gamut_find_limits(long *floor_x, long *floor_y, long ewwidth, long e
     get_floor_pointed_at(-ewzoom, ewheight + ewzoom, &floor_y[0], &floor_x[0]);
     get_floor_pointed_at(-ewzoom, -ewzoom, &floor_y[3], &floor_x[3]);
     // Get the value with lowest X coord into [0]
-    for (i=1; i < 4; i++)
+    for (i=1; i < 4; ++i)
     {
         tmp_y = floor_y[i];
         if (floor_y[0] > tmp_y)
@@ -1641,7 +1641,7 @@ void fiddle_gamut_find_limits(long *floor_x, long *floor_y, long ewwidth, long e
         }
     }
     // Get the value with highest X coord into [3]
-    for (i=0; i < 3; i++)
+    for (i=0; i < 3; ++i)
     {
         tmp_y = floor_y[i];
         if (floor_y[3] < tmp_y)
@@ -1725,7 +1725,7 @@ void fiddle_gamut_set_minmaxes(long *floor_x, long *floor_y, long max_tiles)
     mlimit = floor_y[0];
     if (mlimit > MINMAX_LENGTH-1)
       mlimit = MINMAX_LENGTH-1;
-    for (; midx < mlimit; midx++)
+    for (; midx < mlimit; ++midx)
     {
         mm = &minmaxs[midx];
         mm->min = 0;
@@ -1743,7 +1743,7 @@ void fiddle_gamut_set_minmaxes(long *floor_x, long *floor_y, long max_tiles)
     mlimit = floor_y[1];
     if (mlimit > MINMAX_LENGTH-1)
       mlimit = MINMAX_LENGTH-1;
-    for (; midx < mlimit; midx++)
+    for (; midx < mlimit; ++midx)
     {
         mm = &minmaxs[midx];
         bordec = (bormul >> 16);
@@ -1766,7 +1766,7 @@ void fiddle_gamut_set_minmaxes(long *floor_x, long *floor_y, long max_tiles)
         midx = 0;
     }
 
-    for (; midx < mlimit; midx++)
+    for (; midx < mlimit; ++midx)
     {
         mm = &minmaxs[midx];
         bordec = (bormul >> 16);
@@ -1788,7 +1788,7 @@ void fiddle_gamut_set_minmaxes(long *floor_x, long *floor_y, long max_tiles)
         midx = 0;
     }
 
-    for (; midx < mlimit; midx++)
+    for (; midx < mlimit; ++midx)
     {
         mm = &minmaxs[midx];
         bordec = (bormuh >> 16) + 1;
@@ -1810,7 +1810,7 @@ void fiddle_gamut_set_minmaxes(long *floor_x, long *floor_y, long max_tiles)
         midx = 0;
     }
 
-    for (; midx < mlimit; midx++)
+    for (; midx < mlimit; ++midx)
     {
         mm = &minmaxs[midx];
         bordec = (bormul >> 16) + 1;
@@ -1820,7 +1820,7 @@ void fiddle_gamut_set_minmaxes(long *floor_x, long *floor_y, long max_tiles)
             mm->max = bordec;
         bormul += borinc;
     }
-    for (; midx <= MINMAX_LENGTH-1; midx++)
+    for (; midx <= MINMAX_LENGTH-1; ++midx)
     {
         mm = &minmaxs[midx];
         mm->min = 0;
@@ -2166,7 +2166,7 @@ long find_closest_lights(const struct Coord3d *pos, struct NearestLights *nlgt)
     long count;
     long nlgt_dist[SHADOW_SOURCES_MAX_COUNT];
     long i;
-    for (i = 0; i < SHADOW_SOURCES_MAX_COUNT; i++) {
+    for (i = 0; i < SHADOW_SOURCES_MAX_COUNT; ++i) {
         nlgt_dist[i] = LONG_MAX;
     }
     i = game.thing_lists[TngList_StaticLights].index;
@@ -2174,7 +2174,7 @@ long find_closest_lights(const struct Coord3d *pos, struct NearestLights *nlgt)
     i = game.thing_lists[TngList_DynamLights].index;
     find_closest_lights_on_list(nlgt, nlgt_dist, pos, i);
     count = 0;
-    for (i = 0; i < SHADOW_SOURCES_MAX_COUNT; i++) {
+    for (i = 0; i < SHADOW_SOURCES_MAX_COUNT; ++i) {
         if (nlgt_dist[i] == LONG_MAX)
             break;
         count++;
@@ -2584,7 +2584,7 @@ void do_a_plane_of_engine_columns_cluedo(long stl_x, long stl_y, long plane_star
     xdelta = xbval - xaval;
     const struct Column *unrev_colmn;
     unrev_colmn = get_column(game.unrevealed_column_idx);
-    for (xidx=0; xidx < xdelta; xidx++)
+    for (xidx=0; xidx < xdelta; ++xidx)
     {
         struct Map *cur_mapblk;
         cur_mapblk = get_map_block_at(stl_x + xaval + xidx, stl_y);
@@ -2785,7 +2785,7 @@ void do_a_plane_of_engine_columns_isometric(long stl_x, long stl_y, long plane_s
     xdelta = xbval - xaval;
     const struct Column *unrev_colmn;
     unrev_colmn = get_column(game.unrevealed_column_idx);
-    for (xidx=0; xidx < xdelta; xidx++)
+    for (xidx=0; xidx < xdelta; ++xidx)
     {
         struct Map *cur_mapblk;
         cur_mapblk = get_map_block_at(stl_x + xaval + xidx, stl_y);
@@ -4865,7 +4865,7 @@ void prepare_lightness_intensity_array(long stl_x, long stl_y, long *arrp, long 
     long i;
     long n;
     n = 4 * stl_x + 17 * stl_y;
-    for (i=0; i < 9; i++)
+    for (i=0; i < 9; ++i)
     {
         long rndi;
         long nval;
@@ -4907,8 +4907,8 @@ void draw_element(struct Map *map, long lightness, long stl_x, long stl_y, long 
 
     // Prepare light intensity array
 
-    for (y=0; y < 3; y++)
-        for (x=0; x < 3; x++)
+    for (y=0; y < 3; ++y)
+        for (x=0; x < 3; ++x)
         {
             sibrevealed[y][x] = subtile_revealed(stl_x+x-1, stl_y+y-1, myplyr->id_number);
         }
@@ -4966,7 +4966,7 @@ void draw_element(struct Map *map, long lightness, long stl_x, long stl_y, long 
 
     y = a7 + pos_y;
     unkstrcp = NULL;
-    for (tc=0; tc < COLUMN_STACK_HEIGHT; tc++)
+    for (tc=0; tc < COLUMN_STACK_HEIGHT; ++tc)
     {
       if (col->cubes[tc] == 0)
         break;
@@ -5007,14 +5007,14 @@ void draw_element(struct Map *map, long lightness, long stl_x, long stl_y, long 
     if ((get_column_ceiling_filled_subtiles(col) != 0) && (col->solidmask > (1 << tc)))
     {
         // Find any top cube separated by empty space
-        for (;tc < COLUMN_STACK_HEIGHT; tc++)
+        for (;tc < COLUMN_STACK_HEIGHT; ++tc)
         {
             if (col->cubes[tc] != 0)
               break;
             y -= delta_y;
         }
 
-        for (;tc < COLUMN_STACK_HEIGHT; tc++)
+        for (;tc < COLUMN_STACK_HEIGHT; ++tc)
         {
             if (col->cubes[tc] == 0)
               break;
@@ -5084,7 +5084,7 @@ void lock_keepersprite(unsigned short kspr_idx)
     } else {
         frame_count = kspr_arr->FramesCount;
     }
-    for (frame_num=0; frame_num < frame_count; frame_num++)
+    for (frame_num=0; frame_num < frame_count; ++frame_num)
     {
         struct HeapMgrHandle *hmhndl;
         hmhndl = heap_handle[kspr_idx+frame_num];
@@ -5105,7 +5105,7 @@ void unlock_keepersprite(unsigned short kspr_idx)
     } else {
         frame_count = kspr_arr->FramesCount;
     }
-    for (frame_num=0; frame_num < frame_count; frame_num++)
+    for (frame_num=0; frame_num < frame_count; ++frame_num)
     {
         struct HeapMgrHandle *hmhndl;
         hmhndl = heap_handle[kspr_idx+frame_num];
@@ -5121,7 +5121,7 @@ long load_single_frame(unsigned short kspr_idx)
     struct HeapMgrHandle *nitem;
     int i;
     nlength = creature_table[kspr_idx+1].DataOffset - creature_table[kspr_idx].DataOffset;
-    for (i=0; i < 100; i++)
+    for (i=0; i < 100; ++i)
     {
         nitem = heapmgr_add_item(graphics_heap, nlength);
         if (nitem != NULL) {
@@ -5170,7 +5170,7 @@ long load_keepersprite_if_needed(unsigned short kspr_idx)
     } else {
         frame_count = kspr_arr->FramesCount;
     }
-    for (frame_num=0; frame_num < frame_count; frame_num++)
+    for (frame_num=0; frame_num < frame_count; ++frame_num)
     {
         struct HeapMgrHandle **hmhndl;
         hmhndl = &heap_handle[kspr_idx+frame_num];
@@ -5638,7 +5638,7 @@ void draw_mapwho_ariadne_path(struct Thing *thing)
 	struct Coord2d *wp_next;
 	struct Coord2d *wp_prev;
 	wp_prev = (struct Coord2d *)&arid->startpos;
-	for (i = 0; i < arid->stored_waypoints; i++)
+	for (i = 0; i < arid->stored_waypoints; ++i)
 	{
 		wp_next = &arid->waypoints[i];
 
@@ -5986,7 +5986,7 @@ void update_frontview_pointed_block(unsigned long laaa, unsigned char qdrant, lo
     point_a = (((GetMouseX() - ewnd.x) << 8) - qx) << 8;
     point_b = (((GetMouseY() - ewnd.y) << 8) - qy) << 8;
     delta = (laaa << 7) / 256 << 8;
-    for (i=0; i < 8; i++)
+    for (i=0; i < 8; ++i)
     {
         pos_x = (point_a / laaa) * x_step2[qdrant] + (point_b / laaa) * x_step1[qdrant] + (w << 8);
         pos_y = (point_a / laaa) * y_step2[qdrant] + (point_b / laaa) * y_step1[qdrant] + (h << 8);
@@ -6118,7 +6118,7 @@ void do_map_who_for_thing(struct Thing *thing)
             int count;
             int i;
             count = find_closest_lights(&thing->mappos, &nearlgt);
-            for (i=0; i < count; i++) {
+            for (i=0; i < count; ++i) {
                 create_shadows(thing, &ecor, &nearlgt.coord[i]);
             }
         }

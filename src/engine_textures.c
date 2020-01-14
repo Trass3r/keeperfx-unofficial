@@ -44,10 +44,10 @@ void setup_texture_block_mem(void)
 {
     unsigned char** dst = block_ptrs;
     unsigned long n = 0;
-    for (unsigned long i = 0; i < TEXTURE_BLOCKS_STAT_COUNT / block_count_per_row; i++)
+    for (unsigned long i = 0; i < TEXTURE_BLOCKS_STAT_COUNT / block_count_per_row; ++i)
     {
         unsigned char* src = block_mem + n;
-        for (unsigned long k = 0; k < block_count_per_row; k++)
+        for (unsigned long k = 0; k < block_count_per_row; ++k)
         {
             *dst = src;
             src += block_dimension;
@@ -70,7 +70,7 @@ short update_animating_texture_maps(void)
   SYNCDBG(18,"Starting");
   anim_counter = (anim_counter+1) % TEXTURE_BLOCKS_ANIM_FRAMES;
   short result=true;
-  for (int i = 0; i < TEXTURE_BLOCKS_ANIM_COUNT; i++)
+  for (int i = 0; i < TEXTURE_BLOCKS_ANIM_COUNT; ++i)
   {
         short j = game.texture_animation[TEXTURE_BLOCKS_ANIM_FRAMES*i+anim_counter];
         if ((j>=0) && (j<TEXTURE_BLOCKS_STAT_COUNT))

@@ -410,7 +410,7 @@ void draw_swipe_graphic(void)
             struct TbSprite* sprlist = &swipe_sprites[SWIPE_SPRITES_X * SWIPE_SPRITES_Y * i];
             struct TbSprite* startspr = &sprlist[1];
             struct TbSprite* endspr = &sprlist[1];
-            for (n=0; n < SWIPE_SPRITES_X; n++)
+            for (n=0; n < SWIPE_SPRITES_X; ++n)
             {
                 allwidth += endspr->SWidth;
                 endspr++;
@@ -426,7 +426,7 @@ void draw_swipe_graphic(void)
                 {
                     spr = &startspr[i];
                     scrpos_x = (MyScreenWidth * 16 / units_per_px - allwidth) / 2;
-                    for (n=0; n < SWIPE_SPRITES_X; n++)
+                    for (n=0; n < SWIPE_SPRITES_X; ++n)
                     {
                         LbSpriteDrawResized(scrpos_x * units_per_px / 16, scrpos_y * units_per_px / 16, units_per_px, spr);
                         scrpos_x += spr->SWidth;
@@ -442,7 +442,7 @@ void draw_swipe_graphic(void)
                     spr = &sprlist[SWIPE_SPRITES_X+i];
                     int delta_y = spr->SHeight;
                     scrpos_x = (MyScreenWidth * 16 / units_per_px - allwidth) / 2;
-                    for (n=0; n < SWIPE_SPRITES_X; n++)
+                    for (n=0; n < SWIPE_SPRITES_X; ++n)
                     {
                         LbSpriteDrawResized(scrpos_x * units_per_px / 16, scrpos_y * units_per_px / 16, units_per_px, spr);
                         scrpos_x += spr->SWidth;
@@ -528,7 +528,7 @@ struct Thing *get_enemy_soul_container_creature_can_see(struct Thing *creatng)
 
     assert(DUNGEONS_COUNT == PLAYERS_COUNT);
 
-    for (PlayerNumber enemy_idx = 0; enemy_idx < DUNGEONS_COUNT; enemy_idx++)
+    for (PlayerNumber enemy_idx = 0; enemy_idx < DUNGEONS_COUNT; ++enemy_idx)
     {
         if (players_are_enemies(creatng->owner, enemy_idx))
         {
@@ -661,7 +661,7 @@ void anger_apply_anger_to_creature_f(struct Thing *creatng, long anger, AnnoyMot
         if (reason == AngR_Other)
         {
             long angrpart = 32 * anger / 256;
-            for (AnnoyMotive reaspart = 1; reaspart < AngR_Other; reaspart++)
+            for (AnnoyMotive reaspart = 1; reaspart < AngR_Other; ++reaspart)
             {
                 anger_reduce_creature_anger_f(creatng, angrpart, reaspart, func_name);
             }
@@ -754,7 +754,7 @@ GameTurnDelta get_spell_duration_left_on_thing_f(const struct Thing *thing, Spel
         ERRORLOG("%s: Invalid creature control for thing %d",func_name,(int)thing->index);
         return 0;
     }
-    for (long i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; i++)
+    for (long i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; ++i)
     {
         struct CastedSpellData* cspell = &cctrl->casted_spells[i];
         if (cspell->spkind == spkind) {
@@ -786,7 +786,7 @@ long get_free_spell_slot(struct Thing *creatng)
     struct CreatureControl* cctrl = creature_control_get_from_thing(creatng);
     long cval = LONG_MAX;
     long ci = -1;
-    for (i=0; i < CREATURE_MAX_SPELLS_CASTED_AT; i++)
+    for (i=0; i < CREATURE_MAX_SPELLS_CASTED_AT; ++i)
     {
         cspell = &cctrl->casted_spells[i];
         // If there's unused slot, return it immediately
@@ -805,7 +805,7 @@ long get_free_spell_slot(struct Thing *creatng)
     // Terminate the min damage effect and return its slot index
     cspell = &cctrl->casted_spells[ci];
     terminate_thing_spell_effect(creatng, cspell->spkind);
-    for (i=0; i < CREATURE_MAX_SPELLS_CASTED_AT; i++)
+    for (i=0; i < CREATURE_MAX_SPELLS_CASTED_AT; ++i)
     {
         cspell = &cctrl->casted_spells[i];
         if (cspell->spkind == SplK_None)
@@ -820,7 +820,7 @@ long get_free_spell_slot(struct Thing *creatng)
 long get_spell_slot(const struct Thing *thing, SpellKind spkind)
 {
     struct CreatureControl* cctrl = creature_control_get_from_thing(thing);
-    for (long i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; i++)
+    for (long i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; ++i)
     {
         struct CastedSpellData* cspell = &cctrl->casted_spells[i];
         // If there is a slot with required spell
@@ -897,7 +897,7 @@ void first_apply_spell_effect_to_thing(struct Thing *thing, SpellKind spell_idx,
             fill_spell_slot(thing, i, spell_idx, pwrdynst->strength[spell_lev]);
             n = 0;
             cctrl->spell_flags |= CSAfF_Armour;
-            for (k=0; k < 3; k++)
+            for (k=0; k < 3; ++k)
             {
                 set_coords_to_cylindric_shift(&pos, &thing->mappos, 32, n, k * (thing->clipbox_size_yz >> 1) );
                 ntng = create_object(&pos, 51, thing->owner, -1);
@@ -1003,7 +1003,7 @@ void first_apply_spell_effect_to_thing(struct Thing *thing, SpellKind spell_idx,
           cctrl->spell_flags |= CSAfF_Disease;
           cctrl->disease_caster_plyridx = thing->owner;
           cctrl->disease_start_turn = game.play_gameturn;
-          for (k=0; k < 3; k++)
+          for (k=0; k < 3; ++k)
           {
               pos.x.val = thing->mappos.x.val;
               pos.y.val = thing->mappos.y.val;
@@ -1136,7 +1136,7 @@ void apply_spell_effect_to_thing(struct Thing *thing, SpellKind spell_idx, long 
         ERRORLOG("Invalid creature tried to accept spell %s",spell_code_name(spell_idx));
         return;
     }
-    for (long i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; i++)
+    for (long i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; ++i)
     {
         if (cctrl->casted_spells[i].spkind == spell_idx)
         {
@@ -1166,7 +1166,7 @@ void terminate_thing_spell_effect(struct Thing *thing, SpellKind spkind)
         break;
     case SplK_Armour:
         cctrl->spell_flags &= ~CSAfF_Armour;
-        for (i=0; i < 3; i++)
+        for (i=0; i < 3; ++i)
         {
             ThingIndex eff_idx = cctrl->spell_tngidx_armour[i];
             if (eff_idx > 0) {
@@ -1206,7 +1206,7 @@ void terminate_thing_spell_effect(struct Thing *thing, SpellKind spkind)
         break;
     case SplK_Disease:
         cctrl->spell_flags &= ~CSAfF_Disease;
-        for (i=0; i < 3; i++)
+        for (i=0; i < 3; ++i)
         {
             ThingIndex eff_idx = cctrl->spell_tngidx_disease[i];
             if (eff_idx > 0) {
@@ -1273,7 +1273,7 @@ void process_thing_spell_effects(struct Thing *thing)
 {
     //_DK_process_thing_spell_effects(thing);
     struct CreatureControl* cctrl = creature_control_get_from_thing(thing);
-    for (int i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; i++)
+    for (int i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; ++i)
     {
         struct CastedSpellData* cspell = &cctrl->casted_spells[i];
         if (cspell->spkind == SplK_None)
@@ -1304,7 +1304,7 @@ void process_thing_spell_effects(struct Thing *thing)
 void process_thing_spell_effects_while_blocked(struct Thing *thing)
 {
     struct CreatureControl* cctrl = creature_control_get_from_thing(thing);
-    for (int i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; i++)
+    for (int i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; ++i)
     {
         struct CastedSpellData* cspell = &cctrl->casted_spells[i];
         if (cspell->spkind == SplK_None)
@@ -1502,7 +1502,7 @@ struct Thing *find_gold_pile_or_chicken_laying_on_mapblk(struct Map *mapblk)
 
 struct Thing *find_interesting_object_laying_around_thing(struct Thing *creatng)
 {
-    for (long k = 0; k < AROUND_TILES_COUNT; k++)
+    for (long k = 0; k < AROUND_TILES_COUNT; ++k)
     {
         long stl_x = creatng->mappos.x.stl.num + around[k].delta_x;
         long stl_y = creatng->mappos.y.stl.num + around[k].delta_y;
@@ -1710,7 +1710,7 @@ TbBool check_for_door_collision_at(struct Thing *thing, struct Coord3d *pos, uns
         stl_x = end_x;
         if (thing->mappos.x.val >= pos->x.val)
             stl_x = start_x;
-        for (stl_y = start_y; stl_y <= end_y; stl_y++)
+        for (stl_y = start_y; stl_y <= end_y; ++stl_y)
         {
             struct Map* mapblk = get_map_block_at(stl_x, stl_y);
             if ((mapblk->flags & SlbAtFlg_IsDoor) != 0) {
@@ -1726,7 +1726,7 @@ TbBool check_for_door_collision_at(struct Thing *thing, struct Coord3d *pos, uns
         stl_y = end_y;
         if (thing->mappos.y.val >= pos->y.val)
             stl_y = start_y;
-        for (stl_x = start_x; stl_x <= end_x; stl_x++)
+        for (stl_x = start_x; stl_x <= end_x; ++stl_x)
         {
             struct Map* mapblk = get_map_block_at(stl_x, stl_y);
             if ((mapblk->flags & SlbAtFlg_IsDoor) != 0) {
@@ -1978,7 +1978,7 @@ void throw_out_gold(struct Thing *thing)
         num_pots_to_drop = 8;
     GoldAmount gold_dropped = 0;
     // Now do the dropping
-    for (int npot = 0; npot < num_pots_to_drop; npot++)
+    for (int npot = 0; npot < num_pots_to_drop; ++npot)
     {
         // Create a new pot object
         struct Thing* gldtng = create_object(&thing->mappos, 6, game.neutral_player_num, -1);
@@ -2299,7 +2299,7 @@ void delete_effects_attached_to_creature(struct Thing *creatng)
     if (creature_affected_by_spell(creatng, SplK_Armour))
     {
         cctrl->spell_flags &= ~CSAfF_Armour;
-        for (i=0; i < 3; i++)
+        for (i=0; i < 3; ++i)
         {
             k = cctrl->spell_tngidx_armour[i];
             if (k != 0)
@@ -2313,7 +2313,7 @@ void delete_effects_attached_to_creature(struct Thing *creatng)
     if (creature_affected_by_spell(creatng, SplK_Disease))
     {
         cctrl->spell_flags &= ~CSAfF_Disease;
-        for (i=0; i < 3; i++)
+        for (i=0; i < 3; ++i)
         {
             k = cctrl->spell_tngidx_disease[i];
             if (k != 0)
@@ -2638,7 +2638,7 @@ void creature_fire_shot(struct Thing *firing, struct Thing *target, ThingModel s
     case ShM_Hail_storm:
     {
         long i;
-        for (i = 0; i < 32; i++)
+        for (i = 0; i < 32; ++i)
         {
             tmptng = create_thing(&pos1, TCls_Shot, shot_model, firing->owner, -1);
             if (thing_is_invalid(tmptng))
@@ -3326,7 +3326,7 @@ TbBool creature_increase_multiple_levels(struct Thing *thing, int count)
   }
   struct Dungeon* dungeon = get_dungeon(thing->owner);
   int k = 0;
-  for (int i = 0; i < count; i++)
+  for (int i = 0; i < count; ++i)
   {
     if (dungeon->creature_max_level[thing->model] > cctrl->explevel)
     {
@@ -4684,7 +4684,7 @@ void init_creature_scores(void)
     long score;
     // compute maximum score
     long max_score = 0;
-    for (i=0; i < CREATURE_TYPES_COUNT; i++)
+    for (i=0; i < CREATURE_TYPES_COUNT; ++i)
     {
         score = compute_creature_kind_score(i,CREATURE_MAX_LEVEL-1);
         if ((score <= 0) && (i != 0) && (i != CREATURE_TYPES_COUNT-1))
@@ -4703,9 +4703,9 @@ void init_creature_scores(void)
         return;
     }
     // now compute scores for experience levels
-    for (i=0; i < CREATURE_TYPES_COUNT; i++)
+    for (i=0; i < CREATURE_TYPES_COUNT; ++i)
     {
-        for (long k = 0; k < CREATURE_MAX_LEVEL; k++)
+        for (long k = 0; k < CREATURE_MAX_LEVEL; ++k)
         {
           score = compute_creature_kind_score(i,k);
           score = saturate_set_unsigned(200*score / max_score, 8);
@@ -5003,7 +5003,7 @@ int claim_neutral_creatures_in_sight(struct Thing *creatng, struct Coord3d *pos,
 
 TbBool change_creature_owner_if_near_dungeon_heart(struct Thing *creatng)
 {
-    for (PlayerNumber plyr_idx = 0; plyr_idx < game.neutral_player_num; plyr_idx++)
+    for (PlayerNumber plyr_idx = 0; plyr_idx < game.neutral_player_num; ++plyr_idx)
     {
         struct PlayerInfo* player = get_player(plyr_idx);
         if ( ((player->allocflags & PlaF_Allocated) != 0) && (player->field_2C == 1) && (player->victory_state != VicS_LostLevel) )

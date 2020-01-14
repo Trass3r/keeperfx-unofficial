@@ -129,7 +129,7 @@ const unsigned char  *against_to_case[] = {
 TbBool block_has_diggable_side(PlayerNumber plyr_idx, MapSlabCoord slb_x, MapSlabCoord slb_y)
 {
   long i;
-  for (i = 0; i < SMALL_AROUND_SLAB_LENGTH; i++)
+  for (i = 0; i < SMALL_AROUND_SLAB_LENGTH; ++i)
   {
     if (slab_is_safe_land(plyr_idx, slb_x + small_around[i].delta_x, slb_y + small_around[i].delta_y))
       return true;
@@ -142,7 +142,7 @@ int block_count_diggable_sides(PlayerNumber plyr_idx, MapSlabCoord slb_x, MapSla
     int num_sides;
     num_sides = 0;
     long i;
-    for (i = 0; i < SMALL_AROUND_SLAB_LENGTH; i++)
+    for (i = 0; i < SMALL_AROUND_SLAB_LENGTH; ++i)
     {
         if (slab_is_safe_land(plyr_idx, slb_x + small_around[i].delta_x, slb_y + small_around[i].delta_y)) {
             num_sides++;
@@ -242,9 +242,9 @@ TbBool tag_blocks_for_digging_in_area(MapSubtlCoord stl_x, MapSubtlCoord stl_y, 
       {
           long dx;
           long dy;
-          for (dy=0; dy < STL_PER_SLB; dy++)
+          for (dy=0; dy < STL_PER_SLB; ++dy)
           {
-              for (dx=0; dx < STL_PER_SLB; dx++)
+              for (dx=0; dx < STL_PER_SLB; ++dx)
               {
                   mapblk = get_map_block_at(x+dx, y+dy);
                   slb = get_slabmap_for_subtile(x+dx, y+dy);
@@ -293,9 +293,9 @@ long untag_blocks_for_digging_in_area(MapSubtlCoord stl_x, MapSubtlCoord stl_y, 
     {
         long dx;
         long dy;
-        for (dy=0; dy < STL_PER_SLB; dy++)
+        for (dy=0; dy < STL_PER_SLB; ++dy)
         {
-            for (dx=0; dx < STL_PER_SLB; dx++)
+            for (dx=0; dx < STL_PER_SLB; ++dx)
             {
                 struct Map *mapblk;
                 mapblk = get_map_block_at(x+dx, y+dy);
@@ -334,7 +334,7 @@ void all_players_untag_blocks_for_digging_in_area(MapSlabCoord slb_x, MapSlabCoo
     struct Map *mapblk;
     PlayerNumber plyr_idx;
     mapblk = get_map_block_at(slab_subtile_center(slb_x), slab_subtile_center(slb_y));
-    for (plyr_idx = 0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         if ((plyr_idx == game.hero_player_num) || (plyr_idx == game.neutral_player_num))
             continue;
@@ -435,7 +435,7 @@ long delete_all_object_things_from_slab(MapSlabCoord slb_x, MapSlabCoord slb_y, 
     long n;
     stl_num = get_subtile_number(slab_subtile_center(slb_x),slab_subtile_center(slb_y));
     removed_num = 0;
-    for (n=0; n < AROUND_MAP_LENGTH; n++)
+    for (n=0; n < AROUND_MAP_LENGTH; ++n)
     {
         struct Thing *thing;
         struct Map *mapblk;
@@ -492,7 +492,7 @@ long delete_unwanted_things_from_liquid_slab(MapSlabCoord slb_x, MapSlabCoord sl
     long n;
     stl_num = get_subtile_number_at_slab_center(slb_x, slb_y);
     removed_num = 0;
-    for (n=0; n < AROUND_MAP_LENGTH; n++)
+    for (n=0; n < AROUND_MAP_LENGTH; ++n)
     {
         mapblk = get_map_block_at_pos(stl_num+around_map[n]);
         k = 0;
@@ -617,7 +617,7 @@ void copy_block_with_cube_groups(short itm_idx, MapSubtlCoord stl_x, MapSubtlCoo
     TbBool found;
     found = false;
     int i;
-    for (i=0; i < COLUMN_STACK_HEIGHT; i++)
+    for (i=0; i < COLUMN_STACK_HEIGHT; ++i)
     {
         unsigned short *cube;
         cube = &col.cubes[i];
@@ -712,9 +712,9 @@ void place_slab_columns(long slbkind, unsigned char stl_x, unsigned char stl_y, 
 
     const ColumnIndex *colid;
     colid = col_idx;
-    for (dy=0; dy < STL_PER_SLB; dy++)
+    for (dy=0; dy < STL_PER_SLB; ++dy)
     {
-        for (dx=0; dx  < STL_PER_SLB; dx++)
+        for (dx=0; dx  < STL_PER_SLB; ++dx)
         {
             copy_block_with_cube_groups(*colid, stl_x+dx, stl_y+dy);
             int v10;
@@ -758,7 +758,7 @@ void place_slab_object(unsigned short a1, long a2, long a3, unsigned short slabc
     if (sobj_idx < 0) {
         return;
     }
-    for (; sobj_idx < game.slabobjs_num; sobj_idx++)
+    for (; sobj_idx < game.slabobjs_num; ++sobj_idx)
     {
         struct SlabObj *sobj;
         sobj = &game.slabobjs[sobj_idx];
@@ -890,12 +890,12 @@ void place_slab_objects(MapSlabCoord slb_x, MapSlabCoord slb_y, const short * sl
     i = 0;
     MapSubtlDelta dx;
     MapSubtlDelta dy;
-    for (dy=0; dy < STL_PER_SLB; dy++)
+    for (dy=0; dy < STL_PER_SLB; ++dy)
     {
         MapSubtlCoord sstl_x;
         MapSubtlCoord sstl_y;
         sstl_y = slab_subtile(slb_y,dy);
-        for (dx=0; dx < STL_PER_SLB; dx++)
+        for (dx=0; dx < STL_PER_SLB; ++dx)
         {
             sstl_x = slab_subtile(slb_x,dx);
             place_slab_object(place_slbnum, sstl_x, sstl_y, slab_number_list[i], i, plyr_idx);
@@ -938,7 +938,7 @@ void place_single_slab_fill_arrays_std(MapSlabCoord slb_x, MapSlabCoord slb_y, s
                 if (slbattr->category == SlbAtCtg_RoomInterior)
                 {
                     int n;
-                    for (n = -1; n <= 1; n++)
+                    for (n = -1; n <= 1; ++n)
                     {
                         int neigh;
                         neigh = 4 + slab_element_around_eight[(i+n)&7];
@@ -1024,7 +1024,7 @@ void place_single_slab_fill_style_array(MapSlabCoord slb_x, MapSlabCoord slb_y, 
             style_val = 0;
         }
         int n;
-        for (n = -1; n <= 1; n++)
+        for (n = -1; n <= 1; ++n)
         {
             int neigh;
             neigh = 4 + slab_element_around_eight[(i+n)&7];
@@ -1092,7 +1092,7 @@ void place_single_slab_prepare_column_index(SlabKind slbkind, MapSlabCoord slb_x
             specase = against_to_case[against];
             if (specase != NULL)
             {
-                for (i=0; i < 9; i++)
+                for (i=0; i < 9; ++i)
                 {
                     slabct_num = get_slabset_index( slab_type_list[i], style_set[i] + room_pretty_list[i], specase[i]);
                     slab_number_list[i] = slabct_num;
@@ -1107,7 +1107,7 @@ void place_single_slab_prepare_column_index(SlabKind slbkind, MapSlabCoord slb_x
             }
         } else
         {
-            for (i=0; i < 9; i++)
+            for (i=0; i < 9; ++i)
             {
                 slabct_num = get_slabset_index( slab_type_list[i], style_set[i] + room_pretty_list[i], primitiv);
                 slab_number_list[i] = slabct_num;
@@ -1132,7 +1132,7 @@ void place_single_slab_prepare_column_index(SlabKind slbkind, MapSlabCoord slb_x
         {
             const unsigned char *specase;
             specase = special_cases[6];
-            for (i=0; i < 9; i++)
+            for (i=0; i < 9; ++i)
             {
                 slabct_num = get_slabset_index( slab_type_list[i], style_set[i], specase[i]);
                 slab_number_list[i] = slabct_num;
@@ -1142,7 +1142,7 @@ void place_single_slab_prepare_column_index(SlabKind slbkind, MapSlabCoord slb_x
             }
         } else
         {
-            for (i=0; i < 9; i++)
+            for (i=0; i < 9; ++i)
             {
                 slabct_num = get_slabset_index( slab_type_list[i], 3, 0);
                 slab_number_list[i] = slabct_num;
@@ -1153,7 +1153,7 @@ void place_single_slab_prepare_column_index(SlabKind slbkind, MapSlabCoord slb_x
         }
     } else
     {
-        for (i=0; i < 9; i++)
+        for (i=0; i < 9; ++i)
         {
             slabct_num = get_slabset_index( slab_type_list[i], 3, 0);
             slab_number_list[i] = slabct_num;
@@ -1217,7 +1217,7 @@ void place_single_slab_type_on_map(SlabKind slbkind, MapSlabCoord slb_x, MapSlab
     short slab_number_list[STL_PER_SLB*STL_PER_SLB];
     short room_pretty_list[STL_PER_SLB*STL_PER_SLB];
     short slab_type_list[STL_PER_SLB*STL_PER_SLB];
-    for (i = 0; i < STL_PER_SLB*STL_PER_SLB; i++) {
+    for (i = 0; i < STL_PER_SLB*STL_PER_SLB; ++i) {
         style_set[i] = 0;
         slab_number_list[i] = 0;
         room_pretty_list[i] = 0;
@@ -1237,7 +1237,7 @@ void place_single_slab_type_on_map(SlabKind slbkind, MapSlabCoord slb_x, MapSlab
         slabct_num = get_slabset_index(slbkind, 3, 0);
         struct SlabSet *sset;
         sset = &game.slabset[slabct_num];
-        for (i=0; i < STL_PER_SLB*STL_PER_SLB; i++)
+        for (i=0; i < STL_PER_SLB*STL_PER_SLB; ++i)
         {
             col_idx[i] = sset->col_idx[i];
         }
@@ -1299,12 +1299,12 @@ void dump_slab_on_map(SlabKind slbkind, long slabct_num, MapSubtlCoord stl_x, Ma
     n = 0;
     MapSubtlDelta dx;
     MapSubtlDelta dy;
-    for (dy=0; dy < STL_PER_SLB; dy++)
+    for (dy=0; dy < STL_PER_SLB; ++dy)
     {
         MapSubtlCoord sstl_x;
         MapSubtlCoord sstl_y;
         sstl_y = slab_subtile(slb_y,dy);
-        for (dx=0; dx < STL_PER_SLB; dx++)
+        for (dx=0; dx < STL_PER_SLB; ++dx)
         {
             sstl_x = slab_subtile(slb_x,dx);
 
@@ -1385,7 +1385,7 @@ void place_animating_slab_type_on_map(SlabKind slbkind, char ani_frame, MapSubtl
     dump_slab_on_map(slbkind, 840 + 8 * slbkind + ani_frame, stl_x, stl_y, owner);
     shuffle_unattached_things_on_slab(slb_x, slb_y);
     int i;
-    for (i = 0; i < AROUND_EIGHT_LENGTH; i++)
+    for (i = 0; i < AROUND_EIGHT_LENGTH; ++i)
     {
         MapSlabCoord sslb_x;
         MapSlabCoord sslb_y;
@@ -1398,9 +1398,9 @@ void place_animating_slab_type_on_map(SlabKind slbkind, char ani_frame, MapSubtl
         }
         int ssub_x;
         int ssub_y;
-        for (ssub_y=0; ssub_y < STL_PER_SLB; ssub_y++)
+        for (ssub_y=0; ssub_y < STL_PER_SLB; ++ssub_y)
         {
-            for (ssub_x=0; ssub_x < STL_PER_SLB; ssub_x++)
+            for (ssub_x=0; ssub_x < STL_PER_SLB; ++ssub_x)
             {
                 MapSubtlCoord sstl_x;
                 MapSubtlCoord sstl_y;
@@ -1427,7 +1427,7 @@ SlabKind alter_rock_style(SlabKind slbkind, MapSlabCoord tgslb_x, MapSlabCoord t
     if (slbkind == SlbT_EARTH)
     {
         long i;
-        for (i = 0; i < AROUND_EIGHT_LENGTH; i++)
+        for (i = 0; i < AROUND_EIGHT_LENGTH; ++i)
         {
             MapSlabCoord slb_y;
             MapSlabCoord slb_x;
@@ -1473,7 +1473,7 @@ void place_slab_type_on_map_f(SlabKind nslab, MapSubtlCoord stl_x, MapSubtlCoord
     {
         ERRORLOG("%s: Placing animating slab %d as standard slab",func_name,(int)nslab);
     }
-    for (i = 0; i < AROUND_EIGHT_LENGTH; i++)
+    for (i = 0; i < AROUND_EIGHT_LENGTH; ++i)
     {
         spos_x = slb_x + (MapSlabCoord)my_around_eight[i].delta_x;
         spos_y = slb_y + (MapSlabCoord)my_around_eight[i].delta_y;
@@ -1497,7 +1497,7 @@ void place_slab_type_on_map_f(SlabKind nslab, MapSubtlCoord stl_x, MapSubtlCoord
     slbattr = get_slab_kind_attrs(skind);
     if ((slbattr->category == SlbAtCtg_RoomInterior) || (slbattr->category == SlbAtCtg_FortifiedGround))
     {
-      for (i = 0; i < 8; i++)
+      for (i = 0; i < 8; ++i)
       {
           spos_x = slb_x + (MapSlabCoord)my_around_eight[i].delta_x;
           spos_y = slb_y + (MapSlabCoord)my_around_eight[i].delta_y;
@@ -1514,7 +1514,7 @@ void place_slab_type_on_map_f(SlabKind nslab, MapSubtlCoord stl_x, MapSubtlCoord
       }
     } else
     {
-      for (i = 0; i < 8; i++)
+      for (i = 0; i < 8; ++i)
       {
           spos_x = slb_x + (MapSlabCoord)my_around_eight[i].delta_x;
           spos_y = slb_y + (MapSlabCoord)my_around_eight[i].delta_y;
@@ -1530,7 +1530,7 @@ void place_slab_type_on_map_f(SlabKind nslab, MapSubtlCoord stl_x, MapSubtlCoord
 
     pannel_map_update(slab_subtile(slb_x,0), slab_subtile(slb_y,0), STL_PER_SLB, STL_PER_SLB);
 
-    for (i = 0; i < AROUND_EIGHT_LENGTH; i++)
+    for (i = 0; i < AROUND_EIGHT_LENGTH; ++i)
     {
         spos_x = slb_x + (MapSlabCoord)my_around_eight[i].delta_x;
         spos_y = slb_y + (MapSlabCoord)my_around_eight[i].delta_y;
@@ -1602,9 +1602,9 @@ void create_gold_rubble_for_dug_slab(MapSlabCoord slb_x, MapSlabCoord slb_y)
     stl_x = STL_PER_SLB * slb_x;
     stl_y = STL_PER_SLB * slb_y;
     z = get_floor_filled_subtiles_at(stl_x, stl_y);
-    for (y = stl_y; y < stl_y+STL_PER_SLB; y++)
+    for (y = stl_y; y < stl_y+STL_PER_SLB; ++y)
     {
-        for (x = stl_x; x < stl_x+STL_PER_SLB; x++)
+        for (x = stl_x; x < stl_x+STL_PER_SLB; ++x)
         {
             if (z > 0) {
                 create_gold_rubble_for_dug_block(x, y, z, game.neutral_player_num);
@@ -1704,7 +1704,7 @@ void mine_out_block(MapSubtlCoord stl_x, MapSubtlCoord stl_y, PlayerNumber plyr_
 TbBool dig_has_revealed_area(MapSubtlCoord rev_stl_x, MapSubtlCoord rev_stl_y, PlayerNumber plyr_idx)
 {
     int i;
-    for (i=0; i < SMALL_AROUND_LENGTH; i++)
+    for (i=0; i < SMALL_AROUND_LENGTH; ++i)
     {
         MapSubtlCoord stl_x;
         MapSubtlCoord stl_y;
@@ -1734,9 +1734,9 @@ void create_dirt_rubble_for_dug_slab(MapSlabCoord slb_x, MapSlabCoord slb_y)
     stl_x = STL_PER_SLB * slb_x;
     stl_y = STL_PER_SLB * slb_y;
     z = get_floor_filled_subtiles_at(stl_x, stl_y);
-    for (y = stl_y; y < stl_y+STL_PER_SLB; y++)
+    for (y = stl_y; y < stl_y+STL_PER_SLB; ++y)
     {
-        for (x = stl_x; x < stl_x+STL_PER_SLB; x++)
+        for (x = stl_x; x < stl_x+STL_PER_SLB; ++x)
         {
             if (z > 0) {
                 create_dirt_rubble_for_dug_block(x, y, z, game.neutral_player_num);
@@ -1827,7 +1827,7 @@ void clear_dig_and_set_explored_around(MapSlabCoord slb_x, MapSlabCoord slb_y, P
 void clear_dig_and_set_explored_can_see_x(MapSlabCoord slb_x, MapSlabCoord slb_y, PlayerNumber plyr_idx, int can_see_slabs)
 {
     int delta_see;
-    for (delta_see = -can_see_slabs; delta_see <= can_see_slabs; delta_see++)
+    for (delta_see = -can_see_slabs; delta_see <= can_see_slabs; ++delta_see)
     {
         if ((delta_see + slb_x < 0) || (delta_see + slb_x >= 85)) {
             continue;
@@ -1989,7 +1989,7 @@ void clear_dig_and_set_explored_can_see_x(MapSlabCoord slb_x, MapSlabCoord slb_y
 void clear_dig_and_set_explored_can_see_y(MapSlabCoord slb_x, MapSlabCoord slb_y, PlayerNumber plyr_idx, int can_see_slabs)
 {
     int delta_see;
-    for (delta_see = -can_see_slabs; delta_see <= can_see_slabs; delta_see++)
+    for (delta_see = -can_see_slabs; delta_see <= can_see_slabs; ++delta_see)
     {
         if ((delta_see + slb_y < 0) || (delta_see + slb_y >= 85)) {
             continue;
@@ -2265,7 +2265,7 @@ void pretty_map_remove_flags_and_update(MapSlabCoord slb_x, MapSlabCoord slb_y)
     MapSubtlCoord stl_y;
     stl_x = slab_subtile_center(slb_x);
     stl_y = slab_subtile_center(slb_y);
-    for (m=0; m < STL_PER_SLB*STL_PER_SLB; m++)
+    for (m=0; m < STL_PER_SLB*STL_PER_SLB; ++m)
     {
         MapSubtlCoord x;
         MapSubtlCoord y;

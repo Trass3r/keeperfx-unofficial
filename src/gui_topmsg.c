@@ -49,7 +49,7 @@ int last_checked_stat_num = 0;
 /******************************************************************************/
 void erstats_clear(void)
 {
-    for (int stat_num = 0; stat_num < sizeof(erstat) / sizeof(erstat[0]); stat_num++)
+    for (int stat_num = 0; stat_num < sizeof(erstat) / sizeof(erstat[0]); ++stat_num)
     {
         erstat[stat_num].n = 0;
         erstat[stat_num].nprv = 0;

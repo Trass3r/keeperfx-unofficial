@@ -159,20 +159,20 @@ TbBool clear_campaign(struct GameCampaign *campgn)
   LbMemorySet(campgn->creatures_location,0,DISKPATH_SIZE);
   LbMemorySet(campgn->configs_location,0,DISKPATH_SIZE);
   LbMemorySet(campgn->media_location,0,DISKPATH_SIZE);
-  for (i=0; i<CAMPAIGN_LEVELS_COUNT; i++)
+  for (i=0; i<CAMPAIGN_LEVELS_COUNT; ++i)
   {
     campgn->single_levels[i] = 0;
     campgn->bonus_levels[i] = 0;
   }
-  for (i=0; i<EXTRA_LEVELS_COUNT; i++)
+  for (i=0; i<EXTRA_LEVELS_COUNT; ++i)
   {
     campgn->extra_levels[i] = 0;
   }
-  for (i=0; i<MULTI_LEVELS_COUNT; i++)
+  for (i=0; i<MULTI_LEVELS_COUNT; ++i)
   {
     campgn->multi_levels[i] = 0;
   }
-  for (i=0; i<FREE_LEVELS_COUNT; i++)
+  for (i=0; i<FREE_LEVELS_COUNT; ++i)
   {
     campgn->freeplay_levels[i] = 0;
   }
@@ -292,7 +292,7 @@ struct LevelInformation *get_campaign_level_info(struct GameCampaign *campgn, Le
       return NULL;
   if (campgn->lvinfos == NULL)
       return NULL;
-  for (long i = 0; i < campgn->lvinfos_count; i++)
+  for (long i = 0; i < campgn->lvinfos_count; ++i)
   {
       if (campgn->lvinfos[i].lvnum == lvnum)
       {
@@ -310,7 +310,7 @@ struct LevelInformation *new_level_info_entry(struct GameCampaign *campgn, Level
   if (campgn->lvinfos == NULL)
     return NULL;
   // Find empty allocated slot
-  for (i=0; i < campgn->lvinfos_count; i++)
+  for (i=0; i < campgn->lvinfos_count; ++i)
   {
       if (campgn->lvinfos[i].lvnum <= 0)
       {
@@ -338,7 +338,7 @@ TbBool init_level_info_entries(struct GameCampaign *campgn, long num_entries)
       return false;
     }
     campgn->lvinfos_count = num_entries;
-    for (long i = 0; i < num_entries; i++)
+    for (long i = 0; i < num_entries; ++i)
     {
         clear_level_info(&campgn->lvinfos[i]);
     }
@@ -1081,7 +1081,7 @@ TbBool init_campaigns_list_entries(struct CampaignsList *clist, long num_entries
     }
     clist->items_count = num_entries;
     clist->items_num = 0;
-    for (long i = 0; i < num_entries; i++)
+    for (long i = 0; i < num_entries; ++i)
         clear_campaign(&clist->items[i]);
     return true;
 }
@@ -1180,7 +1180,7 @@ void sort_campaigns_quicksort(struct CampaignsList *clist, int beg, int end)
 void sort_campaigns(struct CampaignsList *clist,const char *fname_first)
 {
     int beg = 0;
-    for (int i = 0; i < clist->items_num; i++)
+    for (int i = 0; i < clist->items_num; ++i)
     {
         if (strcasecmp(clist->items[i].fname,fname_first) == 0)
         {

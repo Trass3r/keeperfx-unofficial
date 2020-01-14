@@ -322,7 +322,7 @@ void draw_overhead_room_icons(const struct TbRect *map_area, long block_size, Pl
         ps_units_per_px = 32 * block_size * 4 / spr->SHeight;
     }
     long rkind_select = (game.play_gameturn >> 1) % ROOM_TYPES_COUNT;
-    for (struct Room* room = start_rooms; room < end_rooms; room++)
+    for (struct Room* room = start_rooms; room < end_rooms; ++room)
     {
       if (room_exists(room))
       {
@@ -353,7 +353,7 @@ void draw_overhead_room_icons(const struct TbRect *map_area, long block_size, Pl
 int draw_overhead_call_to_arms(const struct TbRect *map_area, long block_size, PlayerNumber plyr_idx)
 {
     int n = 0;
-    for (int i = 0; i < DUNGEONS_COUNT; i++)
+    for (int i = 0; i < DUNGEONS_COUNT; ++i)
     {
         if (player_uses_power_call_to_arms(i))
         {
@@ -436,7 +436,7 @@ int draw_overhead_creatures(const struct TbRect *map_area, long block_size, Play
             if (is_hero_tunnelling_to_attack(thing))
             {
                 struct CreatureControl* cctrl = creature_control_get_from_thing(thing);
-                for (int m = 0; m < 5; m++)
+                for (int m = 0; m < 5; ++m)
                 {
                     long memberpos = cctrl->party.member_pos_stl[m];
                     if (memberpos == 0)
@@ -705,10 +705,10 @@ void draw_zoom_box_terrain(long scrtop_x, long scrtop_y, int stl_x, int stl_y, P
     setup_vecs(lbDisplay.WScreen, 0, lbDisplay.GraphicsScreenWidth, MyScreenWidth/pixel_size, MyScreenHeight/pixel_size);
     // Draw the actual map
     int scr_y = scrtop_y;
-    for (int map_dy = 0; map_dy < draw_tiles_y; map_dy++)
+    for (int map_dy = 0; map_dy < draw_tiles_y; ++map_dy)
     {
         int scr_x = scrtop_x;
-        for (int map_dx = 0; map_dx < draw_tiles_x; map_dx++)
+        for (int map_dx = 0; map_dx < draw_tiles_x; ++map_dx)
         {
             struct Map* mapblk = get_map_block_at(stl_x + map_dx, stl_y + map_dy);
             if (map_block_revealed(mapblk, plyr_idx))
@@ -733,10 +733,10 @@ void draw_zoom_box_things(long scrtop_x, long scrtop_y, int stl_x, int stl_y, Pl
     LbScreenSetGraphicsWindow(scrtop_x + 2*units_per_pixel/16, scrtop_y + 2*units_per_pixel/16,
         draw_tiles_x*subtile_size - 4*units_per_pixel/16, draw_tiles_y*subtile_size - 4*units_per_pixel/16);
     int scr_y = 0;
-    for (int map_dy = 0; map_dy < draw_tiles_y; map_dy++)
+    for (int map_dy = 0; map_dy < draw_tiles_y; ++map_dy)
     {
         int scr_x = 0;
-        for (int map_dx = 0; map_dx < draw_tiles_x; map_dx++)
+        for (int map_dx = 0; map_dx < draw_tiles_x; ++map_dx)
         {
             struct Map* mapblk = get_map_block_at(stl_x + map_dx, stl_y + map_dy);
             if (map_block_revealed(mapblk, plyr_idx))

@@ -73,7 +73,7 @@ long good_find_enemy_dungeon(struct Thing *thing)
         cctrl->byte_8B = 0;
         // Try accessing dungeon heart of undefeated enemy players
         long i;
-        for (i = 0; i < PLAYERS_COUNT; i++)
+        for (i = 0; i < PLAYERS_COUNT; ++i)
         {
             if (player_is_friendly_or_defeated(i, thing->owner)) {
                 continue;
@@ -85,7 +85,7 @@ long good_find_enemy_dungeon(struct Thing *thing)
             }
         }
         // Try accessing any room of any non allied players
-        for (i = 0; i < PLAYERS_COUNT; i++)
+        for (i = 0; i < PLAYERS_COUNT; ++i)
         {
             if (!players_are_enemies(thing->owner, i)) {
                 continue;
@@ -395,7 +395,7 @@ short good_attack_room(struct Thing *thing)
     }
     // Otherwise, search around for a tile to destroy
     long m = ACTION_RANDOM(SMALL_AROUND_SLAB_LENGTH);
-    for (long n = 0; n < SMALL_AROUND_SLAB_LENGTH; n++)
+    for (long n = 0; n < SMALL_AROUND_SLAB_LENGTH; ++n)
     {
         MapSlabCoord slb_x = base_slb_x + (long)small_around[m].delta_x;
         MapSlabCoord slb_y = base_slb_y + (long)small_around[m].delta_y;
@@ -430,7 +430,7 @@ short good_back_at_start(struct Thing *thing)
     }
     SubtlCodedCoords stl_num = get_subtile_number(thing->mappos.x.stl.num, thing->mappos.y.stl.num);
     long m = ACTION_RANDOM(AROUND_MAP_LENGTH);
-    for (long n = 0; n < AROUND_MAP_LENGTH; n++)
+    for (long n = 0; n < AROUND_MAP_LENGTH; ++n)
     {
         struct Map* mapblk = get_map_block_at_pos(stl_num + around_map[m]);
         // Per-block code
@@ -861,7 +861,7 @@ long get_best_dungeon_to_tunnel_to(struct Thing *creatng)
     //return _DK_get_best_dungeon_to_tunnel_to(creatng);
     PlayerNumber best_plyr_idx = -1;
     long best_score = LONG_MIN;
-    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         struct PlayerInfo* player = get_player(plyr_idx);
         struct Dungeon* dungeon = get_players_dungeon(player);

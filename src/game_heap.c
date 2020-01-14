@@ -92,9 +92,9 @@ TbBool setup_heap_manager(void)
         ERRORLOG("Can not open JTY file, \"%s\"",fname);
         return false;
     }
-    for (i=0; i < KEEPSPRITE_LENGTH; i++)
+    for (i=0; i < KEEPSPRITE_LENGTH; ++i)
         keepsprite[i] = NULL;
-    for (i=0; i < KEEPSPRITE_LENGTH; i++)
+    for (i=0; i < KEEPSPRITE_LENGTH; ++i)
         heap_handle[i] = NULL;
     return true;
 }
@@ -147,9 +147,9 @@ void reset_heap_manager(void)
         _DK_LbFileClose(file_handle);
         file_handle = -1;
     }
-    for (i=0; i < KEEPSPRITE_LENGTH; i++)
+    for (i=0; i < KEEPSPRITE_LENGTH; ++i)
         keepsprite[i] = NULL;
-    for (i=0; i < KEEPSPRITE_LENGTH; i++)
+    for (i=0; i < KEEPSPRITE_LENGTH; ++i)
         heap_handle[i] = NULL;
 }
 

@@ -46,7 +46,7 @@ DLLIMPORT void _DK_light_signal_update_in_area(long sx, long sy, long ex, long e
 /******************************************************************************/
 struct Light *light_allocate_light(void)
 {
-    for (long i = 1; i < LIGHTS_COUNT; i++)
+    for (long i = 1; i < LIGHTS_COUNT; ++i)
     {
         struct Light* lgt = &game.lish.lights[i];
         if ((lgt->flags & LgtF_Allocated) == 0)
@@ -75,7 +75,7 @@ TbBool light_is_invalid(const struct Light *lgt)
 
 struct ShadowCache *light_allocate_shadow_cache(void)
 {
-    for (long i = 1; i < SHADOW_CACHE_COUNT; i++)
+    for (long i = 1; i < SHADOW_CACHE_COUNT; ++i)
     {
         struct ShadowCache* shdc = &game.lish.shadow_cache[i];
         if ((shdc->flags & ShCF_Allocated) == 0)
@@ -223,7 +223,7 @@ TbBool lights_stats_debug_dump(void)
     long lgh_things[THING_CLASSES_COUNT];
     long shadowcs[SHADOW_CACHE_COUNT];
     long i;
-    for (i=0; i < SHADOW_CACHE_COUNT; i++)
+    for (i=0; i < SHADOW_CACHE_COUNT; ++i)
     {
         struct ShadowCache* shdc = &game.lish.shadow_cache[i];
         if ((shdc->flags & ShCF_Allocated) != 0)
@@ -233,7 +233,7 @@ TbBool lights_stats_debug_dump(void)
     }
     long lgh_sttc = 0;
     long lgh_dynm = 0;
-    for (i=0; i < LIGHTS_COUNT; i++)
+    for (i=0; i < LIGHTS_COUNT; ++i)
     {
         struct Light* lgt = &game.lish.lights[i];
         if ((lgt->flags & LgtF_Allocated) != 0)
@@ -262,7 +262,7 @@ TbBool lights_stats_debug_dump(void)
             lights[i] = 0;
         }
     }
-    for (i=1; i < THINGS_COUNT; i++)
+    for (i=1; i < THINGS_COUNT; ++i)
     {
         struct Thing* thing = thing_get(i);
         if (thing_exists(thing))
@@ -284,9 +284,9 @@ TbBool lights_stats_debug_dump(void)
     }
     long lgh_used = 0;
     long lgh_free = 0;
-    for (i=0; i < THING_CLASSES_COUNT; i++)
+    for (i=0; i < THING_CLASSES_COUNT; ++i)
         lgh_things[i] = 0;
-    for (i=0; i < LIGHTS_COUNT; i++)
+    for (i=0; i < LIGHTS_COUNT; ++i)
     {
         if (lights[i] != 0)
         {
@@ -301,7 +301,7 @@ TbBool lights_stats_debug_dump(void)
     long shdc_free = 0;
     long shdc_used = 0;
     long shdc_linked = 0;
-    for (i=0; i < SHADOW_CACHE_COUNT; i++)
+    for (i=0; i < SHADOW_CACHE_COUNT; ++i)
     {
         if (shadowcs[i] != 0)
         {
@@ -460,9 +460,9 @@ void clear_stat_light_map(void)
     game.lish.field_46149 = 32;
     game.lish.field_4614D = 0;
     game.lish.field_4614F = 0;
-    for (unsigned long y = 0; y < (map_subtiles_y + 1); y++)
+    for (unsigned long y = 0; y < (map_subtiles_y + 1); ++y)
     {
-        for (unsigned long x = 0; x < (map_subtiles_x + 1); x++)
+        for (unsigned long x = 0; x < (map_subtiles_x + 1); ++x)
         {
             unsigned long i = get_subtile_number(x, y);
             game.lish.stat_light_map[i] = 0;
@@ -507,7 +507,7 @@ void light_initialise_lighting_tables(void)
 void light_initialise(void)
 {
     int i;
-    for (i=0; i < LIGHTS_COUNT; i++)
+    for (i=0; i < LIGHTS_COUNT; ++i)
     {
         struct Light* lgt = &game.lish.lights[i];
         if ((lgt->flags & LgtF_Allocated) != 0)
@@ -516,7 +516,7 @@ void light_initialise(void)
     if (!game.lish.field_4614E)
     {
         light_initialise_lighting_tables();
-        for (i=0; i < 32; i++) {
+        for (i=0; i < 32; ++i) {
             light_bitmask[i] = 1 << (31-i);
         }
         game.lish.field_4614E = 1;

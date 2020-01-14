@@ -156,7 +156,7 @@ TbBool parse_effects_effect_blocks(char *buf, long len, const char *config_textn
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(effects_conf.effect_cfgstats)/sizeof(effects_conf.effect_cfgstats[0]);
-      for (i=0; i < arr_size; i++)
+      for (i=0; i < arr_size; ++i)
       {
           effcst = &effects_conf.effect_cfgstats[i];
           LbMemorySet(effcst->code_name, 0, COMMAND_WORD_LEN);
@@ -177,7 +177,7 @@ TbBool parse_effects_effect_blocks(char *buf, long len, const char *config_textn
   }
   // Parse every numbered block within range
   arr_size = effects_conf.effect_types_count;
-  for (i=0; i < arr_size; i++)
+  for (i=0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "effect%d", i);

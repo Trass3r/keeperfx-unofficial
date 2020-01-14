@@ -60,9 +60,9 @@ void compute_fade_tables(struct TbColorTables *coltbl,unsigned char *spal,unsign
     SYNCMSG("Recomputing fade tables");
     // Intense fade to/from black - slower fade near black
     unsigned char* dst = coltbl->fade_tables;
-    for (i=0; i < 32; i++)
+    for (i=0; i < 32; ++i)
     {
-      for (k=0; k < 256; k++)
+      for (k=0; k < 256; ++k)
       {
         r = spal[3*k+0];
         g = spal[3*k+1];
@@ -74,7 +74,7 @@ void compute_fade_tables(struct TbColorTables *coltbl,unsigned char *spal,unsign
     // Intense fade to/from black - faster fade part
     for (i=32; i < 192; i+=3)
     {
-      for (k=0; k < 256; k++)
+      for (k=0; k < 256; ++k)
       {
         r = spal[3*k+0];
         g = spal[3*k+1];
@@ -85,14 +85,14 @@ void compute_fade_tables(struct TbColorTables *coltbl,unsigned char *spal,unsign
     }
     // Other fadings - between all the colors
     dst = coltbl->ghost;
-    for (i=0; i < 256; i++)
+    for (i=0; i < 256; ++i)
     {
       // Reference colors
       unsigned long rr = spal[3 * i + 0];
       unsigned long rg = spal[3 * i + 1];
       unsigned long rb = spal[3 * i + 2];
       // Creating fades
-      for (k=0; k < 256; k++)
+      for (k=0; k < 256; ++k)
       {
         r = dpal[3*k+0];
         g = dpal[3*k+1];
@@ -109,9 +109,9 @@ void compute_alpha_table(unsigned char *alphtbl, unsigned char *spal, unsigned c
     int blendG = 0;
     int blendB = 0;
     // Every color alpha-blended with given values for 8 steps of intensity
-    for (int nrow = 0; nrow < 8; nrow++)
+    for (int nrow = 0; nrow < 8; ++nrow)
     {
-        for (int n = 0; n < 256; n++)
+        for (int n = 0; n < 256; ++n)
         {
             unsigned char* baseCol = &spal[3 * n];
             int valR = blendR + baseCol[0];
@@ -136,7 +136,7 @@ void compute_alpha_tables(struct TbAlphaTables *alphtbls,unsigned char *spal,uns
 {
     SYNCMSG("Recomputing alpha tables");
     {
-        for (int n = 0; n < 256; n++)
+        for (int n = 0; n < 256; ++n)
         {
             alphtbls->black[n] = 144;
         }
@@ -157,11 +157,11 @@ void compute_rgb2idx_table(TbRGBColorTable ctab,unsigned char *spal)
 {
     SYNCMSG("Recomputing rgb-to-index tables");
     int scaler = (1 << 6) / COLOUR_TABLE_DIMENSION;
-    for (int valR = 0; valR < COLOUR_TABLE_DIMENSION; valR++)
+    for (int valR = 0; valR < COLOUR_TABLE_DIMENSION; ++valR)
     {
-        for (int valG = 0; valG < COLOUR_TABLE_DIMENSION; valG++)
+        for (int valG = 0; valG < COLOUR_TABLE_DIMENSION; ++valG)
         {
-            for (int valB = 0; valB < COLOUR_TABLE_DIMENSION; valB++)
+            for (int valB = 0; valB < COLOUR_TABLE_DIMENSION; ++valB)
             {
                 TbPixel c = LbPaletteFindColour(spal, scaler * valR + (scaler-1),
                     scaler * valG + (scaler-1), scaler * valB + (scaler-1));
@@ -183,7 +183,7 @@ void compute_rgb2idx_table(TbRGBColorTable ctab,unsigned char *spal)
 void compute_shifted_palette_table(TbPixel *ocol, const unsigned char *spal, const unsigned char *dpal, int shiftR, int shiftG, int shiftB)
 {
     SYNCMSG("Recomputing palette table");
-    for (int i = 0; i < 256; i++)
+    for (int i = 0; i < 256; ++i)
     {
         int valR = (int)spal[3 * i + 0] + shiftR;
         if (valR >= 63) valR = 63;
@@ -279,7 +279,7 @@ long PaletteFadePlayer(struct PlayerInfo *player)
     i = 120;
   long step = 120 - i;
   // Create the new palette
-  for (i=0; i < PALETTE_COLORS; i++)
+  for (i=0; i < PALETTE_COLORS; ++i)
   {
       unsigned char* src = &player->palette[3 * i];
       unsigned char* dst = &palette[3 * i];

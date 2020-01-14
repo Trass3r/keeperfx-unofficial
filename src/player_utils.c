@@ -334,7 +334,7 @@ long update_dungeon_generation_speeds(void)
     int plyr_idx;
     // Get value of generation
     int max_manage_score = 0;
-    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         struct PlayerInfo* player = get_player(plyr_idx);
         if (player_exists(player) && (player->field_2C == 1))
@@ -345,7 +345,7 @@ long update_dungeon_generation_speeds(void)
         }
     }
     // Update the values
-    for (plyr_idx = 0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         struct PlayerInfo* player = get_player(plyr_idx);
         if (player_exists(player) && (player->field_2C == 1))
@@ -365,7 +365,7 @@ void calculate_dungeon_area_scores(void)
 {
     //_DK_calculate_dungeon_area_scores();
     // Zero dungeon areas
-    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         struct Dungeon* dungeon = get_players_num_dungeon(plyr_idx);
         if (!dungeon_invalid(dungeon))
@@ -375,9 +375,9 @@ void calculate_dungeon_area_scores(void)
         }
     }
     // Compute new values for dungeon areas
-    for (MapSlabCoord slb_y = 0; slb_y < map_tiles_y; slb_y++)
+    for (MapSlabCoord slb_y = 0; slb_y < map_tiles_y; ++slb_y)
     {
-        for (MapSlabCoord slb_x = 0; slb_x < map_tiles_x; slb_x++)
+        for (MapSlabCoord slb_x = 0; slb_x < map_tiles_x; ++slb_x)
         {
             SlabCodedCoords slb_num = get_slab_number(slb_x, slb_y);
             struct SlabMap* slb = get_slabmap_direct(slb_num);
@@ -422,7 +422,7 @@ void init_player_music(struct PlayerInfo *player)
 
 TbBool map_position_has_sibling_slab(MapSlabCoord slb_x, MapSlabCoord slb_y, SlabKind slbkind, PlayerNumber plyr_idx)
 {
-    for (int n = 0; n < SMALL_AROUND_LENGTH; n++)
+    for (int n = 0; n < SMALL_AROUND_LENGTH; ++n)
     {
         int dx = small_around[n].delta_x;
         int dy = small_around[n].delta_y;
@@ -474,9 +474,9 @@ void init_keeper_map_exploration_by_terrain(struct PlayerInfo *player)
     if (thing_exists(heartng)) {
         fill_in_explored_area(player->id_number, heartng->mappos.x.stl.num, heartng->mappos.y.stl.num);
     }
-    for (MapSlabCoord slb_y = 0; slb_y < map_tiles_y; slb_y++)
+    for (MapSlabCoord slb_y = 0; slb_y < map_tiles_y; ++slb_y)
     {
-        for (MapSlabCoord slb_x = 0; slb_x < map_tiles_x; slb_x++)
+        for (MapSlabCoord slb_x = 0; slb_x < map_tiles_x; ++slb_x)
         {
             if (map_position_initially_explored_for_player(player->id_number, slb_x, slb_y)) {
                 set_slab_explored(player->id_number, slb_x, slb_y);
@@ -575,7 +575,7 @@ void init_player(struct PlayerInfo *player, short no_explore)
 
 void init_players(void)
 {
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if ((game.packet_save_head.players_exist & (1 << i)) != 0)
@@ -672,7 +672,7 @@ TbBool store_wander_points_up_to(struct Wander *wandr, const SubtlCodedCoords st
         wandr->point_insert_idx %= WANDER_POINTS_COUNT;
         double delta = ((double)stl_num_count) / max_to_store;
         double realidx = 0.1; // A little above zero to avoid float rounding errors
-        for (i = 0; i < max_to_store; i++)
+        for (i = 0; i < max_to_store; ++i)
         {
             wander_point_add(wandr, stl_num_list[(unsigned int)(realidx)]);
             realidx += delta;
@@ -680,7 +680,7 @@ TbBool store_wander_points_up_to(struct Wander *wandr, const SubtlCodedCoords st
     } else
     {
         // Otherwise, add all points to the wander array
-        for (i = 0; i < stl_num_count; i++)
+        for (i = 0; i < stl_num_count; ++i)
         {
             wander_point_add(wandr, stl_num_list[i]);
         }
@@ -735,7 +735,7 @@ long wander_point_update(struct Wander *wandr)
     // Find up to 20 numbers (starting where we ended last time) and store them in local array
     SlabCodedCoords slb_num = wandr->last_checked_slb_num;
     long stl_num_list_count = 0;
-    for (long i = 0; i < wandr->num_check_per_run; i++)
+    for (long i = 0; i < wandr->num_check_per_run; ++i)
     {
         MapSlabCoord slb_x = slb_num_decode_x(slb_num);
         MapSlabCoord slb_y = slb_num_decode_y(slb_num);
@@ -788,7 +788,7 @@ void post_init_player(struct PlayerInfo *player)
 
 void post_init_players(void)
 {
-    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         struct PlayerInfo* player = get_player(plyr_idx);
         if ((player->allocflags & PlaF_Allocated) != 0) {
@@ -813,7 +813,7 @@ void init_players_local_game(void)
 void process_player_states(void)
 {
     SYNCDBG(6,"Starting");
-    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; plyr_idx++)
+    for (PlayerNumber plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         struct PlayerInfo* player = get_player(plyr_idx);
         if (player_exists(player) && ((player->allocflags & PlaF_CompCtrl) == 0))
@@ -836,7 +836,7 @@ void process_players(void)
     SYNCDBG(5,"Starting");
     process_player_instances();
     process_player_states();
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if (player_exists(player) && (player->field_2C == 1))

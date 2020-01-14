@@ -125,7 +125,7 @@ void gui_save_game(struct GuiButton *gbtn)
 void update_loadsave_input_strings(struct CatalogueEntry *game_catalg)
 {
     SYNCDBG(6,"Starting");
-    for (long slot_num = 0; slot_num < TOTAL_SAVE_SLOTS_COUNT; slot_num++)
+    for (long slot_num = 0; slot_num < TOTAL_SAVE_SLOTS_COUNT; ++slot_num)
     {
         struct CatalogueEntry* centry = &game_catalg[slot_num];
         const char* text;

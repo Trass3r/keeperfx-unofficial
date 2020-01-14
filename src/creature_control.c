@@ -119,7 +119,7 @@ TbBool creature_control_exists_in_thing(const struct Thing *thing)
 
 long i_can_allocate_free_control_structure(void)
 {
-    for (long i = 1; i < CREATURES_COUNT; i++)
+    for (long i = 1; i < CREATURES_COUNT; ++i)
     {
         struct CreatureControl* cctrl = game.persons.cctrl_lookup[i];
         if (!creature_control_invalid(cctrl))
@@ -133,7 +133,7 @@ long i_can_allocate_free_control_structure(void)
 
 struct CreatureControl *allocate_free_control_structure(void)
 {
-    for (long i = 1; i < CREATURES_COUNT; i++)
+    for (long i = 1; i < CREATURES_COUNT; ++i)
     {
         struct CreatureControl* cctrl = game.persons.cctrl_lookup[i];
         if (!creature_control_invalid(cctrl))
@@ -157,7 +157,7 @@ void delete_control_structure(struct CreatureControl *cctrl)
 
 void delete_all_control_structures(void)
 {
-    for (long i = 1; i < CREATURES_COUNT; i++)
+    for (long i = 1; i < CREATURES_COUNT; ++i)
     {
         struct CreatureControl* cctrl = creature_control_get(i);
         if (!creature_control_invalid(cctrl))
@@ -297,7 +297,7 @@ struct CreatureSound *get_creature_sound(struct Thing *thing, long snd_idx)
 TbBool playing_creature_sound(struct Thing *thing, long snd_idx)
 {
     struct CreatureSound* crsound = get_creature_sound(thing, snd_idx);
-    for (long i = 0; i < crsound->count; i++)
+    for (long i = 0; i < crsound->count; ++i)
     {
         if (S3DEmitterIsPlayingSample(thing->snd_emitter_id, crsound->index+i, 0))
           return true;
@@ -313,7 +313,7 @@ void stop_creature_sound(struct Thing *thing, long snd_idx)
         return;
     }
 
-    for (int i = 0; i < crsound->count; i++)
+    for (int i = 0; i < crsound->count; ++i)
     {
         if (S3DEmitterIsPlayingSample(thing->snd_emitter_id, crsound->index+i, 0))
         {

@@ -92,7 +92,7 @@ void init_spiral_steps(void)
     sstep->both = (short)y + ((short)x << 8);
     y = -1;
     x = -1;
-    for (long i = 1; i < SPIRAL_STEPS_COUNT; i++)
+    for (long i = 1; i < SPIRAL_STEPS_COUNT; ++i)
     {
       sstep = &spiral_step[i];
       sstep->h = y;
@@ -149,9 +149,9 @@ void get_min_floor_and_ceiling_heights_for_rect(MapSubtlCoord stl_x_beg, MapSubt
     *floor_height = 0;
     *ceiling_height = 15;
     // Sweep through subtiles and select highest floor and lowest ceiling
-    for (MapSubtlCoord stl_y = stl_y_beg; stl_y <= stl_y_end; stl_y++)
+    for (MapSubtlCoord stl_y = stl_y_beg; stl_y <= stl_y_end; ++stl_y)
     {
-        for (MapSubtlCoord stl_x = stl_x_beg; stl_x <= stl_x_end; stl_x++)
+        for (MapSubtlCoord stl_x = stl_x_beg; stl_x <= stl_x_end; ++stl_x)
         {
             update_floor_and_ceiling_heights_at(stl_x, stl_y,
                 floor_height, ceiling_height);
@@ -216,7 +216,7 @@ TbBool get_position_spiral_near_map_block_with_filter(struct Coord3d *retpos, Ma
 {
     SYNCDBG(19,"Starting");
     long maximizer = 0;
-    for (int around = 0; around < spiral_len; around++)
+    for (int around = 0; around < spiral_len; ++around)
     {
         struct MapOffset* sstep = &spiral_step[around];
         MapSubtlCoord sx = coord_subtile(x) + (MapSubtlCoord)sstep->h;
@@ -247,12 +247,12 @@ TbBool get_position_spiral_near_map_block_with_filter(struct Coord3d *retpos, Ma
 long slabs_count_near(MapSlabCoord tx, MapSlabCoord ty, long rad, SlabKind slbkind)
 {
     long count = 0;
-    for (long dy = -rad; dy <= rad; dy++)
+    for (long dy = -rad; dy <= rad; ++dy)
     {
         long y = ty + dy;
         if ((y < 0) || (y >= map_tiles_y))
             continue;
-        for (long dx = -rad; dx <= rad; dx++)
+        for (long dx = -rad; dx <= rad; ++dx)
         {
             long x = tx + dx;
             if ((x < 0) || (x >= map_tiles_x))
@@ -281,7 +281,7 @@ long pos_move_in_direction_to_last_allowing_drop(struct Coord3d *mvpos, unsigned
     MapSubtlCoord prev_stl_y = stl_y;
     int i;
     // If we're on room, move to non-room tile
-    for (i = 0; i < slabs_dist; i++)
+    for (i = 0; i < slabs_dist; ++i)
     {
         if (!can_drop_thing_here(stl_x, stl_y, plyr_idx, 1)) {
             break;
@@ -317,7 +317,7 @@ long pos_move_in_direction_to_outside_player_room(struct Coord3d *mvpos, unsigne
     struct SlabMap* slb = get_slabmap_for_subtile(stl_x, stl_y);
     struct SlabAttr* slbattr = get_slab_attrs(slb);
     // If we're on room, move to non-room tile
-    for (i = 0; i < slabs_dist; i++)
+    for (i = 0; i < slabs_dist; ++i)
     {
         if (((slbattr->block_flags & SlbAtFlg_IsRoom) == 0) || (slabmap_owner(slb) != plyr_idx)) {
             break;
@@ -378,7 +378,7 @@ long pos_move_in_direction_to_blocking_wall_or_lava(struct Coord3d *mvpos, unsig
     MapSubtlCoord stl_y = mvpos->y.stl.num;
     int i;
     // If we're on room, move to non-room tile
-    for (i = 0; i < slabs_dist; i++)
+    for (i = 0; i < slabs_dist; ++i)
     {
         if (subtile_is_blocking_wall_or_lava(stl_x, stl_y, plyr_idx)) {
             break;
@@ -404,7 +404,7 @@ long pos_move_in_direction_to_unowned_filled_or_water(struct Coord3d *mvpos, uns
     struct SlabMap* slb = get_slabmap_for_subtile(stl_x, stl_y);
     struct SlabAttr* slbattr = get_slab_attrs(slb);
     // If we're on room, move to non-room tile
-    for (i = 0; i < slabs_dist; i++)
+    for (i = 0; i < slabs_dist; ++i)
     {
         struct Map* mapblk = get_map_block_at(stl_x, stl_y);
         if ((!slbattr->is_diggable) || (slb->kind == SlbT_GEMS) || (((mapblk->flags & SlbAtFlg_Filled) != 0) && (slabmap_owner(slb) != plyr_idx)) || (slb->kind == SlbT_WATER))

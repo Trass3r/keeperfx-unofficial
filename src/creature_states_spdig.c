@@ -351,7 +351,7 @@ long slab_is_my_door(long plyr_idx, long slb_x, long slb_y)
 
 long check_out_place_for_convert_behind_door(struct Thing *thing, MapSlabCoord slb_x, MapSlabCoord slb_y)
 {
-    for (int n = 0; n < SMALL_AROUND_LENGTH; n++)
+    for (int n = 0; n < SMALL_AROUND_LENGTH; ++n)
     {
         MapSlabCoord sslb_x = slb_x + small_around[n].delta_x;
         MapSlabCoord sslb_y = slb_y + small_around[n].delta_y;
@@ -574,7 +574,7 @@ long check_out_unreinforced_drop_place(struct Thing *thing)
     stl_y = thing->mappos.y.stl.num;
     cctrl = creature_control_get_from_thing(thing);
     n = reinforce_edges[STL_PER_SLB * (stl_y % STL_PER_SLB) + (stl_x % STL_PER_SLB)];
-    for (i=0; i < SMALL_AROUND_LENGTH; i++)
+    for (i=0; i < SMALL_AROUND_LENGTH; ++i)
     {
         slb_x = subtile_slab_fast(stl_x) + (long)small_around[n].delta_x;
         slb_y = subtile_slab_fast(stl_y) + (long)small_around[n].delta_y;

@@ -155,7 +155,7 @@ long destroy_door(struct Thing *doortng)
     struct SlabMap* slb = get_slabmap_block(slb_x, slb_y);
     place_slab_type_on_map(SlbT_CLAIMED, stl_x, stl_y, slabmap_owner(slb), 0);
     do_slab_efficiency_alteration(slb_x, slb_y);
-    for (int i = 0; i < PLAYERS_COUNT; i++)
+    for (int i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo* player = get_player(i);
         if (!player_exists(player))
@@ -194,7 +194,7 @@ TbBool thing_is_deployed_door(const struct Thing *thing)
 TbBool door_can_stand(struct Thing *thing)
 {
     unsigned int wall_flags = 0;
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; ++i)
     {
         wall_flags *= 2;
         long slb_x = subtile_slab_fast(thing->mappos.x.stl.num) + (int)small_around[i].delta_x;
