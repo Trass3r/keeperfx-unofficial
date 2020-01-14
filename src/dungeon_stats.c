@@ -226,7 +226,7 @@ TbBool update_dungeon_scores_for_player(struct PlayerInfo *player)
     {
         // Compute amount of different types of rooms built
         unsigned long room_types = 0;
-        for (i=0; i < ROOM_TYPES_COUNT; ++i)
+        for (i = 0; i < ROOM_TYPES_COUNT; ++i)
         {
             if (dungeon->room_slabs_count[i] > 0)
                 room_types++;

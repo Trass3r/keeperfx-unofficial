@@ -178,7 +178,7 @@ TbScreenMode get_next_vidmode(TbScreenMode mode)
   // Do not allow to enter higher modes on low memory systems
   if ((features_enabled & Ft_HiResVideo) == 0)
     return failsafe_vidmode;
-  for (i=0;i<maxmodes;++i)
+  for (i = 0; i < maxmodes; ++i)
   {
     if (switching_vidmodes[i]==mode) break;
   }

@@ -1605,14 +1605,14 @@ void process_quit_packet(struct PlayerInfo *player, short complete_quit)
         exit_keeper = 1;
       if (frontend_should_all_players_quit())
       {
-        for (int i=0; i < PLAYERS_COUNT; ++i)
-        {
-          swplyr = get_player(i);
-          if (player_exists(swplyr))
+          for (int i = 0; i < PLAYERS_COUNT; ++i)
           {
-            swplyr->allocflags &= ~PlaF_Allocated;
-            swplyr->flgfield_6 |= PlaF6_PlyrHasQuit;
-          }
+              swplyr = get_player(i);
+              if (player_exists(swplyr))
+              {
+                  swplyr->allocflags &= ~PlaF_Allocated;
+                  swplyr->flgfield_6 |= PlaF6_PlyrHasQuit;
+              }
         }
       } else
       {
@@ -2454,7 +2454,7 @@ void process_packets(void)
   write_debug_packets();
 #endif
   // Process the packets
-  for (i=0; i<PACKETS_COUNT; ++i)
+  for (i = 0; i < PACKETS_COUNT; ++i)
   {
     player = get_player(i);
     if (player_exists(player) && ((player->allocflags & PlaF_CompCtrl) == 0))
@@ -2474,7 +2474,7 @@ void process_packets(void)
 void process_frontend_packets(void)
 {
   long i;
-  for (i=0; i < NET_PLAYERS_COUNT; ++i)
+  for (i = 0; i < NET_PLAYERS_COUNT; ++i)
   {
     net_screen_packet[i].field_4 &= ~0x01;
   }
@@ -2525,7 +2525,7 @@ void process_frontend_packets(void)
 #if DEBUG_NETWORK_PACKETS
   write_debug_screenpackets();
 #endif
-  for (i=0; i < NET_PLAYERS_COUNT; ++i)
+  for (i = 0; i < NET_PLAYERS_COUNT; ++i)
   {
     nspckt = &net_screen_packet[i];
     struct PlayerInfo* player = get_player(i);
@@ -2613,7 +2613,7 @@ void process_frontend_packets(void)
   }
   if (frontend_alliances == -1)
     frontend_alliances = 0;
-  for (i=0; i < NET_PLAYERS_COUNT; ++i)
+  for (i = 0; i < NET_PLAYERS_COUNT; ++i)
   {
     nspckt = &net_screen_packet[i];
     if ((nspckt->field_4 & 0x01) == 0)

@@ -649,7 +649,7 @@ void process_spells_affected_by_effect_elements(struct Thing *thing)
         else
             pos.z.val = thing->mappos.z.val + cor_z_max / vrange * (vrange - dturn % vrange);
         int radius = diamtr / 2;
-        for (i=0; i < 16; ++i)
+        for (i = 0; i < 16; ++i)
         {
             angle = (abs(i) & 0xF) << 7;
             shift_x =  (radius * LbSinL(angle) >> 8) >> 8;
@@ -1022,7 +1022,7 @@ void effect_generate_effect_elements(const struct Thing *thing)
     {
         long k = 0;
         struct Coord3d pos;
-        for (long i=0; i < effnfo->field_B; ++i)
+        for (long i = 0; i < effnfo->field_B; ++i)
         {
             long n = effnfo->kind_min + ACTION_RANDOM(effnfo->kind_max - effnfo->kind_min + 1);
             long mag = effnfo->start_health - thing->health;
@@ -1039,7 +1039,7 @@ void effect_generate_effect_elements(const struct Thing *thing)
     {
         long k = 0;
         struct Coord3d pos;
-        for (long i=0; i < effnfo->field_B; ++i)
+        for (long i = 0; i < effnfo->field_B; ++i)
         {
             long n = effnfo->kind_min + ACTION_RANDOM(effnfo->kind_max - effnfo->kind_min + 1);
             long mag = thing->health;

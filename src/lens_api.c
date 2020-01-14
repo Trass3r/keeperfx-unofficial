@@ -59,7 +59,7 @@ void init_lens(unsigned long *lens_mem, int width, int height, int pitch, int nl
     {
     case 0:
         mem = lens_mem;
-        for (h=0; h < height; ++h)
+        for (h = 0; h < height; ++h)
         {
             for (w = 0; w < width; ++w)
             {
@@ -78,7 +78,7 @@ void init_lens(unsigned long *lens_mem, int width, int height, int pitch, int nl
         center_w = flwidth * 0.5;
         flpos_h = -center_h;
         mem = lens_mem;
-        for (h=0; h < height; ++h)
+        for (h = 0; h < height; ++h)
         {
             flpos_w = -center_w;
             for (w = 0; w < width; ++w)

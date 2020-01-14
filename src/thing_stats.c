@@ -154,7 +154,8 @@ TbBool things_stats_debug_dump(void)
     int count[THING_CLASSES_COUNT];
     int realcnt[THING_CLASSES_COUNT];
     int i;
-    for (i=0; i < THING_CLASSES_COUNT; ++i) {
+    for (i = 0; i < THING_CLASSES_COUNT; ++i)
+    {
         count[i] = 0;
         realcnt[i] = 0;
     }
@@ -170,7 +171,8 @@ TbBool things_stats_debug_dump(void)
     count[TCls_AmbientSnd] = game.thing_lists[TngList_AmbientSnds].count;
     count[TCls_CaveIn] = game.thing_lists[TngList_CaveIns].count;
     int total = 0;
-    for (i=0; i < THING_CLASSES_COUNT; ++i) {
+    for (i = 0; i < THING_CLASSES_COUNT; ++i)
+    {
         total += count[i];
     }
     JUSTMSG("Check things: Creats%d, Objs%d, Bods%d, Trps%d, Drs%d, Shts%d, Effs%d, EffEls%d Othrs%d Total%d",
@@ -185,7 +187,8 @@ TbBool things_stats_debug_dump(void)
         count[TCls_EffectGen] +  count[TCls_AmbientSnd] + count[TCls_CaveIn],
         total
         );
-    for (i=1; i < THINGS_COUNT; ++i) {
+    for (i = 1; i < THINGS_COUNT; ++i)
+    {
         struct Thing* thing = thing_get(i);
         if (thing_exists(thing)) {
             realcnt[thing->class_id]++;
@@ -193,7 +196,8 @@ TbBool things_stats_debug_dump(void)
     }
     int rltotal = 0;
     int rldiffers = 0;
-    for (i=0; i < THING_CLASSES_COUNT; ++i) {
+    for (i = 0; i < THING_CLASSES_COUNT; ++i)
+    {
         rltotal += realcnt[i];
         if (realcnt[i] != count[i])
             rldiffers++;

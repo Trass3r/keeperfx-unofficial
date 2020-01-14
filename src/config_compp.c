@@ -224,7 +224,7 @@ short init_computer_process_lists(void)
 {
   struct ComputerProcessTypes *cpt;
   int i;
-  for (i=0; i<COMPUTER_MODELS_COUNT; ++i)
+  for (i = 0; i < COMPUTER_MODELS_COUNT; ++i)
   {
     cpt = &ComputerProcessLists[i];
     LbMemorySet(cpt, 0, sizeof(struct ComputerProcessTypes));
@@ -232,7 +232,7 @@ short init_computer_process_lists(void)
   }
   // Changing this to not subtract 1. This is possibly the bug for the highest computer model assignment
   // not appropriately being applied.
-  for (i=0; i<COMPUTER_MODELS_COUNT; ++i)
+  for (i = 0; i < COMPUTER_MODELS_COUNT; ++i)
   {
     cpt = &ComputerProcessLists[i];
     cpt->name = ComputerProcessListsNames[i];
@@ -563,7 +563,7 @@ short parse_computer_player_check_blocks(char *buf, long len, const char *config
     // Block name and parameter word store variables
     // Initialize the checks array
     const int arr_size = sizeof(computer_check_config_list)/sizeof(computer_check_config_list[0]);
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
       ccheck = &computer_checks[i];
       computer_check_config_list[i].name[0] = '\0';
@@ -573,7 +573,7 @@ short parse_computer_player_check_blocks(char *buf, long len, const char *config
     }
     strcpy(computer_check_names[0],"INCORRECT CHECK");
     // Load the file
-    for (i=1; i < arr_size; ++i)
+    for (i = 1; i < arr_size; ++i)
     {
         char block_buf[32];
         sprintf(block_buf, "check%d", i);
@@ -704,7 +704,7 @@ short parse_computer_player_event_blocks(char *buf, long len, const char *config
     // Block name and parameter word store variables
     // Initialize the events array
     const int arr_size = (int)(sizeof(computer_event_config_list)/sizeof(computer_event_config_list[0]));
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
       cevent = &computer_events[i];
       computer_event_config_list[i].name[0] = '\0';
@@ -714,7 +714,7 @@ short parse_computer_player_event_blocks(char *buf, long len, const char *config
     }
     strcpy(computer_event_names[0],"INCORRECT EVENT");
     // Load the file
-    for (i=1; i < arr_size; ++i)
+    for (i = 1; i < arr_size; ++i)
     {
         char block_buf[32];
         sprintf(block_buf, "event%d", i);

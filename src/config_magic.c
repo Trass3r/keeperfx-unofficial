@@ -436,7 +436,7 @@ TbBool parse_magic_spell_blocks(char *buf, long len, const char *config_textname
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(magic_conf.spell_cfgstats)/sizeof(magic_conf.spell_cfgstats[0]);
-      for (i=0; i < arr_size; ++i)
+      for (i = 0; i < arr_size; ++i)
       {
           spellst = get_spell_model_stats(i);
           LbMemorySet(spellst->code_name, 0, COMMAND_WORD_LEN);
@@ -451,7 +451,7 @@ TbBool parse_magic_spell_blocks(char *buf, long len, const char *config_textname
           }
       }
       arr_size = magic_conf.spell_types_count;
-      for (i=0; i < arr_size; ++i)
+      for (i = 0; i < arr_size; ++i)
       {
           splconf = &game.spells_config[i];
           splconf->duration = 0;
@@ -467,7 +467,7 @@ TbBool parse_magic_spell_blocks(char *buf, long len, const char *config_textname
   }
   // Load the file
   arr_size = magic_conf.spell_types_count;
-  for (i=0; i < arr_size; ++i)
+  for (i = 0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "spell%d", i);
@@ -639,7 +639,7 @@ TbBool parse_magic_shot_blocks(char *buf, long len, const char *config_textname,
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(magic_conf.shot_cfgstats)/sizeof(magic_conf.shot_cfgstats[0]);
-      for (i=0; i < arr_size; ++i)
+      for (i = 0; i < arr_size; ++i)
       {
           shotst = get_shot_model_stats(i);
           LbMemorySet(shotst->code_name, 0, COMMAND_WORD_LEN);
@@ -666,7 +666,7 @@ TbBool parse_magic_shot_blocks(char *buf, long len, const char *config_textname,
   }
   // Load the file
   arr_size = magic_conf.shot_types_count;
-  for (i=0; i < arr_size; ++i)
+  for (i = 0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "shot%d", i);
@@ -867,7 +867,7 @@ TbBool parse_magic_power_blocks(char *buf, long len, const char *config_textname
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(magic_conf.power_cfgstats)/sizeof(magic_conf.power_cfgstats[0]);
-      for (i=0; i < arr_size; ++i)
+      for (i = 0; i < arr_size; ++i)
       {
           powerst = get_power_model_stats(i);
           LbMemorySet(powerst->code_name, 0, COMMAND_WORD_LEN);
@@ -895,13 +895,14 @@ TbBool parse_magic_power_blocks(char *buf, long len, const char *config_textname
           }
       }
       arr_size = sizeof(object_conf.object_to_power_artifact)/sizeof(object_conf.object_to_power_artifact[0]);
-      for (i=0; i < arr_size; ++i) {
+      for (i = 0; i < arr_size; ++i)
+      {
           object_conf.object_to_power_artifact[i] = 0;
       }
   }
   arr_size = magic_conf.power_types_count;
   // Load the file
-  for (i=0; i < arr_size; ++i)
+  for (i = 0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "power%d", i);
@@ -1240,7 +1241,7 @@ TbBool parse_magic_special_blocks(char *buf, long len, const char *config_textna
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(magic_conf.special_cfgstats)/sizeof(magic_conf.special_cfgstats[0]);
-      for (i=0; i < arr_size; ++i)
+      for (i = 0; i < arr_size; ++i)
       {
           specst = get_special_model_stats(i);
           LbMemorySet(specst->code_name, 0, COMMAND_WORD_LEN);
@@ -1257,13 +1258,14 @@ TbBool parse_magic_special_blocks(char *buf, long len, const char *config_textna
           }
       }
       arr_size = sizeof(object_conf.object_to_special_artifact)/sizeof(object_conf.object_to_special_artifact[0]);
-      for (i=0; i < arr_size; ++i) {
+      for (i = 0; i < arr_size; ++i)
+      {
           object_conf.object_to_special_artifact[i] = 0;
       }
   }
   arr_size = magic_conf.special_types_count;
   // Load the file
-  for (i=0; i < arr_size; ++i)
+  for (i = 0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "special%d", i);

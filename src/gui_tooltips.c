@@ -453,7 +453,7 @@ void draw_tooltip_slab64k(char *tttext, long pos_x, long pos_y, long ttwidth, lo
 long find_string_length_to_first_character(char *str, char fch)
 {
   long i;
-  for (i=0; str[i] != '\0'; ++i)
+  for (i = 0; str[i] != '\0'; ++i)
   {
     if (str[i] == fch)
       break;

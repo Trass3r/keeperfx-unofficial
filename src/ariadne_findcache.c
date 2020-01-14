@@ -73,9 +73,9 @@ long triangle_brute_find8_near(long pos_x, long pos_y)
             return tri_id;
     }
     // Try any in cache
-    for (cy=0; cy < 4; ++cy)
+    for (cy = 0; cy < 4; ++cy)
     {
-        for (cx=0; cx < 4; ++cx)
+        for (cx = 0; cx < 4; ++cx)
         {
             tri_id = find_cache[cy][cx];
             if (get_triangle_tree_alt(tri_id) != -1)

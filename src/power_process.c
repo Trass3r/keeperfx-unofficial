@@ -124,7 +124,7 @@ void process_armageddon(void)
     } else
     if (game.armageddon.count_down+game.armageddon_cast_turn == game.play_gameturn)
     {
-        for (i=0; i < PLAYERS_COUNT; ++i)
+        for (i = 0; i < PLAYERS_COUNT; ++i)
         {
             player = get_player(i);
             if (player_exists(player))
@@ -136,7 +136,7 @@ void process_armageddon(void)
     } else
     if (game.armageddon.count_down+game.armageddon_cast_turn < game.play_gameturn)
     {
-        for (i=0; i < PLAYERS_COUNT; ++i)
+        for (i = 0; i < PLAYERS_COUNT; ++i)
         {
             player = get_player(i);
             if ( (player_exists(player)) && (player->field_2C == 1) )
@@ -494,7 +494,7 @@ void update_vertical_explored_flags_for_power_sight(struct PlayerInfo *player, s
                     {
                         delta = boundstl_x - stl_x + 1;
                         long slb_y = subtile_slab_fast(stl_y);
-                        for (i=0; i < delta; ++i)
+                        for (i = 0; i < delta; ++i)
                         {
                             struct Map* mapblk = get_map_block_at(stl_x + i, stl_y);
                             reveal_map_block(mapblk, player->id_number);
@@ -586,7 +586,7 @@ void update_horizonal_explored_flags_for_power_sight(struct PlayerInfo *player, 
                     {
                       delta = boundstl_y - stl_y + 1;
                       long slb_x = subtile_slab_fast(stl_x);
-                      for (i=0; i < delta; ++i)
+                      for (i = 0; i < delta; ++i)
                       {
                           long slb_y = subtile_slab_fast(stl_y + i);
                           struct Map* mapblk = get_map_block_at(stl_x, stl_y + i);

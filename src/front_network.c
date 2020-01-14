@@ -406,9 +406,9 @@ void frontnet_rewite_net_messages(void)
     struct NetMessage lmsg[NET_MESSAGES_COUNT];
     long k = 0;
     long i = net_number_of_messages;
-    for (i=0; i < NET_MESSAGES_COUNT; ++i)
-      LbMemorySet(&lmsg[i], 0, sizeof(struct NetMessage));
-    for (i=0; i < net_number_of_messages; ++i)
+    for (i = 0; i < NET_MESSAGES_COUNT; ++i)
+        LbMemorySet(&lmsg[i], 0, sizeof(struct NetMessage));
+    for (i = 0; i < net_number_of_messages; ++i)
     {
         struct NetMessage* nmsg = &net_message[i];
         if (network_player_active(nmsg->plyr_idx))
@@ -418,8 +418,8 @@ void frontnet_rewite_net_messages(void)
       }
     }
     net_number_of_messages = k;
-    for (i=0; i < NET_MESSAGES_COUNT; ++i)
-      memcpy(&net_message[i], &lmsg[i], sizeof(struct NetMessage));
+    for (i = 0; i < NET_MESSAGES_COUNT; ++i)
+        memcpy(&net_message[i], &lmsg[i], sizeof(struct NetMessage));
 }
 
 void frontnet_start_update(void)

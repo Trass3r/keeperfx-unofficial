@@ -132,7 +132,7 @@ TbBool parse_cubes_cube_blocks(char *buf, long len, const char *config_textname,
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(cube_conf.cube_cfgstats)/sizeof(cube_conf.cube_cfgstats[0]);
-        for (i=0; i < arr_size; ++i)
+        for (i = 0; i < arr_size; ++i)
         {
             objst = &cube_conf.cube_cfgstats[i];
             LbMemorySet(objst->code_name, 0, COMMAND_WORD_LEN);
@@ -149,7 +149,7 @@ TbBool parse_cubes_cube_blocks(char *buf, long len, const char *config_textname,
     }
     // Load the file
     arr_size = cube_conf.cube_types_count;
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "cube%d", i);
@@ -394,10 +394,12 @@ long load_cube_file(void)
         {
             struct CubeAttribs* cubed = &game.cubes_data[i];
             int n;
-            for (n=0; n < CUBE_TEXTURES; ++n) {
+            for (n = 0; n < CUBE_TEXTURES; ++n)
+            {
                 cubed->texture_id[n] = cubuf->texture_id[n];
             }
-            for (n=0; n < CUBE_TEXTURES; ++n) {
+            for (n = 0; n < CUBE_TEXTURES; ++n)
+            {
                 cubed->field_C[n] = cubuf->field_C[n];
             }
             cubuf++;

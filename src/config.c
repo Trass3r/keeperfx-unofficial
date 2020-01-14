@@ -351,7 +351,7 @@ int get_conf_parameter_whole(const char *buf,long *pos,long buflen,char *dst,lon
     (*pos)++;
     if ((*pos) >= buflen) return 0;
   }
-  for (i=0; i+1 < dstlen; ++i)
+  for (i = 0; i + 1 < dstlen; ++i)
   {
     if ((buf[*pos]=='\r') || (buf[*pos]=='\n') || ((unsigned char)buf[*pos] < 7))
       break;
@@ -373,7 +373,7 @@ int get_conf_parameter_single(const char *buf,long *pos,long buflen,char *dst,lo
         (*pos)++;
         if ((*pos) >= buflen) return 0;
     }
-    for (i=0; i+1 < dstlen; ++i)
+    for (i = 0; i + 1 < dstlen; ++i)
     {
         if ((buf[*pos] == ' ') || (buf[*pos] == '\t') || (buf[*pos] == '\r')
          || (buf[*pos] == '\n') || ((unsigned char)buf[*pos] < 7))
@@ -496,7 +496,7 @@ long get_rid(const struct NamedCommand *desc, const char *itmname)
   long i;
   if ((desc == NULL) || (itmname == NULL))
     return -1;
-  for (i=0; desc[i].name != NULL; ++i)
+  for (i = 0; desc[i].name != NULL; ++i)
   {
     if (strcasecmp(desc[i].name, itmname) == 0)
       return desc[i].num;
@@ -609,7 +609,7 @@ short load_configuration(void)
           screenshot_format = i;
           break;
       case 6: // FRONTEND_RES
-          for (i=0; i<3; ++i)
+          for (i = 0; i < 3; ++i)
           {
             if (get_conf_parameter_single(buf,&pos,len,word_buf,sizeof(word_buf)) > 0)
               k = LbRegisterVideoModeString(word_buf);
@@ -636,7 +636,7 @@ short load_configuration(void)
           }
           break;
       case 7: // INGAME_RES
-          for (i=0; i<max_game_vidmode_count(); ++i)
+          for (i = 0; i < max_game_vidmode_count(); ++i)
           {
             if (get_conf_parameter_single(buf,&pos,len,word_buf,sizeof(word_buf)) > 0)
             {
@@ -720,7 +720,7 @@ short load_configuration(void)
             break;
           }
       case 13: // Atmos_samples
-          for (i=0; i<3; ++i)
+          for (i = 0; i < 3; ++i)
           {
             if (get_conf_parameter_single(buf,&pos,len,word_buf,sizeof(word_buf)) > 0)
               k = atoi(word_buf);
@@ -1149,7 +1149,7 @@ TbBool create_empty_high_score_table(void)
     campaign.hiscore_table = (struct HighScore *)LbMemoryAlloc(arr_size);
   if (campaign.hiscore_table == NULL)
     return false;
-  for (i=0; i < VISIBLE_HIGH_SCORES_COUNT; ++i)
+  for (i = 0; i < VISIBLE_HIGH_SCORES_COUNT; ++i)
   {
     if (i >= campaign.hiscore_count) break;
     sprintf(campaign.hiscore_table[i].name, "Bullfrog");
@@ -1181,7 +1181,7 @@ int add_high_score_entry(unsigned long score, LevelNumber lvnum, const char *nam
         return false;
     }
     // Determining position of the new entry to keep table sorted with decreasing scores
-    for (dest_idx=0; dest_idx < campaign.hiscore_count; ++dest_idx)
+    for (dest_idx = 0; dest_idx < campaign.hiscore_count; ++dest_idx)
     {
         if (campaign.hiscore_table[dest_idx].score < score)
             break;
@@ -1940,7 +1940,7 @@ short is_multiplayer_level(LevelNumber lvnum)
 {
   int i;
   if (lvnum < 1) return false;
-  for (i=0; i<CAMPAIGN_LEVELS_COUNT; ++i)
+  for (i = 0; i < CAMPAIGN_LEVELS_COUNT; ++i)
   {
     if (campaign.multi_levels[i] == lvnum)
     {
@@ -1951,7 +1951,7 @@ short is_multiplayer_level(LevelNumber lvnum)
   // Original MP checking - remove when it's not needed anymore
   if (net_number_of_levels <= 0)
     return false;
-  for (i=0; i < net_number_of_levels; ++i)
+  for (i = 0; i < net_number_of_levels; ++i)
   {
       struct NetLevelDesc* lvdesc = &net_level_desc[i];
       if (lvdesc->lvnum == lvnum)

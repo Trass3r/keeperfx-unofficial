@@ -432,7 +432,7 @@ void update_map_collide(SlabKind slbkind, MapSubtlCoord stl_x, MapSubtlCoord stl
     }
     unsigned long smask = colmn->solidmask;
     MapSubtlCoord stl_z;
-    for (stl_z=0; stl_z < map_subtiles_z; ++stl_z)
+    for (stl_z = 0; stl_z < map_subtiles_z; ++stl_z)
     {
         if ((smask & 0x01) == 0)
             break;

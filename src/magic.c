@@ -351,7 +351,7 @@ void update_power_sight_explored(struct PlayerInfo *player)
     int stl_x;
     int stl_y;
 
-    for (shift_y=0; shift_y < 2*MAX_SOE_RADIUS; ++shift_y)
+    for (shift_y = 0; shift_y < 2 * MAX_SOE_RADIUS; ++shift_y)
     {
         stl_y = thing->mappos.y.stl.num - MAX_SOE_RADIUS + shift_y;
         if ((stl_y < 0) || (stl_y > map_subtiles_y)) {
@@ -366,7 +366,7 @@ void update_power_sight_explored(struct PlayerInfo *player)
             revealed = 0;
             i = 1;
             shift_x++;
-            for (; shift_x < 2*MAX_SOE_RADIUS; ++shift_x)
+            for (; shift_x < 2 * MAX_SOE_RADIUS; ++shift_x)
             {
               if (dungeon->soe_explored_flags[shift_y][shift_x])
                 revealed = i;
@@ -406,7 +406,7 @@ void update_power_sight_explored(struct PlayerInfo *player)
         }
     }
 
-    for (shift_x = 0; shift_x < 2*MAX_SOE_RADIUS; ++shift_x)
+    for (shift_x = 0; shift_x < 2 * MAX_SOE_RADIUS; ++shift_x)
     {
       stl_x = thing->mappos.x.stl.num - MAX_SOE_RADIUS + shift_x;
       if ((stl_x < 0) || (stl_x > map_subtiles_x)) {
@@ -420,7 +420,7 @@ void update_power_sight_explored(struct PlayerInfo *player)
             revealed = 0;
             i = 1;
             shift_y++;
-            for (; shift_y < 2*MAX_SOE_RADIUS; ++shift_y)
+            for (; shift_y < 2 * MAX_SOE_RADIUS; ++shift_y)
             {
               if (dungeon->soe_explored_flags[shift_y][shift_x])
                 revealed = i;
@@ -1080,7 +1080,7 @@ TbResult magic_use_power_destroy_walls(PlayerNumber plyr_idx, MapSubtlCoord stl_
     i = 0;
     MapSlabCoord slb_x;
     MapSlabCoord slb_y;
-    for (slb_y=slb_y_start; slb_y < slb_y_end ; ++slb_y)
+    for (slb_y = slb_y_start; slb_y < slb_y_end; ++slb_y)
     {
         for (slb_x=slb_x_start; slb_x < slb_x_end ; slb_x++,i++)
         {

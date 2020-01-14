@@ -461,7 +461,7 @@ long parse_sound_file(TbFileHandle fileh, unsigned char *buf, long *nsamples, lo
     _DK_LbFileSeek(fileh, bentry->field_0, Lb_FILE_SEEK_BEGINNING);
     struct SampleTable* smpl = (struct SampleTable*)buf;
     k = bentry->field_4;
-    for (i=0; i < *nsamples; ++i)
+    for (i = 0; i < *nsamples; ++i)
     {
         struct SoundBankSample bsample;
         _DK_LbFileRead(fileh, &bsample, sizeof(struct SoundBankSample));

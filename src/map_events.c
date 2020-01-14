@@ -836,14 +836,14 @@ void remove_events_thing_is_attached_to(struct Thing *thing)
 void clear_events(void)
 {
     int i;
-    for (i=0; i < EVENTS_COUNT; ++i)
+    for (i = 0; i < EVENTS_COUNT; ++i)
     {
       memset(&game.event[i], 0, sizeof(struct Event));
     }
     memset(&game.evntbox_scroll_window, 0, sizeof(struct TextScrollWindow));
     memset(&game.evntbox_text_buffer, 0, MESSAGE_TEXT_LEN);
     memset(&game.evntbox_text_objective, 0, MESSAGE_TEXT_LEN);
-    for (i=0; i < 5; ++i)
+    for (i = 0; i < 5; ++i)
     {
       memset(&game.bookmark[i], 0, sizeof(struct Bookmark));
     }

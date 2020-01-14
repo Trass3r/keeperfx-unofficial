@@ -629,7 +629,7 @@ TbResult LbPaletteGet(unsigned char *palette)
     if (lbDisplay.Palette == NULL)
         return Lb_FAIL;
     memcpy(palette,lbDisplay.Palette,PALETTE_SIZE);
-/*  // Getting the palette in SDL way may sometimes lead to problems.
+    /*  // Getting the palette in SDL way may sometimes lead to problems.
     // Instead, we will remember palette which was set the last time.
     //
     const SDL_Color * srcColors;

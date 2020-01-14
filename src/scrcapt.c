@@ -96,7 +96,7 @@ long prepare_hsi_screenshot(unsigned char *buf,unsigned char *palette)
       return 0;
     }
   }
-  for (i=0; i<h; ++i)
+  for (i = 0; i < h; ++i)
   {
     memcpy(buf+pos, lbDisplay.WScreen + lbDisplay.GraphicsScreenWidth*i, w);
     pos += w;
@@ -178,14 +178,15 @@ long prepare_bmp_screenshot(unsigned char *buf,unsigned char *palette)
       return 0;
     }
   }
-  for (i=0; i<height; ++i)
+  for (i = 0; i < height; ++i)
   {
     memcpy(buf+pos, lbDisplay.WScreen + lbDisplay.GraphicsScreenWidth*(height-i-1), width);
     pos += width;
     if ((padding_size&3) > 0)
-      for (j=0; j < padding_size; ++j)
-      {
-        write_int8_buf(buf+pos,0);pos++;
+        for (j = 0; j < padding_size; ++j)
+        {
+            write_int8_buf(buf + pos, 0);
+            pos++;
       }
   }
   if (!lock_mem)
@@ -213,7 +214,7 @@ TbBool cumulative_screen_shot(void)
   }
   long i;
   long ssize;
-  for (i=frame_number; i<10000; ++i)
+  for (i = frame_number; i < 10000; ++i)
   {
     sprintf(fname, "scrshots/scr%05ld.%s", i, fext);
     if (!LbFileExists(fname)) break;

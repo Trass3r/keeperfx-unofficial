@@ -51,7 +51,7 @@ void gui_clear_buttons_not_over_mouse(int gmbtn_mouseover_idx)
 {
     struct GuiButton *gbtn;
     int gidx;
-    for (gidx=0;gidx<ACTIVE_BUTTONS_COUNT;++gidx)
+    for (gidx = 0; gidx < ACTIVE_BUTTONS_COUNT; ++gidx)
     {
       gbtn = &active_buttons[gidx];
       if (gbtn->flags & LbBtnF_Unknown01)
@@ -68,7 +68,7 @@ void gui_clear_buttons_not_over_mouse(int gmbtn_mouseover_idx)
 void fake_button_click(int gmbtn_idx)
 {
     int i;
-    for (i=0; i < ACTIVE_BUTTONS_COUNT; ++i)
+    for (i = 0; i < ACTIVE_BUTTONS_COUNT; ++i)
     {
         struct GuiButton *gbtn;
         gbtn = &active_buttons[i];
@@ -184,7 +184,7 @@ void clear_radio_buttons(struct GuiMenu *gmnu)
 {
     struct GuiButton *gbtn;
     int i;
-    for (i=0; i<ACTIVE_BUTTONS_COUNT; ++i)
+    for (i = 0; i < ACTIVE_BUTTONS_COUNT; ++i)
     {
         gbtn = &active_buttons[i];
         if (gbtn->gbtype == LbBtnT_RadioBtn)
@@ -200,7 +200,7 @@ void update_radio_button_data(struct GuiMenu *gmnu)
     struct GuiButton *gbtn;
     unsigned char *rbstate;
     int i;
-    for (i=0; i<ACTIVE_BUTTONS_COUNT; ++i)
+    for (i = 0; i < ACTIVE_BUTTONS_COUNT; ++i)
     {
         gbtn = &active_buttons[i];
         rbstate = (unsigned char *)gbtn->content;
@@ -326,7 +326,7 @@ int guibutton_get_unused_slot(void)
 {
     struct GuiButton *gbtn;
     int i;
-    for (i=0; i<ACTIVE_BUTTONS_COUNT; ++i)
+    for (i = 0; i < ACTIVE_BUTTONS_COUNT; ++i)
     {
         gbtn = &active_buttons[i];
         if ((gbtn->flags & LbBtnF_Unknown01) == 0) {
@@ -341,7 +341,7 @@ void init_slider_bars(struct GuiMenu *gmnu)
     struct GuiButton *gbtn;
     long sldpos;
     int i;
-    for (i=0; i<ACTIVE_BUTTONS_COUNT; ++i)
+    for (i = 0; i < ACTIVE_BUTTONS_COUNT; ++i)
     {
         gbtn = &active_buttons[i];
         if ((gbtn->content) && (gbtn->gmenu_idx == gmnu->number))
@@ -365,7 +365,7 @@ void init_menu_buttons(struct GuiMenu *gmnu)
     struct GuiButton *gbtn;
     Gf_Btn_Callback callback;
     int i;
-    for (i=0; i<ACTIVE_BUTTONS_COUNT; ++i)
+    for (i = 0; i < ACTIVE_BUTTONS_COUNT; ++i)
     {
       gbtn = &active_buttons[i];
       callback = gbtn->maintain_call;
@@ -392,7 +392,7 @@ void setup_radio_buttons(struct GuiMenu *gmnu)
 {
     struct GuiButton *gbtn;
     int i;
-    for (i=0; i<ACTIVE_BUTTONS_COUNT; ++i)
+    for (i = 0; i < ACTIVE_BUTTONS_COUNT; ++i)
     {
         gbtn = &active_buttons[i];
         if ((gbtn->content) && (gmnu->number == gbtn->gmenu_idx))
@@ -904,7 +904,7 @@ void frontend_draw_scroll_box(struct GuiButton *gbtn)
         int orig_size;
         orig_size = 0;
         spr = &frontend_sprite[33];
-        for (i=0; i < 6; ++i)
+        for (i = 0; i < 6; ++i)
         {
             orig_size += spr->SWidth;
             spr++;
@@ -914,7 +914,7 @@ void frontend_draw_scroll_box(struct GuiButton *gbtn)
     // Draw top border
     spr = &frontend_sprite[25];
     pos_x = gbtn->scr_pos_x;
-    for (i=0; i < 6; ++i)
+    for (i = 0; i < 6; ++i)
     {
         LbSpriteDrawResized(pos_x, pos_y, units_per_px, spr);
         pos_x += spr->SWidth * units_per_px / 16;
@@ -936,7 +936,7 @@ void frontend_draw_scroll_box(struct GuiButton *gbtn)
           spr_idx = 40;
       spr = &frontend_sprite[spr_idx];
       pos_x = gbtn->scr_pos_x;
-      for (i=0; i < 6; ++i)
+      for (i = 0; i < 6; ++i)
       {
           LbSpriteDrawResized(pos_x, pos_y, units_per_px, spr);
           pos_x += spr->SWidth * units_per_px / 16;
@@ -961,7 +961,7 @@ void frontend_draw_scroll_box(struct GuiButton *gbtn)
     // Draw bottom border
     spr = &frontend_sprite[47];
     pos_x = gbtn->scr_pos_x;
-    for (i=0; i < 6; ++i)
+    for (i = 0; i < 6; ++i)
     {
         LbSpriteDrawResized(pos_x, pos_y, units_per_px, spr);
         pos_x += spr->SWidth * units_per_px / 16;

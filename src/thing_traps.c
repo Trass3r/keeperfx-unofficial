@@ -205,7 +205,7 @@ TbBool update_trap_trigger_line_of_sight_90(struct Thing *traptng)
     MapSubtlCoord stl_x;
     MapSubtlCoord stl_y;
     // Find a limit of where the trap will fit in negative Y
-    for (stl_x=stl_x_beg; stl_x <= stl_x_end; ++stl_x)
+    for (stl_x = stl_x_beg; stl_x <= stl_x_end; ++stl_x)
     {
         for (stl_y = stl_y_beg; stl_y >= stl_y_pre; stl_y--)
         {
@@ -217,7 +217,7 @@ TbBool update_trap_trigger_line_of_sight_90(struct Thing *traptng)
         }
     }
     // Check the area for activation
-    for (stl_x=stl_x_beg; stl_x <= stl_x_end; ++stl_x)
+    for (stl_x = stl_x_beg; stl_x <= stl_x_end; ++stl_x)
     {
         for (stl_y = stl_y_beg; stl_y >= stl_y_pre; stl_y--)
         {
@@ -227,7 +227,7 @@ TbBool update_trap_trigger_line_of_sight_90(struct Thing *traptng)
         }
     }
     // Find a limit of where the trap will fit in positive Y
-    for (stl_x=stl_x_beg; stl_x <= stl_x_end; ++stl_x)
+    for (stl_x = stl_x_beg; stl_x <= stl_x_end; ++stl_x)
     {
         for (stl_y = stl_y_end; stl_y <= stl_y_aft; ++stl_y)
         {
@@ -239,7 +239,7 @@ TbBool update_trap_trigger_line_of_sight_90(struct Thing *traptng)
         }
     }
     // Check the area for activation
-    for (stl_x=stl_x_beg; stl_x <= stl_x_end; ++stl_x)
+    for (stl_x = stl_x_beg; stl_x <= stl_x_end; ++stl_x)
     {
         for (stl_y = stl_y_end; stl_y <= stl_y_aft; ++stl_y)
         {
@@ -249,9 +249,9 @@ TbBool update_trap_trigger_line_of_sight_90(struct Thing *traptng)
         }
     }
     // Find a limit of where the trap will fit in positive X
-    for (stl_y=stl_y_beg; stl_y <= stl_y_end; ++stl_y)
+    for (stl_y = stl_y_beg; stl_y <= stl_y_end; ++stl_y)
     {
-        for (stl_x=stl_x_end; stl_x <= stl_x_aft; ++stl_x)
+        for (stl_x = stl_x_end; stl_x <= stl_x_aft; ++stl_x)
         {
             struct Map* mapblk = get_map_block_at(stl_x, stl_y);
             if ((mapblk->flags & SlbAtFlg_Blocking) != 0) {
@@ -261,9 +261,9 @@ TbBool update_trap_trigger_line_of_sight_90(struct Thing *traptng)
         }
     }
     // Check the area for activation
-    for (stl_y=stl_y_beg; stl_y <= stl_y_end; ++stl_y)
+    for (stl_y = stl_y_beg; stl_y <= stl_y_end; ++stl_y)
     {
-        for (stl_x=stl_x_end; stl_x <= stl_x_aft; ++stl_x)
+        for (stl_x = stl_x_end; stl_x <= stl_x_aft; ++stl_x)
         {
             if (update_trap_trigger_line_of_sight_90_on_subtile(traptng, stl_x, stl_y)) {
                 return true;
@@ -271,7 +271,7 @@ TbBool update_trap_trigger_line_of_sight_90(struct Thing *traptng)
         }
     }
     // Find a limit of where the trap will fit in negative X
-    for (stl_y=stl_y_beg; stl_y <= stl_y_end; ++stl_y)
+    for (stl_y = stl_y_beg; stl_y <= stl_y_end; ++stl_y)
     {
         for (stl_x=stl_x_beg; stl_x >= stl_x_pre; stl_x--)
         {
@@ -283,7 +283,7 @@ TbBool update_trap_trigger_line_of_sight_90(struct Thing *traptng)
         }
     }
     // Check the area for activation
-    for (stl_y=stl_y_beg; stl_y <= stl_y_end; ++stl_y)
+    for (stl_y = stl_y_beg; stl_y <= stl_y_end; ++stl_y)
     {
         for (stl_x=stl_x_beg; stl_x >= stl_x_pre; stl_x--)
         {

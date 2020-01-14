@@ -164,7 +164,7 @@ void fronttorture_load(void)
         doors[k].sprites_end =(struct TbSprite *) ptr;
     }
     ptr = &game.land_map_start;
-    for (k=1; k < 8; ++k)
+    for (k = 1; k < 8; ++k)
     {
         fname = prepare_file_fmtpath(FGrp_LoData,"door%02d.dat",k+1);
         i = LbFileLoadAt(fname, ptr);
@@ -288,7 +288,7 @@ void fronttorture_input(void)
             ERRORLOG("LbNetwork_Exchange failed");
     }
     // Determine the controlling player and get his mouse coords
-    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
+    for (plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         player = get_player(plyr_idx);
         pckt = get_packet(plyr_idx);

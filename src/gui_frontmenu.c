@@ -383,7 +383,7 @@ void kill_menu(struct GuiMenu *gmnu)
 void remove_from_menu_stack(short mnu_id)
 {
     unsigned short i;
-    for (i=0; i<no_of_active_menus; ++i)
+    for (i = 0; i < no_of_active_menus; ++i)
     {
         if (menu_stack[i] == mnu_id)
         {

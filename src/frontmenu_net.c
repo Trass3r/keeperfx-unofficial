@@ -85,7 +85,7 @@ long frontnet_number_of_players_in_session(void)
     long i;
     long nplyr;
     nplyr = 0;
-    for (i=0; i < NET_PLAYERS_COUNT; ++i)
+    for (i = 0; i < NET_PLAYERS_COUNT; ++i)
     {
       if (network_player_active(i))
         nplyr++;
@@ -270,7 +270,7 @@ void frontnet_draw_text_bar(struct GuiButton *gbtn)
     LbSpriteDrawResized(pos_x, pos_y, fs_units_per_px, spr);
     pos_x += spr->SWidth * fs_units_per_px / 16;
     spr = &frontend_sprite[72];
-    for (i=0; i < 4; ++i)
+    for (i = 0; i < 4; ++i)
     {
         LbSpriteDrawResized(pos_x, pos_y, fs_units_per_px, spr);
         pos_x += spr->SWidth * fs_units_per_px / 16;
@@ -511,7 +511,7 @@ void frontnet_draw_alliance_grid(struct GuiButton *gbtn)
 
     pos_x = gbtn->scr_pos_x;
     spr = &frontend_sprite[83];
-    for (netplyr_idx=0; netplyr_idx < NET_PLAYERS_COUNT; ++netplyr_idx)
+    for (netplyr_idx = 0; netplyr_idx < NET_PLAYERS_COUNT; ++netplyr_idx)
     {
         LbSpriteDrawResized(pos_x / pixel_size, pos_y / pixel_size, units_per_px, spr);
         pos_x += spr->SWidth * units_per_px / 16;
@@ -520,7 +520,7 @@ void frontnet_draw_alliance_grid(struct GuiButton *gbtn)
 
     pos_x = gbtn->scr_pos_x;
     spr = &frontend_sprite[84];
-    for (netplyr_idx=0; netplyr_idx < NET_PLAYERS_COUNT; ++netplyr_idx)
+    for (netplyr_idx = 0; netplyr_idx < NET_PLAYERS_COUNT; ++netplyr_idx)
     {
         LbSpriteDrawResized(pos_x / pixel_size, pos_y / pixel_size, units_per_px, spr);
         pos_x += spr->SWidth * units_per_px / 16;
@@ -529,7 +529,7 @@ void frontnet_draw_alliance_grid(struct GuiButton *gbtn)
 
     pos_x = gbtn->scr_pos_x;
     spr = &frontend_sprite[85];
-    for (netplyr_idx=0; netplyr_idx < NET_PLAYERS_COUNT; ++netplyr_idx)
+    for (netplyr_idx = 0; netplyr_idx < NET_PLAYERS_COUNT; ++netplyr_idx)
     {
         LbSpriteDrawResized(pos_x / pixel_size, pos_y / pixel_size, units_per_px, spr);
         pos_x += spr->SWidth * units_per_px / 16;
@@ -538,7 +538,7 @@ void frontnet_draw_alliance_grid(struct GuiButton *gbtn)
 
     pos_x = gbtn->scr_pos_x;
     spr = &frontend_sprite[85];
-    for (netplyr_idx=0; netplyr_idx < NET_PLAYERS_COUNT; ++netplyr_idx)
+    for (netplyr_idx = 0; netplyr_idx < NET_PLAYERS_COUNT; ++netplyr_idx)
     {
         LbSpriteDrawResized(pos_x / pixel_size, pos_y / pixel_size, units_per_px, spr);
         pos_x += spr->SWidth * units_per_px / 16;
@@ -680,7 +680,7 @@ void frontnet_draw_messages(struct GuiButton *gbtn)
     int y;
     y = 0;
     int netmsg_id;
-    for (netmsg_id=net_message_scroll_offset; netmsg_id < net_number_of_messages; ++netmsg_id)
+    for (netmsg_id = net_message_scroll_offset; netmsg_id < net_number_of_messages; ++netmsg_id)
     {
         if (y + font_height/2 > gbtn->height)
             break;
@@ -1019,7 +1019,7 @@ void frontnet_draw_text_cont_bar(struct GuiButton *gbtn)
     pos_x += spr->SWidth*fs_units_per_px/16;
 
     spr = &frontend_sprite[81];
-    for (netplyr_idx=0; netplyr_idx < NET_PLAYERS_COUNT; ++netplyr_idx)
+    for (netplyr_idx = 0; netplyr_idx < NET_PLAYERS_COUNT; ++netplyr_idx)
     {
         LbSpriteDrawResized(pos_x, pos_y, fs_units_per_px, spr);
         pos_x += spr->SWidth*fs_units_per_px/16;

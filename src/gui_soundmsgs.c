@@ -475,17 +475,17 @@ long get_phrase_sample(long phr_idx)
 void clear_messages(void)
 {
     int i;
-    for (i=0; i < MESSAGE_QUEUE_COUNT; ++i)
+    for (i = 0; i < MESSAGE_QUEUE_COUNT; ++i)
     {
         LbMemorySet(&message_queue[i], 0, sizeof(struct MessageQueueEntry));
     }
     // Set end turn to 0 for all messages
-    for (i=0; i < sizeof(messages)/sizeof(messages[0]); ++i)
+    for (i = 0; i < sizeof(messages) / sizeof(messages[0]); ++i)
     {
         messages[i].end_time = 0;
     }
     // Remove when won't be needed anymore
-    for (i=0; i < sizeof(_DK_messages)/sizeof(_DK_messages[0]); ++i)
+    for (i = 0; i < sizeof(_DK_messages) / sizeof(_DK_messages[0]); ++i)
     {
         _DK_messages[i].end_time = 0;
     }

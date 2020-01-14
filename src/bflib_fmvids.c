@@ -372,7 +372,7 @@ short play_smk_via_buffer(char *fname, int smkflags, int plyflags)
         if ( smktag->NewPalette )
         {
           reset_pal = 1;
-          for (idx=0;idx<768;++idx)
+          for (idx = 0; idx < 768; ++idx)
           {
             unsigned char chr;
             chr = smktag->Palette[idx];
@@ -440,7 +440,7 @@ short play_smk_direct(char *fname, int smkflags, int plyflags)
         if ( smktag->NewPalette )
         {
           reset_pal = 1;
-          for (idx=0;idx<768;++idx)
+          for (idx = 0; idx < 768; ++idx)
           {
             unsigned char chr;
             chr = smktag->Palette[idx];
@@ -520,7 +520,7 @@ short play_smk_direct(char *fname, int smkflags, int plyflags)
         {
           int idx;
           fseek(svp, 104, 0);
-          for (idx=0;idx<smksum.TotalFrames;++idx)
+          for (idx = 0; idx < smksum.TotalFrames; ++idx)
           {
             unsigned long rawval;
             unsigned short val;
@@ -680,7 +680,7 @@ long anim_make_FLI_BRUN(unsigned char *screenbuf)
       {
         count = 0;
         // Counting size of RLE block
-        for ( k=1; w>1; ++k)
+        for (k = 1; w > 1; ++k)
         {
           if (sbuf[k] != sbuf[0]) break;
           if (count == 127) break;
@@ -703,7 +703,7 @@ long anim_make_FLI_BRUN(unsigned char *screenbuf)
           {
             count=0;
             // Find the next block of at least 4 same pixels
-            for ( k = 0; w>0; ++k)
+            for (k = 0; w > 0; ++k)
             {
               if ( (sbuf[k+1]==sbuf[k]) && (sbuf[k+2]==sbuf[k]) && (sbuf[k+3]==sbuf[k]) )
                 break;
@@ -774,11 +774,11 @@ long anim_make_FLI_SS2(unsigned char *curdat, unsigned char *prvdat)
       }
       for (w=animation.header.width;w>0;)
       {
-        for ( k=0; w>0; ++k)
-        {
-          if ( *(unsigned short *)(pbf+2*(long)k) != *(unsigned short *)(cbf+2*(long)k) )
-            break;
-          w -= 2;
+          for (k = 0; w > 0; ++k)
+          {
+              if (*(unsigned short*)(pbf + 2 * (long)k) != *(unsigned short*)(cbf + 2 * (long)k))
+                  break;
+              w -= 2;
         }
         if (2*(long)k == animation.header.width)
         {
@@ -809,7 +809,7 @@ long anim_make_FLI_SS2(unsigned char *curdat, unsigned char *prvdat)
           cbf += wendt;
           pbf += wendt;
 
-          for (nsame=0; nsame<127; ++nsame)
+          for (nsame = 0; nsame < 127; ++nsame)
           {
             if (w <= 2) break;
             if ((*(unsigned short *)(pbf+2*nsame+0) == *(unsigned short *)(cbf+2*nsame+0)) &&
@@ -844,15 +844,16 @@ long anim_make_FLI_SS2(unsigned char *curdat, unsigned char *prvdat)
               w -= 2;
             } else
             {
-              for (ndiff=0; ndiff<127; ++ndiff)
-              {
-                if (w <= 0) break;
-                if ( *(unsigned short *)(pbf+2*ndiff) == *(unsigned short *)(cbf+2*ndiff) )
-                  break;
-                if ((*(unsigned short *)(cbf+2*(ndiff+1)) == *(unsigned short *)(cbf+2*ndiff)) &&
-                   (*(unsigned short *)(cbf+2*(ndiff+2)) == *(unsigned short *)(cbf+2*ndiff)) )
-                  break;
-                w -= 2;
+                for (ndiff = 0; ndiff < 127; ++ndiff)
+                {
+                    if (w <= 0)
+                        break;
+                    if (*(unsigned short*)(pbf + 2 * ndiff) == *(unsigned short*)(cbf + 2 * ndiff))
+                        break;
+                    if ((*(unsigned short*)(cbf + 2 * (ndiff + 1)) == *(unsigned short*)(cbf + 2 * ndiff)) &&
+                        (*(unsigned short*)(cbf + 2 * (ndiff + 2)) == *(unsigned short*)(cbf + 2 * ndiff)))
+                        break;
+                    w -= 2;
               }
             }
             if (ndiff>0)
@@ -969,10 +970,11 @@ long anim_make_FLI_LC(unsigned char *curdat, unsigned char *prvdat)
           outptr = animation.field_C++;
           for (w=animation.header.width; w>0; )
           {
-            for ( wend=0; w>0; ++wend)
-            {
-              if ( cbf[wend] != pbf[wend]) break;
-              w--;
+              for (wend = 0; w > 0; ++wend)
+              {
+                  if (cbf[wend] != pbf[wend])
+                      break;
+                  w--;
             }
             wendt = wend;
             if (animation.header.width == wend) continue;
@@ -1357,7 +1359,7 @@ short anim_record(void)
       return 0;
     }
     int idx;
-    for (idx=0; idx < 10000; ++idx)
+    for (idx = 0; idx < 10000; ++idx)
     {
         sprintf(finalname, "%s/game%04d.flc","scrshots",idx);
         if (LbFileExists(finalname))

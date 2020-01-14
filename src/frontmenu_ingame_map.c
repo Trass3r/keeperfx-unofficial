@@ -110,7 +110,7 @@ void draw_call_to_arms_circle(unsigned char owner, long x1, long y1, long x2, lo
     {
       sy = base_y;
       i = 3 - 2 * base_y;
-      for (sx=0; sx < sy; ++sx)
+      for (sx = 0; sx < sy; ++sx)
       {
           dxq1 = center_x - sx;
           dyq1 = center_y - sy;
@@ -523,7 +523,7 @@ int draw_overlay_creatures(struct PlayerInfo *player, long units_per_px, long zo
                 struct CreatureControl *cctrl;
                 cctrl = creature_control_get_from_thing(thing);
                 int m;
-                for (m=0; m < 5; ++m)
+                for (m = 0; m < 5; ++m)
                 {
                     long memberpos;
                     memberpos = cctrl->party.member_pos_stl[m];
@@ -898,7 +898,7 @@ void setup_background(long units_per_px)
     long quarter_area;
     quarter_area = radius * radius;
     int i;
-    for (i=0; i < MapDiagonalLength; ++i)
+    for (i = 0; i < MapDiagonalLength; ++i)
     {
         long n;
         n = (radius - i - 1) * (i - radius + 1) + quarter_area;
@@ -916,7 +916,7 @@ void setup_background(long units_per_px)
     out = &lbDisplay.WScreen[PannelMapX + out_scanline * PannelMapY];
     int w;
     int h;
-    for (h=0; h < MapDiagonalLength; ++h)
+    for (h = 0; h < MapDiagonalLength; ++h)
     {
         for (w = MapShapeStart[h]; w < MapShapeEnd[h]; ++w)
         {
@@ -924,7 +924,7 @@ void setup_background(long units_per_px)
             orig = out[w];
             out[w] = 255;
             int colour;
-            for (colour=0; colour < num_colours; ++colour)
+            for (colour = 0; colour < num_colours; ++colour)
             {
                 if (MapBackColours[colour] == orig) {
                     break;
@@ -952,7 +952,7 @@ void setup_pannel_colours(void)
     int bkcol_idx;
     int pncol_idx;
     pncol_idx = 0;
-    for (bkcol_idx=0; bkcol_idx < NoBackColours; ++bkcol_idx)
+    for (bkcol_idx = 0; bkcol_idx < NoBackColours; ++bkcol_idx)
     {
         unsigned int bkcol;
         bkcol = MapBackColours[bkcol_idx];
@@ -998,12 +998,12 @@ void setup_pannel_colours(void)
         n = pncol_idx + 8 + 17*6;
         for (i=5; i > 0; i--)
         {
-            for (k=0; k < 6; ++k)
+            for (k = 0; k < 6; ++k)
             {
               PannelColours[n + k] = 60;
             }
             n += 6;
-            for (k=0; k < 6; ++k)
+            for (k = 0; k < 6; ++k)
             {
               PannelColours[n + k] = 79;
             }
@@ -1022,7 +1022,7 @@ void update_pannel_colours(void)
     int bkcol_idx;
     int pncol_idx;
     pncol_idx = 0;
-    for (bkcol_idx=0; bkcol_idx < NoBackColours; ++bkcol_idx)
+    for (bkcol_idx = 0; bkcol_idx < NoBackColours; ++bkcol_idx)
     {
         unsigned int bkcol;
         bkcol = MapBackColours[bkcol_idx];

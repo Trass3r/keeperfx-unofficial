@@ -336,9 +336,9 @@ long reveal_players_map_to_player(struct Thing *thing, PlayerNumber benefit_plyr
 
     unsigned char* ownership_map = (unsigned char*)malloc(map_tiles_y * map_tiles_x);
     LbMemorySet(ownership_map,0,map_tiles_y*map_tiles_x);
-    for (slb_y=0; slb_y < map_tiles_y; ++slb_y)
+    for (slb_y = 0; slb_y < map_tiles_y; ++slb_y)
     {
-        for (slb_x=0; slb_x < map_tiles_x; ++slb_x)
+        for (slb_x = 0; slb_x < map_tiles_x; ++slb_x)
         {
             slb_num = get_slab_number(slb_x, slb_y);
             slb = get_slabmap_direct(slb_num);

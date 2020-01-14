@@ -1166,7 +1166,7 @@ long computer_process_sight_of_evil(struct Computer2 *comp, struct ComputerProce
         MapSlabCoord slb_y = map_tiles_y / 2;
         int n = ACTION_RANDOM(GRID * GRID);
         int i;
-        for (i=0; i < GRID*GRID; ++i)
+        for (i = 0; i < GRID * GRID; ++i)
         {
             unsigned int grid_x = n % GRID;
             unsigned int grid_y = n / GRID;

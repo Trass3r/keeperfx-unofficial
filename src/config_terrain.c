@@ -412,7 +412,7 @@ TbBool parse_terrain_slab_blocks(char *buf, long len, const char *config_textnam
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(slab_conf.slab_cfgstats)/sizeof(slab_conf.slab_cfgstats[0]);
-        for (i=0; i < arr_size; ++i)
+        for (i = 0; i < arr_size; ++i)
         {
             slabst = &slab_conf.slab_cfgstats[i];
             LbMemorySet(slabst->code_name, 0, COMMAND_WORD_LEN);
@@ -428,7 +428,7 @@ TbBool parse_terrain_slab_blocks(char *buf, long len, const char *config_textnam
             }
         }
         arr_size = sizeof(slab_attrs)/sizeof(slab_attrs[0]);
-        for (i=0; i < arr_size; ++i)
+        for (i = 0; i < arr_size; ++i)
         {
             slbattr = get_slab_kind_attrs(i);
             slbattr->tooltip_stridx = GUIStr_Empty;
@@ -436,7 +436,7 @@ TbBool parse_terrain_slab_blocks(char *buf, long len, const char *config_textnam
     }
     // Parse every numbered block within range
     arr_size = slab_conf.slab_types_count;
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
       sprintf(block_buf,"slab%d",i);
       pos = 0;
@@ -570,7 +570,7 @@ TbBool parse_terrain_room_blocks(char *buf, long len, const char *config_textnam
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(slab_conf.room_cfgstats)/sizeof(slab_conf.room_cfgstats[0]);
-        for (i=0; i < arr_size; ++i)
+        for (i = 0; i < arr_size; ++i)
         {
             roomst = &slab_conf.room_cfgstats[i];
             LbMemorySet(roomst->code_name, 0, COMMAND_WORD_LEN);
@@ -597,7 +597,7 @@ TbBool parse_terrain_room_blocks(char *buf, long len, const char *config_textnam
             }
         }
         arr_size = slab_conf.room_types_count;
-        for (i=0; i < arr_size; ++i)
+        for (i = 0; i < arr_size; ++i)
         {
           rstat = &game.room_stats[i];
           rstat->cost = 0;
@@ -606,7 +606,7 @@ TbBool parse_terrain_room_blocks(char *buf, long len, const char *config_textnam
     }
     // Parse every numbered block within range
     arr_size = slab_conf.room_types_count;
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "room%d", i);

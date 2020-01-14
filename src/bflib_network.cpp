@@ -1463,7 +1463,7 @@ TbError ClearClientData(void)
 {
   long i;
   LbMemorySet(clientDataTable, 0, 32*sizeof(struct ClientDataEntry));
-  for (i=0; i < maximumPlayers; ++i)
+  for (i = 0; i < maximumPlayers; ++i)
   {
     clientDataTable[i].isactive = 0;
   }
@@ -1502,7 +1502,7 @@ TbError GetPlayerInfo(void)
   struct TbNetworkPlayerInfo *lpinfo;
   long i;
   NETLOG("Starting");
-  for (i=0; i < netstate.max_players; ++i)
+  for (i = 0; i < netstate.max_players; ++i)
   {
     lpinfo = &localPlayerInfoPtr[i];
     if ( netstate.users[i].progress == USER_SERVER ||
@@ -1529,7 +1529,7 @@ TbError AddAPlayer(struct TbNetworkPlayerNameEntry *plyrname)
   }
   plr_id = 0;
   found_id = false;
-  for (i=0; i < maximumPlayers; ++i)
+  for (i = 0; i < maximumPlayers; ++i)
   {
     if ((clientDataTable[i].isactive) && (clientDataTable[i].plyrid == plyrname->islocal))
     {
@@ -1540,7 +1540,7 @@ TbError AddAPlayer(struct TbNetworkPlayerNameEntry *plyrname)
   if (!found_id)
   {
     found_id = false;
-    for (i=0; i < maximumPlayers; ++i)
+    for (i = 0; i < maximumPlayers; ++i)
     {
       if (clientDataTable[i].isactive)
       {
@@ -1715,7 +1715,7 @@ TbError SendRequestToAllExchangeDataMsg(unsigned long src_id,unsigned long seq, 
     return Lb_FAIL;
   }
   spPtr->EncodeRequestExchangeDataMsg(requestExchangeDataBuffer, src_id, seq);
-  for (i=0; i < maximumPlayers; ++i)
+  for (i = 0; i < maximumPlayers; ++i)
   {
     if ((clientDataTable[i].isactive) && (!clientDataTable[i].field_8))
     {
@@ -1775,7 +1775,7 @@ TbError HostDataCollection(void)
   while ( keepExchng )
   {
     exchngNeeded = 1;
-    for (i=0; i < maximumPlayers; ++i)
+    for (i = 0; i < maximumPlayers; ++i)
     {
       if ((clientDataTable[i].isactive) && (!clientDataTable[i].field_8))
       {
@@ -1814,20 +1814,20 @@ TbError HostDataCollection(void)
       {
         if (spPtr->GetRequestCompositeExchangeDataMsgSize() <= sizeof(deletePlayerBuffer))
         {
-          for (i=0; i < maximumPlayers; ++i)
-          {
-            if ((clientDataTable[i].isactive) && (!clientDataTable[i].field_8))
+            for (i = 0; i < maximumPlayers; ++i)
             {
-              spPtr->EncodeDeletePlayerMsg(deletePlayerBuffer, clientDataTable[i].plyrid);
-              for (k=0; k < maximumPlayers; ++k)
-              {
-                if ((clientDataTable[k].isactive) && (clientDataTable[k].plyrid != clientDataTable[i].plyrid))
+                if ((clientDataTable[i].isactive) && (!clientDataTable[i].field_8))
                 {
-                  if ( spPtr->Send(clientDataTable[i].plyrid,deletePlayerBuffer) )
-                    WARNLOG("failure on SP::Send()");
+                    spPtr->EncodeDeletePlayerMsg(deletePlayerBuffer, clientDataTable[i].plyrid);
+                    for (k = 0; k < maximumPlayers; ++k)
+                    {
+                        if ((clientDataTable[k].isactive) && (clientDataTable[k].plyrid != clientDataTable[i].plyrid))
+                        {
+                            if (spPtr->Send(clientDataTable[i].plyrid, deletePlayerBuffer))
+                                WARNLOG("failure on SP::Send()");
+                        }
+                    }
                 }
-              }
-            }
           }
         } else
         {
@@ -1850,7 +1850,7 @@ TbError HostDataBroadcast(void)
   ret = Lb_OK;
   spPtr->EncodeMessageStub(exchangeBuffer, maximumPlayers*exchangeSize-4, 0, sequenceNumber);
   LbMemoryCopy(compositeBuffer, exchangeBuffer, maximumPlayers*exchangeSize);
-  for (i=0; i < maximumPlayers; ++i)
+  for (i = 0; i < maximumPlayers; ++i)
   {
     if ((clientDataTable[i].isactive) && (clientDataTable[i].plyrid != hostId))
     {
@@ -1926,7 +1926,7 @@ TbError StartMultiPlayerExchange(void *buf)
   long i;
   localDataPtr = buf;
   spPtr->Receive(6);
-  for (i=0; i < maximumPlayers; ++i)
+  for (i = 0; i < maximumPlayers; ++i)
   {
     clidat = &clientDataTable[i];
     if (clidat->isactive)
@@ -2171,7 +2171,7 @@ void *MultiPlayerCallback(unsigned long plr_id, unsigned long xch_size, unsigned
       return NULL;
     }
     found_id = false;
-    for (i=0; i < maximumPlayers; ++i)
+    for (i = 0; i < maximumPlayers; ++i)
     {
       if ((clientDataTable[i].isactive) && (clientDataTable[i].plyrid == plr_id))
       {
@@ -2205,7 +2205,7 @@ void *MultiPlayerCallback(unsigned long plr_id, unsigned long xch_size, unsigned
       return NULL;
     }
     found_id = false;
-    for (i=0; i < maximumPlayers; ++i)
+    for (i = 0; i < maximumPlayers; ++i)
     {
       if ((clientDataTable[i].isactive) && (clientDataTable[i].plyrid == plr_id))
       {
@@ -2227,7 +2227,7 @@ void *MultiPlayerCallback(unsigned long plr_id, unsigned long xch_size, unsigned
     return NULL;
   }
   found_id = false;
-  for (i=0; i < maximumPlayers; ++i)
+  for (i = 0; i < maximumPlayers; ++i)
   {
     if ((clientDataTable[i].isactive) && (clientDataTable[i].plyrid == plr_id))
     {
@@ -2289,7 +2289,7 @@ void AddMsgCallback(unsigned long a1, char *nmstr, void *a3)
 void DeleteMsgCallback(unsigned long plr_id, void *a2)
 {
   long i;
-  for (i=0; i < maximumPlayers; ++i)
+  for (i = 0; i < maximumPlayers; ++i)
   {
     if ((clientDataTable[i].isactive) && (clientDataTable[i].plyrid == plr_id))
     {

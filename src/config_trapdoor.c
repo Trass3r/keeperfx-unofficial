@@ -220,7 +220,7 @@ TbBool parse_trapdoor_trap_blocks(char *buf, long len, const char *config_textna
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(trapdoor_conf.trap_cfgstats)/sizeof(trapdoor_conf.trap_cfgstats[0]);
-      for (i=0; i < arr_size; ++i)
+      for (i = 0; i < arr_size; ++i)
       {
           trapst = &trapdoor_conf.trap_cfgstats[i];
           LbMemorySet(trapst->code_name, 0, COMMAND_WORD_LEN);
@@ -241,7 +241,7 @@ TbBool parse_trapdoor_trap_blocks(char *buf, long len, const char *config_textna
           }
       }
       arr_size = trapdoor_conf.trap_types_count;
-      for (i=0; i < arr_size; ++i)
+      for (i = 0; i < arr_size; ++i)
       {
           mconf = &game.traps_config[i];
           mconf->manufct_level = 0;
@@ -253,7 +253,7 @@ TbBool parse_trapdoor_trap_blocks(char *buf, long len, const char *config_textna
   }
   // Parse every numbered block within range
   arr_size = trapdoor_conf.trap_types_count;
-  for (i=0; i < arr_size; ++i)
+  for (i = 0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "trap%d", i);
@@ -493,7 +493,7 @@ TbBool parse_trapdoor_door_blocks(char *buf, long len, const char *config_textna
   if ((flags & CnfLd_AcceptPartial) == 0)
   {
       arr_size = sizeof(trapdoor_conf.door_cfgstats)/sizeof(trapdoor_conf.door_cfgstats[0]);
-      for (i=0; i < arr_size; ++i)
+      for (i = 0; i < arr_size; ++i)
       {
           doorst = &trapdoor_conf.door_cfgstats[i];
           LbMemorySet(doorst->code_name, 0, COMMAND_WORD_LEN);
@@ -516,7 +516,7 @@ TbBool parse_trapdoor_door_blocks(char *buf, long len, const char *config_textna
   }
   // Parse every numbered block within range
   arr_size = trapdoor_conf.door_types_count;
-  for (i=0; i < arr_size; ++i)
+  for (i = 0; i < arr_size; ++i)
   {
       char block_buf[COMMAND_WORD_LEN];
       sprintf(block_buf, "door%d", i);
@@ -792,7 +792,7 @@ TbBool create_manufacture_array_from_trapdoor_data(void)
     // Initialize the manufacture array
     trapdoor_conf.manufacture_types_count = 0;
     int arr_size = sizeof(trapdoor_conf.manufacture_data) / sizeof(trapdoor_conf.manufacture_data[0]);
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
         manufctr = &trapdoor_conf.manufacture_data[i];
         manufctr->tngclass = TCls_Empty;
@@ -806,7 +806,7 @@ TbBool create_manufacture_array_from_trapdoor_data(void)
     // Let manufacture 0 be empty
     trapdoor_conf.manufacture_types_count++;
     // Fill manufacture entries
-    for (i=1; i < trapdoor_conf.trap_types_count; ++i)
+    for (i = 1; i < trapdoor_conf.trap_types_count; ++i)
     {
         struct TrapConfigStats* trapst = get_trap_model_stats(i);
         manufctr = &trapdoor_conf.manufacture_data[trapdoor_conf.manufacture_types_count];
@@ -819,7 +819,7 @@ TbBool create_manufacture_array_from_trapdoor_data(void)
         manufctr->panel_tab_idx = trapst->panel_tab_idx;
         trapdoor_conf.manufacture_types_count++;
     }
-    for (i=1; i < trapdoor_conf.door_types_count; ++i)
+    for (i = 1; i < trapdoor_conf.door_types_count; ++i)
     {
         struct DoorConfigStats* doorst = get_door_model_stats(i);
         manufctr = &trapdoor_conf.manufacture_data[trapdoor_conf.manufacture_types_count];

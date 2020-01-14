@@ -425,7 +425,7 @@ void put_down_dbctext_sprites(const char *sbuf, const char *ebuf, long x, long y
     awind.height = lbDisplay.GraphicsWindowHeight;
     awind.scanline = lbDisplay.GraphicsScreenWidth;
     needs_draw = false;
-    for (c=sbuf; c < ebuf; ++c)
+    for (c = sbuf; c < ebuf; ++c)
     {
         chr = (unsigned char)(*c);
         if (is_wide_charcode(chr))
@@ -529,7 +529,7 @@ void put_down_dbctext_sprites_resized(const char *sbuf, const char *ebuf, long x
     awind.height = lbDisplay.GraphicsWindowHeight;
     awind.scanline = lbDisplay.GraphicsScreenWidth;
     needs_draw = false;
-    for (c=sbuf; c < ebuf; ++c)
+    for (c = sbuf; c < ebuf; ++c)
     {
         chr = (unsigned char)(*c);
         if (is_wide_charcode(chr))
@@ -636,7 +636,7 @@ void put_down_simpletext_sprites(const char *sbuf, const char *ebuf, long x, lon
   unsigned char chr;
   long w;
   long h;
-  for (c=sbuf; c < ebuf; ++c)
+  for (c = sbuf; c < ebuf; ++c)
   {
     chr = (unsigned char)(*c);
     if (chr > 32)
@@ -727,7 +727,7 @@ void put_down_simpletext_sprites_resized(const char *sbuf, const char *ebuf, lon
   unsigned char chr;
   long w;
   long h;
-  for (c=sbuf; c < ebuf; ++c)
+  for (c = sbuf; c < ebuf; ++c)
   {
     chr = (unsigned char)(*c);
     if (chr > 32)
@@ -939,7 +939,7 @@ TbBool LbTextDrawResized(int posx, int posy, int units_per_px, const char *text)
 
     long h = LbTextLineHeight() * units_per_px / 16;
     const char* sbuf = text;
-    for (ebuf=text; *ebuf != '\0'; ++ebuf)
+    for (ebuf = text; *ebuf != '\0'; ++ebuf)
     {
         const char* prev_ebuf = ebuf - 1;
         long chr = (unsigned char)*ebuf;

@@ -198,7 +198,7 @@ TbBool parse_objects_object_blocks(char *buf, long len, const char *config_textn
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(object_conf.object_cfgstats)/sizeof(object_conf.object_cfgstats[0]);
-        for (i=0; i < arr_size; ++i)
+        for (i = 0; i < arr_size; ++i)
         {
             objst = &object_conf.object_cfgstats[i];
             LbMemorySet(objst->code_name, 0, COMMAND_WORD_LEN);
@@ -217,7 +217,7 @@ TbBool parse_objects_object_blocks(char *buf, long len, const char *config_textn
     }
     // Load the file
     arr_size = object_conf.object_types_count;
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "object%d", i);

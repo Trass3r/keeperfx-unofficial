@@ -1169,7 +1169,7 @@ short get_creature_control_action_inputs(void)
         toggle_gui();
     }
     int numkey = -1;
-    for (keycode=KC_1; keycode <= KC_0; ++keycode)
+    for (keycode = KC_1; keycode <= KC_0; ++keycode)
     {
         if (is_key_pressed(keycode,KMod_NONE))
         {

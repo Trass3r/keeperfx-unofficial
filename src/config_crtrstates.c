@@ -124,7 +124,7 @@ TbBool parse_creaturestates_state_blocks(char *buf, long len, const char *config
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(crtr_conf.states)/sizeof(crtr_conf.states[0]);
-        for (i=0; i < arr_size; ++i)
+        for (i = 0; i < arr_size; ++i)
         {
             LbMemorySet(crtr_conf.states[i].name, 0, COMMAND_WORD_LEN);
             if (i < crtr_conf.states_count)
@@ -140,7 +140,7 @@ TbBool parse_creaturestates_state_blocks(char *buf, long len, const char *config
     }
     // Load the file blocks
     arr_size = crtr_conf.states_count;
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "state%d", i);

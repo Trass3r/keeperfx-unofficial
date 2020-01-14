@@ -245,7 +245,7 @@ struct ComputerTask *computer_setup_build_room(struct Computer2 *comp, RoomKind 
             {
                 look_kind = ACTION_RANDOM(arr_length);
             }
-            for (i=0; i < arr_length; ++i)
+            for (i = 0; i < arr_length; ++i)
             {
                 struct ComputerTask *roomtask;
                 if (look_kind == RoK_TYPES_COUNT)
@@ -499,7 +499,7 @@ void get_opponent(struct Computer2 *comp, struct THate hates[])
     struct Dungeon* dungeon = comp->dungeon;
     long i;
     // Initialize hate struct
-    for (i=0; i < PLAYERS_COUNT; ++i)
+    for (i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct THate* hate = &hates[i];
         struct OpponentRelation* oprel = &comp->opponent_relations[i];
@@ -509,7 +509,7 @@ void get_opponent(struct Computer2 *comp, struct THate hates[])
         hate->distance_near = LONG_MAX;
     }
     // Sort the hates, using basic sorting algorithm
-    for (i=0; i < PLAYERS_COUNT; ++i)
+    for (i = 0; i < PLAYERS_COUNT; ++i)
     {
         for (long n = 0; n < PLAYERS_COUNT - 1; ++n)
         {
@@ -529,7 +529,7 @@ void get_opponent(struct Computer2 *comp, struct THate hates[])
     struct Thing* heartng = get_player_soul_container(dungeon->owner);
     MapSubtlCoord dnstl_x = heartng->mappos.x.stl.num;
     MapSubtlCoord dnstl_y = heartng->mappos.y.stl.num;
-    for (i=0; i < PLAYERS_COUNT; ++i)
+    for (i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct THate* hate = &hates[i];
         struct OpponentRelation* oprel = &comp->opponent_relations[hate->plyr_idx];
@@ -1171,7 +1171,7 @@ TbBool setup_a_computer_player(PlayerNumber plyr_idx, long comp_model)
     comp->field_C = 1;
     comp->task_state = CTaskSt_Select;
 
-    for (i=0; i < PLAYERS_COUNT; ++i)
+    for (i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct OpponentRelation* oprel = &comp->opponent_relations[i];
         oprel->field_0 = 0;
@@ -1184,7 +1184,7 @@ TbBool setup_a_computer_player(PlayerNumber plyr_idx, long comp_model)
     }
     comp->field_1C = cpt->field_4;
 
-    for (i=0; i < COMPUTER_PROCESSES_COUNT; ++i)
+    for (i = 0; i < COMPUTER_PROCESSES_COUNT; ++i)
     {
         struct ComputerProcess* cproc = cpt->processes[i];
         newproc = &comp->processes[i];
@@ -1199,7 +1199,7 @@ TbBool setup_a_computer_player(PlayerNumber plyr_idx, long comp_model)
     newproc = &comp->processes[i];
     newproc->flags |= ComProc_Unkn0002;
 
-    for (i=0; i < COMPUTER_CHECKS_COUNT; ++i)
+    for (i = 0; i < COMPUTER_CHECKS_COUNT; ++i)
     {
         struct ComputerCheck* ccheck = &cpt->checks[i];
         newchk = &comp->checks[i];
@@ -1216,7 +1216,7 @@ TbBool setup_a_computer_player(PlayerNumber plyr_idx, long comp_model)
     //newchk = &comp->checks[i];
     newchk->flags |= ComTsk_Unkn0002;
 
-    for (i=0; i < COMPUTER_EVENTS_COUNT; ++i)
+    for (i = 0; i < COMPUTER_EVENTS_COUNT; ++i)
     {
         struct ComputerEvent* event = &cpt->events[i];
         struct ComputerEvent* newevnt = &comp->events[i];
@@ -1478,7 +1478,7 @@ void setup_computer_players2(void)
   int i;
   gameadd.turn_last_checked_for_gold = game.play_gameturn;
   check_map_for_gold();
-  for (i=0; i < COMPUTER_TASKS_COUNT; ++i)
+  for (i = 0; i < COMPUTER_TASKS_COUNT; ++i)
   {
     LbMemorySet(&game.computer_task[i], 0, sizeof(struct ComputerTask));
   }
@@ -1490,7 +1490,7 @@ void setup_computer_players2(void)
   // random results aren't used in the same order every time.
   srand((unsigned) time(NULL));
 
-  for (i=0; i < PLAYERS_COUNT; ++i)
+  for (i = 0; i < PLAYERS_COUNT; ++i)
   {
       struct PlayerInfo* player = get_player(i);
       if (player_exists(player))
@@ -1563,7 +1563,7 @@ void restore_computer_player_after_load(void)
             comp->processes[i].func_complete = cpt->processes[i]->func_complete;
             comp->processes[i].func_pause = cpt->processes[i]->func_pause;
         }
-        for (i=0; i < COMPUTER_CHECKS_COUNT; ++i)
+        for (i = 0; i < COMPUTER_CHECKS_COUNT; ++i)
         {
             if (cpt->checks[i].name == NULL)
               break;
@@ -1571,7 +1571,7 @@ void restore_computer_player_after_load(void)
             comp->checks[i].name = cpt->checks[i].name;
             comp->checks[i].func = cpt->checks[i].func;
         }
-        for (i=0; i < COMPUTER_EVENTS_COUNT; ++i)
+        for (i = 0; i < COMPUTER_EVENTS_COUNT; ++i)
         {
             if (cpt->events[i].name == NULL)
               break;

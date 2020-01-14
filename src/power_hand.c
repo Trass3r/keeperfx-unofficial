@@ -366,7 +366,7 @@ TbBool remove_first_thing_from_power_hand_list(PlayerNumber plyr_idx)
       num_in_hand = MAX_THINGS_IN_HAND;
   if (num_in_hand > 0)
   {
-      for (i = 0; i < num_in_hand-1; ++i)
+      for (i = 0; i < num_in_hand - 1; ++i)
       {
         dungeon->things_in_hand[i] = dungeon->things_in_hand[i+1];
       }
@@ -397,7 +397,7 @@ TbBool remove_thing_from_power_hand_list(struct Thing *thing, PlayerNumber plyr_
     {
         if (dungeon->things_in_hand[i] == thing->index)
         {
-            for ( ; i < num_in_hand-1; ++i)
+            for (; i < num_in_hand - 1; ++i)
             {
                 dungeon->things_in_hand[i] = dungeon->things_in_hand[i+1];
             }
@@ -938,7 +938,7 @@ short dump_first_held_thing_on_map(PlayerNumber plyr_idx, MapSubtlCoord stl_x, M
 void dump_thing_held_by_any_player(struct Thing *thing)
 {
     int i;
-    for (i=0; i<PLAYERS_COUNT; ++i)
+    for (i = 0; i < PLAYERS_COUNT; ++i)
     {
         struct PlayerInfo *player;
         player = get_player(i);
@@ -978,8 +978,8 @@ void clear_things_in_hand(struct PlayerInfo *player)
   struct Dungeon *dungeon;
   long i;
   dungeon = get_dungeon(player->id_number);
-  for (i=0; i < MAX_THINGS_IN_HAND; ++i)
-    dungeon->things_in_hand[i] = 0;
+  for (i = 0; i < MAX_THINGS_IN_HAND; ++i)
+      dungeon->things_in_hand[i] = 0;
 }
 
 /**
@@ -1019,7 +1019,7 @@ void process_things_in_dungeon_hand(void)
 {
     //_DK_process_things_in_dungeon_hand();
     PlayerNumber plyr_idx;
-    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
+    for (plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         struct PlayerInfo *player;
         player = get_player(plyr_idx);

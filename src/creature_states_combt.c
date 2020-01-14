@@ -583,7 +583,7 @@ void update_battle_events(BattleIndex battle_id)
           break;
         }
     }
-    for (i=0; i < PLAYERS_COUNT; ++i)
+    for (i = 0; i < PLAYERS_COUNT; ++i)
     {
         if ((i == game.hero_player_num) || (i == game.neutral_player_num))
             continue;

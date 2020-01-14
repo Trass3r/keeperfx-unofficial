@@ -327,7 +327,7 @@ void process_creature_in_training_room(struct Thing *thing, struct Room *room)
         }
         break;
     case CrTrMd_SelectPositionNearTrainPost:
-        for (i=0; i < 4; ++i)
+        for (i = 0; i < 4; ++i)
         {
             long slb_x;
             long slb_y;

@@ -108,7 +108,7 @@ TbBool add_to_imp_stack_using_pos(SubtlCodedCoords stl_num, SpDiggerTaskType tas
 long find_in_imp_stack_using_pos(SubtlCodedCoords stl_num, SpDiggerTaskType task_type, const struct Dungeon *dungeon)
 {
     long i;
-    for (i=0; i < dungeon->digger_stack_length; ++i)
+    for (i = 0; i < dungeon->digger_stack_length; ++i)
     {
         const struct DiggerStack *dstack;
         dstack = &dungeon->digger_stack[i];
@@ -126,7 +126,7 @@ long find_in_imp_stack_task_other_than_starting_at(SpDiggerTaskType excl_task_ty
     long stack_len;
     stack_len = dungeon->digger_stack_length;
     n = start_pos;
-    for (i=0; i < stack_len; ++i)
+    for (i = 0; i < stack_len; ++i)
     {
         const struct DiggerStack *dstack;
         dstack = &dungeon->digger_stack[n];
@@ -145,7 +145,7 @@ long find_in_imp_stack_starting_at(SpDiggerTaskType task_type, long start_pos, c
     long stack_len;
     stack_len = dungeon->digger_stack_length;
     n = start_pos;
-    for (i=0; i < stack_len; ++i)
+    for (i = 0; i < stack_len; ++i)
     {
         const struct DiggerStack *dstack;
         dstack = &dungeon->digger_stack[n];
@@ -160,7 +160,7 @@ long find_in_imp_stack_starting_at(SpDiggerTaskType task_type, long start_pos, c
 void remove_task_from_all_other_players_digger_stacks(PlayerNumber skip_plyr_idx, MapSubtlCoord stl_x, MapSubtlCoord stl_y)
 {
     PlayerNumber plyr_idx;
-    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
+    for (plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         if (plyr_idx == skip_plyr_idx) {
             continue;
@@ -408,7 +408,7 @@ long check_out_unprettied_or_unconverted_area(struct Thing *thing)
     srcstl_x = thing->mappos.x.stl.num;
     srcstl_y = thing->mappos.y.stl.num;
     int i;
-    for (i=0; i < dungeon->digger_stack_length; ++i)
+    for (i = 0; i < dungeon->digger_stack_length; ++i)
     {
         dstack = &dungeon->digger_stack[i];
         if ((dstack->task_type != DigTsk_ImproveDungeon) && (dstack->task_type != DigTsk_ConvertDungeon)) {
@@ -880,7 +880,7 @@ long check_out_undug_place(struct Thing *creatng)
     base_stl_x = stl_num_decode_x(cctrl->digger.task_stl);
     base_stl_y = stl_num_decode_y(cctrl->digger.task_stl);
     n = ACTION_RANDOM(4);
-    for (i=0; i < 4; ++i)
+    for (i = 0; i < 4; ++i)
     {
         struct MapTask* mtask;
         SubtlCodedCoords task_pos;
@@ -980,7 +980,7 @@ long get_nearest_undug_area_position_for_digger(struct Thing *thing, MapSubtlCoo
     best_tsk_id = -1;
     best_stl_x = -1;
     best_stl_y = -1;
-    for (i=0; i < tsk_max; ++i)
+    for (i = 0; i < tsk_max; ++i)
     {
         mtask = &dungeon->task_list[i];
         if (mtask->kind == SDDigTask_None)
@@ -1222,9 +1222,9 @@ void add_pretty_and_convert_to_imp_stack_prepare(struct Dungeon *dungeon, unsign
     MapSlabCoord slb_x;
     MapSlabCoord slb_y;
     // Clear our slab options array and mark tall slabs with SlbCAOpt_Border
-    for (slb_y=0; slb_y < map_tiles_y; ++slb_y)
+    for (slb_y = 0; slb_y < map_tiles_y; ++slb_y)
     {
-        for (slb_x=0; slb_x < map_tiles_x; ++slb_x)
+        for (slb_x = 0; slb_x < map_tiles_x; ++slb_x)
         {
             SlabCodedCoords slb_num;
             struct SlabMap *slb;
@@ -1272,7 +1272,7 @@ long add_pretty_and_convert_to_imp_stack_starting_from_pos(struct Dungeon *dunge
         long i;
         long n;
         n = ACTION_RANDOM(4);
-        for (i=0; i < SMALL_AROUND_LENGTH; ++i)
+        for (i = 0; i < SMALL_AROUND_LENGTH; ++i)
         {
             slb_x = base_slb_x + (long)small_around[n].delta_x;
             slb_y = base_slb_y + (long)small_around[n].delta_y;
@@ -1323,7 +1323,7 @@ long add_pretty_and_convert_to_imp_stack_starting_from_pos(struct Dungeon *dunge
             if (around_flags == (0x01|0x02|0x04|0x08))
             {
                 // If whole diagonal around is to be marked, just do it in one go
-                for (i=1; i < SPDIGGER_EXTRA_POSITIONS_COUNT; ++i)
+                for (i = 1; i < SPDIGGER_EXTRA_POSITIONS_COUNT; ++i)
                 {
                     slb_x = base_slb_x + (long)spdigger_extra_positions[i].delta_x;
                     slb_y = base_slb_y + (long)spdigger_extra_positions[i].delta_y;
@@ -1898,7 +1898,7 @@ int add_reinforce_to_imp_stack(struct Dungeon *dungeon, int max_tasks)
     int remain_num;
     remain_num = max_tasks;
     long i;
-    for (i=0; i < r_stackpos; ++i)
+    for (i = 0; i < r_stackpos; ++i)
     {
         if ((dungeon->digger_stack_length >= 32) || (remain_num <= 0)) {
             break;
@@ -1963,8 +1963,8 @@ long check_out_uncrowded_reinforce_position(struct Thing *thing, SubtlCodedCoord
     basestl_y = stl_num_decode_y(stl_num);
     int i;
     int n;
-    n = get_nearest_small_around_side_of_slab(subtile_coord_center(basestl_x), subtile_coord_center(basestl_y), thing->mappos.x.val, thing->mappos.y.val);  
-    for (i=0; i < SMALL_AROUND_LENGTH; ++i)
+    n = get_nearest_small_around_side_of_slab(subtile_coord_center(basestl_x), subtile_coord_center(basestl_y), thing->mappos.x.val, thing->mappos.y.val);
+    for (i = 0; i < SMALL_AROUND_LENGTH; ++i)
     {
         MapSubtlCoord stl_x;
         MapSubtlCoord stl_y;
@@ -2021,7 +2021,7 @@ long check_place_to_dig_and_get_drop_position(PlayerNumber plyr_idx, SubtlCodedC
       base_y = place_y + 2 * (long)small_around[n].delta_y;
       if (valid_dig_position(plyr_idx, base_x, base_y))
       {
-          for (k = 0; k < sizeof(dig_pos)/sizeof(dig_pos[0]); ++k)
+          for (k = 0; k < sizeof(dig_pos) / sizeof(dig_pos[0]); ++k)
           {
               if ( k )
               {
@@ -2079,7 +2079,7 @@ long check_place_to_dig_and_get_position(struct Thing *thing, SubtlCodedCoords s
       base_y = place_y + 2 * (long)small_around[n].delta_y;
       if (valid_dig_position(thing->owner, base_x, base_y))
       {
-          for (k = 0; k < sizeof(dig_pos)/sizeof(dig_pos[0]); ++k)
+          for (k = 0; k < sizeof(dig_pos) / sizeof(dig_pos[0]); ++k)
           {
               if ( k )
               {
@@ -2711,7 +2711,7 @@ long check_out_worker_pickup_crate_to_arm(struct Thing *creatng, struct DiggerSt
     struct Thing *cratng;
     struct Thing *armtng;
     long n;
-    for (n=0; true; ++n)
+    for (n = 0; true; ++n)
     {
         cratng = check_place_to_pickup_crate(creatng, stl_x, stl_y, TngFRPickF_AllowStoredInOwnedRoom, n);
         if (thing_is_invalid(cratng)) {

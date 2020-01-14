@@ -795,7 +795,7 @@ TbBool parse_creaturetype_instance_blocks(char *buf, long len, const char *confi
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(crtr_conf.instances)/sizeof(crtr_conf.instances[0]);
-        for (i=0; i < arr_size; ++i)
+        for (i = 0; i < arr_size; ++i)
         {
             LbMemorySet(crtr_conf.instances[i].name, 0, COMMAND_WORD_LEN);
             if (i < crtr_conf.instances_count)
@@ -811,7 +811,7 @@ TbBool parse_creaturetype_instance_blocks(char *buf, long len, const char *confi
     }
     arr_size = crtr_conf.instances_count;
     // Load the file blocks
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "instance%d", i);
@@ -1086,7 +1086,7 @@ TbBool parse_creaturetype_job_blocks(char *buf, long len, const char *config_tex
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(crtr_conf.jobs)/sizeof(crtr_conf.jobs[0]);
-        for (i=0; i < arr_size; ++i)
+        for (i = 0; i < arr_size; ++i)
         {
             jobcfg = &crtr_conf.jobs[i];
             LbMemorySet(jobcfg->name, 0, COMMAND_WORD_LEN);
@@ -1114,7 +1114,7 @@ TbBool parse_creaturetype_job_blocks(char *buf, long len, const char *config_tex
     }
     arr_size = crtr_conf.jobs_count;
     // Load the file blocks
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "job%d", i);
@@ -1342,7 +1342,7 @@ TbBool parse_creaturetype_angerjob_blocks(char *buf, long len, const char *confi
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(crtr_conf.angerjobs)/sizeof(crtr_conf.angerjobs[0]);
-        for (i=0; i < arr_size; ++i)
+        for (i = 0; i < arr_size; ++i)
         {
             agjobcfg = &crtr_conf.angerjobs[i];
             LbMemorySet(agjobcfg->name, 0, COMMAND_WORD_LEN);
@@ -1362,7 +1362,7 @@ TbBool parse_creaturetype_angerjob_blocks(char *buf, long len, const char *confi
     }
     arr_size = crtr_conf.angerjobs_count;
     // Load the file blocks
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "angerjob%d", i);
@@ -1427,7 +1427,7 @@ TbBool parse_creaturetype_attackpref_blocks(char *buf, long len, const char *con
     if ((flags & CnfLd_AcceptPartial) == 0)
     {
         arr_size = sizeof(crtr_conf.attacktypes)/sizeof(crtr_conf.attacktypes[0]);
-        for (i=0; i < arr_size; ++i)
+        for (i = 0; i < arr_size; ++i)
         {
             LbMemorySet(crtr_conf.attacktypes[i].text, 0, COMMAND_WORD_LEN);
             if (i < crtr_conf.attacktypes_count)
@@ -1443,7 +1443,7 @@ TbBool parse_creaturetype_attackpref_blocks(char *buf, long len, const char *con
     }
     arr_size = crtr_conf.attacktypes_count;
     // Load the file blocks
-    for (i=0; i < arr_size; ++i)
+    for (i = 0; i < arr_size; ++i)
     {
         char block_buf[COMMAND_WORD_LEN];
         sprintf(block_buf, "attackpref%d", i);
@@ -1727,7 +1727,7 @@ const char *creature_own_name(const struct Thing *creatng)
         }
         // Append nucleus items to the name
         int i;
-        for (i=0; i < name_len-1; ++i)
+        for (i = 0; i < name_len - 1; ++i)
         {
             const char *part;
             int n;

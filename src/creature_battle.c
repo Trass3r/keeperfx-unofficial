@@ -466,7 +466,7 @@ void maintain_my_battle_list(void)
     struct PlayerInfo* player = get_my_player();
     struct Dungeon* dungeon = get_players_dungeon(player);
     BattleIndex battle_id = 0;
-    for (i=0; i < 3; ++i)
+    for (i = 0; i < 3; ++i)
     {
         struct CreatureBattle* battle = creature_battle_get(dungeon->visible_battles[i]);
         if (battle->fighters_num > 0) {
@@ -476,7 +476,7 @@ void maintain_my_battle_list(void)
         }
     }
     // Move array items down to make sure empty slots are at end
-    for (i=0; i < 2; ++i)
+    for (i = 0; i < 2; ++i)
     {
       if (dungeon->visible_battles[i] <= 0)
       {
@@ -493,7 +493,7 @@ void maintain_my_battle_list(void)
       }
     }
     // Find battles to fill empty slots
-    for (i=0; i < 3; ++i)
+    for (i = 0; i < 3; ++i)
     {
       if (dungeon->visible_battles[i] <= 0)
       {
@@ -503,7 +503,7 @@ void maintain_my_battle_list(void)
           }
       }
     }
-    for (i=0; i < 3; ++i)
+    for (i = 0; i < 3; ++i)
     {
         battle_id = dungeon->visible_battles[i];
         if (battle_id > 0) {

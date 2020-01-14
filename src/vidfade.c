@@ -60,39 +60,39 @@ void compute_fade_tables(struct TbColorTables *coltbl,unsigned char *spal,unsign
     SYNCMSG("Recomputing fade tables");
     // Intense fade to/from black - slower fade near black
     unsigned char* dst = coltbl->fade_tables;
-    for (i=0; i < 32; ++i)
+    for (i = 0; i < 32; ++i)
     {
-      for (k=0; k < 256; ++k)
-      {
-        r = spal[3*k+0];
-        g = spal[3*k+1];
-        b = spal[3*k+2];
-        *dst = LbPaletteFindColour(dpal, i * r >> 5, i * g >> 5, i * b >> 5);
-        dst++;
+        for (k = 0; k < 256; ++k)
+        {
+            r = spal[3 * k + 0];
+            g = spal[3 * k + 1];
+            b = spal[3 * k + 2];
+            *dst = LbPaletteFindColour(dpal, i * r >> 5, i * g >> 5, i * b >> 5);
+            dst++;
       }
     }
     // Intense fade to/from black - faster fade part
     for (i=32; i < 192; i+=3)
     {
-      for (k=0; k < 256; ++k)
-      {
-        r = spal[3*k+0];
-        g = spal[3*k+1];
-        b = spal[3*k+2];
-        *dst = LbPaletteFindColour(dpal, i * r >> 5, i * g >> 5, i * b >> 5);
-        dst++;
+        for (k = 0; k < 256; ++k)
+        {
+            r = spal[3 * k + 0];
+            g = spal[3 * k + 1];
+            b = spal[3 * k + 2];
+            *dst = LbPaletteFindColour(dpal, i * r >> 5, i * g >> 5, i * b >> 5);
+            dst++;
       }
     }
     // Other fadings - between all the colors
     dst = coltbl->ghost;
-    for (i=0; i < 256; ++i)
+    for (i = 0; i < 256; ++i)
     {
       // Reference colors
       unsigned long rr = spal[3 * i + 0];
       unsigned long rg = spal[3 * i + 1];
       unsigned long rb = spal[3 * i + 2];
       // Creating fades
-      for (k=0; k < 256; ++k)
+      for (k = 0; k < 256; ++k)
       {
         r = dpal[3*k+0];
         g = dpal[3*k+1];
@@ -279,7 +279,7 @@ long PaletteFadePlayer(struct PlayerInfo *player)
     i = 120;
   long step = 120 - i;
   // Create the new palette
-  for (i=0; i < PALETTE_COLORS; ++i)
+  for (i = 0; i < PALETTE_COLORS; ++i)
   {
       unsigned char* src = &player->palette[3 * i];
       unsigned char* dst = &palette[3 * i];

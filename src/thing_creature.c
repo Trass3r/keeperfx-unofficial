@@ -410,7 +410,7 @@ void draw_swipe_graphic(void)
             struct TbSprite* sprlist = &swipe_sprites[SWIPE_SPRITES_X * SWIPE_SPRITES_Y * i];
             struct TbSprite* startspr = &sprlist[1];
             struct TbSprite* endspr = &sprlist[1];
-            for (n=0; n < SWIPE_SPRITES_X; ++n)
+            for (n = 0; n < SWIPE_SPRITES_X; ++n)
             {
                 allwidth += endspr->SWidth;
                 endspr++;
@@ -426,7 +426,7 @@ void draw_swipe_graphic(void)
                 {
                     spr = &startspr[i];
                     scrpos_x = (MyScreenWidth * 16 / units_per_px - allwidth) / 2;
-                    for (n=0; n < SWIPE_SPRITES_X; ++n)
+                    for (n = 0; n < SWIPE_SPRITES_X; ++n)
                     {
                         LbSpriteDrawResized(scrpos_x * units_per_px / 16, scrpos_y * units_per_px / 16, units_per_px, spr);
                         scrpos_x += spr->SWidth;
@@ -442,7 +442,7 @@ void draw_swipe_graphic(void)
                     spr = &sprlist[SWIPE_SPRITES_X+i];
                     int delta_y = spr->SHeight;
                     scrpos_x = (MyScreenWidth * 16 / units_per_px - allwidth) / 2;
-                    for (n=0; n < SWIPE_SPRITES_X; ++n)
+                    for (n = 0; n < SWIPE_SPRITES_X; ++n)
                     {
                         LbSpriteDrawResized(scrpos_x * units_per_px / 16, scrpos_y * units_per_px / 16, units_per_px, spr);
                         scrpos_x += spr->SWidth;
@@ -786,7 +786,7 @@ long get_free_spell_slot(struct Thing *creatng)
     struct CreatureControl* cctrl = creature_control_get_from_thing(creatng);
     long cval = LONG_MAX;
     long ci = -1;
-    for (i=0; i < CREATURE_MAX_SPELLS_CASTED_AT; ++i)
+    for (i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; ++i)
     {
         cspell = &cctrl->casted_spells[i];
         // If there's unused slot, return it immediately
@@ -805,7 +805,7 @@ long get_free_spell_slot(struct Thing *creatng)
     // Terminate the min damage effect and return its slot index
     cspell = &cctrl->casted_spells[ci];
     terminate_thing_spell_effect(creatng, cspell->spkind);
-    for (i=0; i < CREATURE_MAX_SPELLS_CASTED_AT; ++i)
+    for (i = 0; i < CREATURE_MAX_SPELLS_CASTED_AT; ++i)
     {
         cspell = &cctrl->casted_spells[i];
         if (cspell->spkind == SplK_None)
@@ -897,7 +897,7 @@ void first_apply_spell_effect_to_thing(struct Thing *thing, SpellKind spell_idx,
             fill_spell_slot(thing, i, spell_idx, pwrdynst->strength[spell_lev]);
             n = 0;
             cctrl->spell_flags |= CSAfF_Armour;
-            for (k=0; k < 3; ++k)
+            for (k = 0; k < 3; ++k)
             {
                 set_coords_to_cylindric_shift(&pos, &thing->mappos, 32, n, k * (thing->clipbox_size_yz >> 1) );
                 ntng = create_object(&pos, 51, thing->owner, -1);
@@ -1003,7 +1003,7 @@ void first_apply_spell_effect_to_thing(struct Thing *thing, SpellKind spell_idx,
           cctrl->spell_flags |= CSAfF_Disease;
           cctrl->disease_caster_plyridx = thing->owner;
           cctrl->disease_start_turn = game.play_gameturn;
-          for (k=0; k < 3; ++k)
+          for (k = 0; k < 3; ++k)
           {
               pos.x.val = thing->mappos.x.val;
               pos.y.val = thing->mappos.y.val;
@@ -1166,7 +1166,7 @@ void terminate_thing_spell_effect(struct Thing *thing, SpellKind spkind)
         break;
     case SplK_Armour:
         cctrl->spell_flags &= ~CSAfF_Armour;
-        for (i=0; i < 3; ++i)
+        for (i = 0; i < 3; ++i)
         {
             ThingIndex eff_idx = cctrl->spell_tngidx_armour[i];
             if (eff_idx > 0) {
@@ -1206,7 +1206,7 @@ void terminate_thing_spell_effect(struct Thing *thing, SpellKind spkind)
         break;
     case SplK_Disease:
         cctrl->spell_flags &= ~CSAfF_Disease;
-        for (i=0; i < 3; ++i)
+        for (i = 0; i < 3; ++i)
         {
             ThingIndex eff_idx = cctrl->spell_tngidx_disease[i];
             if (eff_idx > 0) {
@@ -2299,7 +2299,7 @@ void delete_effects_attached_to_creature(struct Thing *creatng)
     if (creature_affected_by_spell(creatng, SplK_Armour))
     {
         cctrl->spell_flags &= ~CSAfF_Armour;
-        for (i=0; i < 3; ++i)
+        for (i = 0; i < 3; ++i)
         {
             k = cctrl->spell_tngidx_armour[i];
             if (k != 0)
@@ -2313,7 +2313,7 @@ void delete_effects_attached_to_creature(struct Thing *creatng)
     if (creature_affected_by_spell(creatng, SplK_Disease))
     {
         cctrl->spell_flags &= ~CSAfF_Disease;
-        for (i=0; i < 3; ++i)
+        for (i = 0; i < 3; ++i)
         {
             k = cctrl->spell_tngidx_disease[i];
             if (k != 0)
@@ -4684,7 +4684,7 @@ void init_creature_scores(void)
     long score;
     // compute maximum score
     long max_score = 0;
-    for (i=0; i < CREATURE_TYPES_COUNT; ++i)
+    for (i = 0; i < CREATURE_TYPES_COUNT; ++i)
     {
         score = compute_creature_kind_score(i,CREATURE_MAX_LEVEL-1);
         if ((score <= 0) && (i != 0) && (i != CREATURE_TYPES_COUNT-1))
@@ -4703,7 +4703,7 @@ void init_creature_scores(void)
         return;
     }
     // now compute scores for experience levels
-    for (i=0; i < CREATURE_TYPES_COUNT; ++i)
+    for (i = 0; i < CREATURE_TYPES_COUNT; ++i)
     {
         for (long k = 0; k < CREATURE_MAX_LEVEL; ++k)
         {

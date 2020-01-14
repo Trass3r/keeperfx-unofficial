@@ -259,7 +259,7 @@ static void read_huftable (huf_table *h, bit_stream *bs,
         return;
 
     int leafmax = 1;
-    for (i=0; i<num; ++i)
+    for (i = 0; i < num; ++i)
     {
         leaflen[i] = bit_read (bs, 0x0F, 4, p, pend);
         if (leafmax < leaflen[i])
@@ -268,7 +268,7 @@ static void read_huftable (huf_table *h, bit_stream *bs,
 
     unsigned long codeb = 0L;
     int k = 0;
-    for (i=1; i<=leafmax; ++i)
+    for (i = 1; i <= leafmax; ++i)
     {
         for (int j = 0; j < num; ++j)
             if (leaflen[j] == i)
@@ -291,7 +291,7 @@ static long huf_read (huf_table *h, bit_stream *bs,
 {
     int i;
 
-    for (i=0; i<h->num; ++i)
+    for (i = 0; i < h->num; ++i)
     {
         unsigned long mask = (1 << h->table[i].codelen) - 1;
         if (bit_peek(bs, mask) == h->table[i].code)

@@ -209,7 +209,7 @@ void LbI_PointerHandler::Initialise(struct TbSprite *spr, struct TbPoint *npos, 
         return;
     }
     buf = (TbPixel *)surfbuf;
-    for (i=0; i < dstheight; ++i)
+    for (i = 0; i < dstheight; ++i)
     {
         memset(buf, 255, surf1.pitch);
         buf += surf1.pitch;

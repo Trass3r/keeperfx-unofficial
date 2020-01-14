@@ -514,7 +514,7 @@ TbBool process_sound_emitters(void)
     long volume;
     long pitch;
     long i;
-    for (i=1; i < NoSoundEmitters; ++i)
+    for (i = 1; i < NoSoundEmitters; ++i)
     {
         emit = S3DGetSoundEmitter(i);
         if ( ((emit->flags & Emi_IsAllocated) != 0) && ((emit->flags & Emi_UnknownPlay) != 0) )
@@ -617,7 +617,7 @@ short find_slot(long fild8, SoundBankID bank_id, struct SoundEmitter *emit, long
     short min_sample_id = SOUNDS_MAX_COUNT;
     if ((ctype == 2) || (ctype == 3))
     {
-        for (i=0; i < MaxNoSounds; ++i)
+        for (i = 0; i < MaxNoSounds; ++i)
         {
             sample = &SampleList[i];
             if ( (sample->is_playing) && (sample->emit_ptr != NULL) )
@@ -628,7 +628,7 @@ short find_slot(long fild8, SoundBankID bank_id, struct SoundEmitter *emit, long
             }
         }
     }
-    for (i=0; i < MaxNoSounds; ++i)
+    for (i = 0; i < MaxNoSounds; ++i)
     {
         sample = &SampleList[i];
         if (sample->is_playing == 0)

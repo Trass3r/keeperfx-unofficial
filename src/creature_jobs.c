@@ -1142,7 +1142,7 @@ TbBool attempt_job_secondary_preference(struct Thing *creatng, long jobpref)
     unsigned long select_curr = select_delta;
     // For some reason, this is a bit different than attempt_job_preference().
     // Probably needs unification
-    for (i=1; i < crtr_conf.jobs_count; ++i)
+    for (i = 1; i < crtr_conf.jobs_count; ++i)
     {
         CreatureJob new_job = 1<<(i-1);
         if ((jobpref & new_job) == 0) {

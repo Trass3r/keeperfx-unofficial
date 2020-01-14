@@ -1266,7 +1266,7 @@ void process_object_sacrifice(struct Thing *thing, long sacowner)
             process_temple_special(thing, sacowner);
             int num_allies = 0;
             PlayerNumber plyr_idx;
-            for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
+            for (plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
             {
                 if ((slbowner != plyr_idx) && players_are_mutual_allies(slbowner, plyr_idx))
                 {
@@ -1276,7 +1276,7 @@ void process_object_sacrifice(struct Thing *thing, long sacowner)
             if (num_allies > 0)
             {
                 GoldAmount value = thing->valuable.gold_stored / num_allies;
-                for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
+                for (plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
                 {
                     if ((slbowner != plyr_idx) && players_are_mutual_allies(slbowner, plyr_idx))
                     {

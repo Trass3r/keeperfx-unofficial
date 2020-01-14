@@ -334,7 +334,7 @@ long update_dungeon_generation_speeds(void)
     int plyr_idx;
     // Get value of generation
     int max_manage_score = 0;
-    for (plyr_idx=0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
+    for (plyr_idx = 0; plyr_idx < PLAYERS_COUNT; ++plyr_idx)
     {
         struct PlayerInfo* player = get_player(plyr_idx);
         if (player_exists(player) && (player->field_2C == 1))

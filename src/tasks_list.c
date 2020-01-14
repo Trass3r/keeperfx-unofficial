@@ -57,7 +57,7 @@ void add_task_list_entry(PlayerNumber plyr_idx, unsigned char kind, SubtlCodedCo
     // Find free task index
     int task_idx;
     struct MapTask  *mtask;
-    for (task_idx=0; task_idx < dungeon->field_AF7; ++task_idx)
+    for (task_idx = 0; task_idx < dungeon->field_AF7; ++task_idx)
     {
         mtask = &dungeon->task_list[task_idx];
         if (mtask->kind == 0)
